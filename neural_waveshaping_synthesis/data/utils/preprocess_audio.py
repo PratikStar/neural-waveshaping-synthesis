@@ -87,6 +87,7 @@ def filter_segments(
 ):
     mean_keys = key_segments.mean(axis=0)
     mask = mean_keys > threshold
+    print(f"mean pitch conf: {mean_keys}")
     filtered_segments = apply(
         lambda x: x[:, mask] if len(x.shape) == 2 else x[:, :, mask], segments
     )
@@ -251,6 +252,7 @@ def preprocess_audio(
         target_sr=target_sr,
         segment_length_in_seconds=segment_length_in_seconds,
         hop_length_in_seconds=hop_length_in_seconds,
+        confidence_threshold=confidence_threshold,
         f0_extractor=f0_extractor,
         loudness_extractor=loudness_extractor,
         normalisation_factor=None if not normalise_audio else normalisation_factor,
