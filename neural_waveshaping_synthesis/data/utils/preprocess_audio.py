@@ -124,6 +124,11 @@ def preprocess_single_audio_file(
     print(f"audio.shape: {audio.shape}")
     print(f"f0.shape: {f0.shape}")
 
+    print(len([i for i in confidence if i >= 0.95])/len(confidence))
+    print(len([i for i in confidence if i >= 0.90 and i < 0.95])/len(confidence))
+    print(len([i for i in confidence if i >= 0.85 and i < 0.9])/len(confidence))
+    print(len([i for i in confidence if i < 0.85])/len(confidence))
+
     print(
         "Extracting loudness with extractor '%s': %s..."
         % (loudness_extractor.__name__, file)
@@ -143,30 +148,39 @@ def preprocess_single_audio_file(
     print(f"segmented_audio.shape: {segmented_audio.shape}")
 
     print("Segmenting control signals: %s..." % file)
+    print(f"control_decimation_factor: {control_decimation_factor}")
     segmented_f0 = segment_signal(
         f0,
         target_sr / (control_decimation_factor or 1),
         segment_length_in_seconds,
         hop_length_in_seconds,
     )
+    print(f"segmented_f0.shape: {segmented_f0.shape}")
+
     segmented_confidence = segment_signal(
         confidence,
         target_sr / (control_decimation_factor or 1),
         segment_length_in_seconds,
         hop_length_in_seconds,
     )
+    print(f"segmented_confidence.shape: {segmented_confidence.shape}")
+
     segmented_loudness = segment_signal(
         loudness,
         target_sr / (control_decimation_factor or 1),
         segment_length_in_seconds,
         hop_length_in_seconds,
     )
+    print(f"segmented_loudness.shape: {segmented_loudness.shape}")
+
     segmented_mfcc = segment_signal(
         mfcc,
         target_sr / (control_decimation_factor or 1),
         segment_length_in_seconds,
         hop_length_in_seconds,
     )
+    print(f"segmented_mfcc.shape: {segmented_mfcc.shape}")
+
 
     (
         filtered_audio,
@@ -185,6 +199,7 @@ def preprocess_single_audio_file(
             segmented_mfcc,
         ),
     )
+    print(f"filtered_audio.shape: {filtered_audio.shape}")
 
     if filtered_audio.shape[-1] == 0:
         print("No segments exceeding confidence threshold...")
