@@ -71,7 +71,7 @@ def main(
         logger=logger if with_wandb else None,
         callbacks=callbacks,
         # gpus=device,
-        resume_from_checkpoint=restore_checkpoint if restore_checkpoint != "" else None,
+        # resume_from_checkpoint=restore_checkpoint if restore_checkpoint != "" else None,
         **kwargs
     )
     trainer.fit(model, data)
