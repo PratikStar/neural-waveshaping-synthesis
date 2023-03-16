@@ -70,7 +70,7 @@ def main(
     trainer = pl.Trainer(
         logger=logger if with_wandb else None,
         callbacks=callbacks,
-        gpus=device,
+        # gpus=device,
         resume_from_checkpoint=restore_checkpoint if restore_checkpoint != "" else None,
         **kwargs
     )
