@@ -107,6 +107,7 @@ def preprocess_single_audio_file(
 ):
     print("Loading audio file: %s..." % file)
     original_sr, audio = wavfile.read(file)
+    print(f"sr: {original_sr}, {audio.shape}")
     audio = convert_to_float32_audio(audio)
     audio = make_monophonic(audio)
 
@@ -114,10 +115,14 @@ def preprocess_single_audio_file(
         audio = normalise_signal(audio, normalisation_factor)
 
     print("Resampling audio file: %s..." % file)
+    print(f"audio.shape: {audio.shape}")
+
     audio = resample_audio(audio, original_sr, target_sr)
 
     print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
     f0, confidence = f0_extractor(audio)
+    print(f"audio.shape: {audio.shape}")
+    print(f"f0.shape: {f0.shape}")
 
     print(
         "Extracting loudness with extractor '%s': %s..."
@@ -129,11 +134,13 @@ def preprocess_single_audio_file(
         "Extracting MFCC with extractor '%s': %s..." % (mfcc_extractor.__name__, file)
     )
     mfcc = mfcc_extractor(audio)
+    print(f"mfcc.shape: {mfcc.shape}")
 
     print("Segmenting audio file: %s..." % file)
     segmented_audio = segment_signal(
         audio, target_sr, segment_length_in_seconds, hop_length_in_seconds
     )
+    print(f"segmented_audio.shape: {segmented_audio.shape}")
 
     print("Segmenting control signals: %s..." % file)
     segmented_f0 = segment_signal(
