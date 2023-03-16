@@ -25,4 +25,4 @@ preprocess_audio.segment_length_in_seconds = 4
 preprocess_audio.hop_length_in_seconds = 4
 preprocess_audio.normalise_audio = True
 preprocess_audio.control_decimation_factor = %control_hop
-preprocess_audio.confidence_threshold = 0.75
+preprocess_audio.confidence_threshold = 0.7
