@@ -24,7 +24,7 @@ def trainer_kwargs(**kwargs):
 @click.option("--device", default="0")
 @click.option("--instrument", default="vn")
 @click.option("--load-data-to-memory", is_flag=True)
-@click.option("--with-wandb", is_flag=True)
+@click.option("--with-wandb", is_flag=True, default=True)
 @click.option("--restore-checkpoint", default="")
 def main(
     gin_file,
