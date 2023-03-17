@@ -13,6 +13,32 @@ from ...utils import apply
 
 CREPE_WINDOW_LENGTH = 1024
 
+def _get_f0_estimate_from_di(ex, frame_rate, center, viterbi):
+    """Add fundamental frequency (f0) estimate using CREPE."""
+    global di_f0_estimates
+    logging.debug(f"In _get_f0_estimate_from_di, keys of example: {ex.keys()}")
+    filename = ex['audio_path'].split('/')[-1]
+    passage = filename.split(" ")[-2]
+    if not passage.isnumeric():
+        raise Exception('Exception while parsing the passage number')
+    di_audio_path = "/".join(ex['audio_path'].split("/")[:-1]) + f"/09A DI - {passage} .wav"
+    if di_audio_path not in di_f0_estimates:
+        logging.debug(f"keys of di_f0_estimates: {di_f0_estimates.keys()}")
+        logging.debug(f"DI's corresponding f0 estimate not found for file {filename}, so calculating...")
+        di_audio = _load_audio_as_array(di_audio_path, CREPE_SAMPLE_RATE)
+        padding = 'center' if center else 'same'
+        f0_hz, f0_confidence = spectral_ops.compute_f0(
+            di_audio, frame_rate, viterbi=viterbi, padding=padding)
+        di_f0_estimates[di_audio_path] = {
+            'f0_hz': f0_hz,
+            'f0_confidence': f0_confidence
+        }
+    else:
+        f0_hz = di_f0_estimates[di_audio_path]['f0_hz']
+        f0_confidence = di_f0_estimates[di_audio_path]['f0_confidence']
+
+    return f0_hz, f0_confidence
+
 @gin.configurable
 def extract_f0_with_crepe(
     audio: np.ndarray,
