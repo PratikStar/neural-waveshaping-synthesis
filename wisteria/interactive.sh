@@ -8,6 +8,7 @@ source /work/01/gk77/k77021/.bashrc
 echo "loaded source"
 export HOME=/work/01/gk77/k77021
 pwd
+pip install torchcrepe==0.0.16
 pip install -e .
 
 echo "====== GPU info ======"
