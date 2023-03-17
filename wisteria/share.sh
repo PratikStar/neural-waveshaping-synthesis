@@ -22,3 +22,10 @@ python scripts/create_dataset.py \
 --data-directory /work/gk77/k77021/data/timbre/monophonic-4secchunks \
 --output-directory /work/gk77/k77021/nws/monophonic-4secchunks \
 --device cuda:0
+
+
+python scripts/train.py \
+  --gin-file gin/train/train_newt.gin \
+  --dataset-path /work/gk77/k77021/nws/monophonic-4secchunks \
+  --checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks \
+  --load-data-to-memory
