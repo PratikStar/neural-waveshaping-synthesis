@@ -17,15 +17,15 @@ echo "====== GPU info ======"
 nvidia-smi
 echo "======================"
 
-python scripts/create_dataset.py \
---gin-file gin/data/urmp_4second_crepe.gin \
---data-directory /work/gk77/k77021/data/timbre/nws-di \
---output-directory /work/gk77/k77021/nws/nws-di \
---device cuda:0
+#python scripts/create_dataset.py \
+#--gin-file gin/data/urmp_4second_crepe.gin \
+#--data-directory /work/gk77/k77021/data/timbre/nws-di \
+#--output-directory /work/gk77/k77021/nws/nws-di \
+#--device cuda:0
 
 
-#python scripts/train.py \
-#  --gin-file gin/train/train_newt.gin \
-#  --dataset-path /work/gk77/k77021/nws/nws-di \
-#  --checkpoint-path /work/gk77/k77021/nws/nws-di \
-#  --load-data-to-memory
+python scripts/train.py \
+  --gin-file gin/train/train_newt.gin \
+  --dataset-path /work/gk77/k77021/nws/nws-di \
+  --checkpoint-path /work/gk77/k77021/nws/nws-di \
+  --load-data-to-memory
