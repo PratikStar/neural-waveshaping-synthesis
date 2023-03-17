@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e1d0e94-8f78-4334-8937-1f404620a660" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/gin/train/train_newt.gin" beforeDir="false" afterPath="$PROJECT_DIR$/gin/train/train_newt.gin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.rsyncignore_upload" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LOCAL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wisteria/interactive.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wisteria/regular.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wisteria/share.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/utils/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +23,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2N5X38G8LZUBfkdh0es04Bvbu3T" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -27,6 +37,11 @@
     "last_opened_file_path": "/Users/pratik/repos/neural-waveshaping-synthesis"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -37,5 +52,16 @@
       <updated>1678954715055</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
