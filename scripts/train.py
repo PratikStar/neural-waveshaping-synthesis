@@ -58,6 +58,7 @@ def main(
             shuffle=True,
         )
 
+    data.
     checkpointing = pl.callbacks.ModelCheckpoint(
         monitor="val/loss", save_top_k=5, save_last=True,
         dirpath=os.path.join(checkpoint_path, "checkpoints")
