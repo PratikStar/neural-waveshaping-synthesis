@@ -77,6 +77,7 @@ def segment_signal(
     segments = librosa.util.frame(
         signal, segment_length_in_samples, hop_length_in_samples
     )
+    print(f"segment shape: {segments.shape}")
     return segments
 
 
@@ -106,7 +107,7 @@ def preprocess_single_audio_file(
     mfcc_extractor: Callable = extract_mfcc,
     normalisation_factor: Union[float, None] = None,
 ):
-    print("Loading audio file: %s..." % file)
+    print("\nLoading audio file: %s..." % file)
     original_sr, audio = wavfile.read(file)
     print(f"sr: {original_sr}, {audio.shape}")
     audio = convert_to_float32_audio(audio)
@@ -125,10 +126,10 @@ def preprocess_single_audio_file(
     print(f"audio.shape: {audio.shape}")
     print(f"f0.shape: {f0.shape}")
 
-    print(len([i for i in confidence if i >= 0.95])/len(confidence))
-    print(len([i for i in confidence if i >= 0.90 and i < 0.95])/len(confidence))
-    print(len([i for i in confidence if i >= 0.85 and i < 0.9])/len(confidence))
-    print(len([i for i in confidence if i < 0.85])/len(confidence))
+    print(f"%samples with conf > 0.95: {len([i for i in confidence if i >= 0.95])/len(confidence)*100}%")
+    print(f"%samples with conf > 0.95: {len([i for i in confidence if i >= 0.90 and i < 0.95])/len(confidence)*100}%")
+    print(f"%samples with conf > 0.95: {len([i for i in confidence if i >= 0.85 and i < 0.9])/len(confidence)*100}%")
+    print(f"%samples with conf > 0.95: {len([i for i in confidence if i < 0.85])/len(confidence)*100}%")
 
     print(
         "Extracting loudness with extractor '%s': %s..."
