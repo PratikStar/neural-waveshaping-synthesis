@@ -56,7 +56,8 @@ def main(
         )
 
     checkpointing = pl.callbacks.ModelCheckpoint(
-        monitor="val/loss", save_top_k=1, save_last=True
+        monitor="val/loss", save_top_k=5, save_last=True,
+        dirpath=os.path.join(tb_logger.log_dir, "checkpoints")
     )
     callbacks = [checkpointing]
     if with_wandb:
