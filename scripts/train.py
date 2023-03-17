@@ -30,6 +30,7 @@ def trainer_kwargs(**kwargs):
 def main(
     gin_file,
     dataset_path,
+    checkpoint_path,
     urmp,
     device,
     instrument,
@@ -58,7 +59,7 @@ def main(
 
     checkpointing = pl.callbacks.ModelCheckpoint(
         monitor="val/loss", save_top_k=5, save_last=True,
-        dirpath=os.path.join(tb_logger.log_dir, "checkpoints")
+        dirpath=os.path.join(checkpoint_path, "checkpoints")
     )
     callbacks = [checkpointing]
     if with_wandb:
