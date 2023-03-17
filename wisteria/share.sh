@@ -2,7 +2,7 @@
 #PJM -g gk77
 #PJM -L rscgrp=share
 #PJM -L gpu=1
-#PJM -N nws_all
+#PJM -N nws_one
 #PJM -j
 #PJM -m b
 #PJM -m e
@@ -19,13 +19,13 @@ echo "======================"
 
 python scripts/create_dataset.py \
 --gin-file gin/data/urmp_4second_crepe.gin \
---data-directory /work/gk77/k77021/data/timbre/monophonic-4secchunks \
---output-directory /work/gk77/k77021/nws/monophonic-4secchunks \
+--data-directory /work/gk77/k77021/data/timbre/monophonic-4secchunks-oneclip/ \
+--output-directory /work/gk77/k77021/data/timbre/monophonic-4secchunks-oneclip/ \
 --device cuda:0
 
 
-python scripts/train.py \
-  --gin-file gin/train/train_newt.gin \
-  --dataset-path /work/gk77/k77021/nws/monophonic-4secchunks \
-  --checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks \
-  --load-data-to-memory
+#python scripts/train.py \
+#  --gin-file gin/train/train_newt.gin \
+#  --dataset-path /work/gk77/k77021/nws/monophonic-4secchunks \
+#  --checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks \
+#  --load-data-to-memory
