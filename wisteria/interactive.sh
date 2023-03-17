@@ -1,7 +1,7 @@
 #!/bin/bash
 #PJM -g gk77
 #PJM -L rscgrp=share-interactive
-#PJM -N ddsp_data_all1
+#PJM -N nws_data_all1
 #PJM -j
 
 source /work/01/gk77/k77021/.bashrc
