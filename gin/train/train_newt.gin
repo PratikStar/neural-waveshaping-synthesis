@@ -13,4 +13,4 @@ trainer_kwargs.gradient_clip_val = 2.0
 trainer_kwargs.accelerator = 'cuda'
 
 
-GeneralDataModule.batch_size = 9
+GeneralDataModule.batch_size = 8
