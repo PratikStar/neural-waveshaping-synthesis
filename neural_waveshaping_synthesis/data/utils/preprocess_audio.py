@@ -164,7 +164,7 @@ def preprocess_single_audio_file(
     print(f"%samples with conf > 0.95: {len([i for i in confidence if i >= 0.95])/len(confidence)*100}%")
     print(f"%samples with conf > 0.90: {len([i for i in confidence if 0.90 <= i < 0.95]) / len(confidence) * 100}%")
     print(f"%samples with conf > 0.85: {len([i for i in confidence if 0.85 <= i < 0.9]) / len(confidence) * 100}%")
-    print(f"%samples with conf > 0.95: {len([i for i in confidence if 0.65 <= i < 0.9])/len(confidence)*100}%")
+    print(f"%samples with conf > 0.95: {len([i for i in confidence if 0.65 <= i < 0.85])/len(confidence)*100}%")
     print(f"%samples with conf > 0.65: {len([i for i in confidence if i > 0.65])/len(confidence)*100}%")
 
     print(
