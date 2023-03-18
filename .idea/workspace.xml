@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e1d0e94-8f78-4334-8937-1f404620a660" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/gin/data/urmp_4second_crepe.gin" beforeDir="false" afterPath="$PROJECT_DIR$/gin/data/urmp_4second_crepe.gin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/utils/preprocess_audio.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/utils/preprocess_audio.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

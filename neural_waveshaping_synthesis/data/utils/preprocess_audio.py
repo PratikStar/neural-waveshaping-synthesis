@@ -247,6 +247,9 @@ def preprocess_audio(
                 max_value if max_value > normalisation_factor else normalisation_factor
             )
 
+    # Check if dataset is timbre dataset.
+
+    True for f in files if  
     processor = partial(
         preprocess_single_audio_file,
         control_decimation_factor=control_decimation_factor,
