@@ -144,12 +144,12 @@ def preprocess_single_audio_file(
             di_audio = make_monophonic(di_audio)
 
             if normalisation_factor:
-                di_audio = normalise_signal_dupli(di_audio, normalisation_factor)
+                di_audio = normalise_signal(di_audio, normalisation_factor)
 
             print("Resampling audio file: %s..." % di_file)
             print(f"audio.shape: {di_audio.shape}")
 
-            di_audio = resample_audio_dupli(di_audio, di_original_sr, target_sr)
+            di_audio = resample_audio(di_audio, di_original_sr, target_sr)
 
             print("Extracting DI f0")
             f0, confidence = f0_extractor(audio=di_audio, normalisation_factor=normalisation_factor)
