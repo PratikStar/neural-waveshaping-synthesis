@@ -44,7 +44,6 @@ def extract_f0_with_crepe(
         if di_filename in di_f0_estimates:
             f0, confidence = di_f0_estimates[di_filename]
         else:
-
             print("\nLoading DI file: %s..." % di_path)
             original_sr, di_audio = wavfile.read(di_path)
             di_audio = convert_to_float32_audio(di_audio)
@@ -53,8 +52,8 @@ def extract_f0_with_crepe(
             if normalisation_factor:
                 di_audio = normalise_signal(di_audio, normalisation_factor)
 
-            print("Resampling audio file: %s..." % file)
-            print(f"audio.shape: {audio.shape}")
+            print("Resampling audio file: %s..." % di_path)
+            print(f"audio.shape: {di_audio.shape}")
 
             audio = resample_audio(audio, original_sr, target_sr)
 
