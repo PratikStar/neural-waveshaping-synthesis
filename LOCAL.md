@@ -12,6 +12,8 @@ rsync -avz "/Users/pratik/data/A_sharp_3" w:/work/gk77/k77021/data
 rsync -avz "/Users/pratik/data/single_note_distorted" w:/work/gk77/k77021/data
 rsync -avz "/Users/pratik/data/di_1_one_clip" w:/work/gk77/k77021/data
 
+rsync -avz "/Users/pratik/data/single_note_distorted" w:/work/gk77/k77021/data
+
 # from wisteria
 rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
 
@@ -21,3 +23,4 @@ python scripts/create_dataset.py \
 --data-directory /work/gk77/k77021/data/A_sharp_3 \
 --output-directory /work/gk77/k77021/nws \
 --device cuda:0
+
