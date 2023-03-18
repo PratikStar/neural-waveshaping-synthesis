@@ -26,6 +26,6 @@ python scripts/create_dataset.py \
 
 #python scripts/train.py \
 #  --gin-file gin/train/train_newt.gin \
-#  --dataset-path /work/gk77/k77021/nws/nws-di \
-#  --checkpoint-path /work/gk77/k77021/nws/nws-di \
+#  --dataset-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0 \
+#  --checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0 \
 #  --load-data-to-memory
