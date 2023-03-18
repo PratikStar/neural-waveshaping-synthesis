@@ -59,7 +59,7 @@ def extract_f0_with_crepe(
 
             di_audio = resample_audio(di_audio, original_sr, target_sr)
 
-            print("Extracting DI f0 with extractor")
+            print("Extracting DI f0")
             f0, confidence = torchcrepe.predict(
                 di_audio,
                 sample_rate,
