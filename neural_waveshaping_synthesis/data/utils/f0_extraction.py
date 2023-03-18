@@ -79,6 +79,22 @@ def extract_f0_with_crepe(
         if not di_path.exists():
             raise Exception(f"DI not found at {di_path}")
 
+        print("\nLoading DI file: %s..." % di_path)
+        original_sr, audio = wavfile.read(di_path)
+        audio = convert_to_float32_audio(audio)
+        audio = make_monophonic(audio)
+
+        if normalisation_factor:
+            audio = normalise_signal(audio, normalisation_factor)
+
+        print("Resampling audio file: %s..." % file)
+        print(f"audio.shape: {audio.shape}")
+
+        audio = resample_audio(audio, original_sr, target_sr)
+
+        print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
+        f0, confidence = f0_extractor(audio, file)
+
         f0, confidence =  _get_f0_estimate_from_di(
             ex, frame_rate, center, viterbi
         )
