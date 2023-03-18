@@ -6,6 +6,7 @@ import librosa
 import numpy as np
 import torch
 import torchcrepe
+import resampy
 
 from .upsampling import linear_interpolation
 from ...utils import apply
