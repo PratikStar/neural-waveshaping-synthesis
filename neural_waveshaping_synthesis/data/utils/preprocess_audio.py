@@ -108,6 +108,7 @@ def preprocess_single_audio_file(
     loudness_extractor: Callable = extract_perceptual_loudness,
     mfcc_extractor: Callable = extract_mfcc,
     normalisation_factor: Union[float, None] = None,
+    f0_from_di: bool = False
 ):
     print("\nLoading audio file: %s..." % file)
     original_sr, audio = wavfile.read(file)
