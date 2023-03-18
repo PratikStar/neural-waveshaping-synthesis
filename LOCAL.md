@@ -20,4 +20,4 @@ rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
 
 
 # GCP
-gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east1-c instance-gpu
+gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
