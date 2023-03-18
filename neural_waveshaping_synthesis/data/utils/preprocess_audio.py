@@ -152,20 +152,7 @@ def preprocess_single_audio_file(
 
             print("Extracting DI f0")
             f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
-            f0, confidence = torchcrepe.predict(
-                di_audio,
-                sample_rate,
-                hop_length,
-                minimum_frequency,
-                maximum_frequency,
-                "full" if full_model else "tiny",
-                batch_size=batch_size,
-                device=device,
-                decoder=torchcrepe.decode.viterbi,
-                # decoder=torchcrepe.decode.weighted_argmax,
-                return_harmonicity=True,
-            )
-            di_f0_estimates[di_filename] = [f0, confidence]
+            di_f0_estimates[di_file.name] = [f0, confidence]
     else:
         print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
         f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
