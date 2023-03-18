@@ -13,7 +13,21 @@ from ...utils import apply
 
 CREPE_WINDOW_LENGTH = 1024
 
-def _get_f0_estimate_from_di(ex, frame_rate, center, viterbi):
+def _get_f0_estimate_from_di(
+    audio: np.ndarray,
+    file: str,
+    sample_rate: float,
+    hop_length: int = 128,
+    minimum_frequency: float = 50.0,
+    maximum_frequency: float = 2000.0,
+    full_model: bool = True,
+    batch_size: int = 2048,
+    device: Union[str, torch.device] = "cpu",
+    interpolate_fn: Optional[Callable] = linear_interpolation,
+    f0_from_di: bool = False
+):
+
+    
     """Add fundamental frequency (f0) estimate using CREPE."""
     global di_f0_estimates
     logging.debug(f"In _get_f0_estimate_from_di, keys of example: {ex.keys()}")
