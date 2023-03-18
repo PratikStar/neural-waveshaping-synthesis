@@ -34,7 +34,7 @@ def extract_f0_with_crepe(
     audio = torch.tensor(audio).unsqueeze(0)
     if f0_from_di:
         print("Getting f0 estimate from DI")
-        di_file = Path(file)
+        file = Path(file)
         di_filename = f"09A DI - {file.name.split()[-1].split('.').strip()}.wav"
 
         if di_filename in di_f0_estimates:
