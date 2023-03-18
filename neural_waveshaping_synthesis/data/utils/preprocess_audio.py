@@ -137,7 +137,7 @@ def preprocess_single_audio_file(
         if di_file.name in di_f0_estimates:
             f0, confidence = di_f0_estimates[di_file.name]
         else:
-            print("Loading DI file: %s..." % di_file)
+            print("Loading DI file: %s..." % di_file.name)
 
             di_original_sr, di_audio = wavfile.read(di_file)
             di_audio = convert_to_float32_audio(di_audio)
