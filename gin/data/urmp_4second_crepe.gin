@@ -7,7 +7,6 @@ extract_f0_with_crepe.device = %device
 extract_f0_with_crepe.full_model = True
 extract_f0_with_crepe.interpolate_fn = %interpolation
 extract_f0_with_crepe.hop_length = %control_hop
-extract_f0_with_crepe.f0_from_di = False
 
 extract_perceptual_loudness.sample_rate = %sample_rate
 extract_perceptual_loudness.interpolate_fn = %interpolation
@@ -26,6 +25,7 @@ preprocess_audio.segment_length_in_seconds = 1
 preprocess_audio.hop_length_in_seconds = 1
 preprocess_audio.normalise_audio = True
 preprocess_audio.control_decimation_factor = %control_hop
+preprocess_audio.f0_from_di = True
 
 
 preprocess_audio.confidence_threshold = 0.65
