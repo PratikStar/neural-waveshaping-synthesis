@@ -16,6 +16,53 @@ import scipy.io.wavfile as wavfile
 CREPE_WINDOW_LENGTH = 1024
 di_f0_estimates = {}
 
+def convert_to_float32_audio_dupli(audio: np.ndarray):
+    if audio.dtype == np.float32:
+        return audio
+
+    max_sample_value = np.iinfo(audio.dtype).max
+    floating_point_audio = audio / max_sample_value
+    return floating_point_audio.astype(np.float32)
+
+
+def make_monophonic_dupli(audio: np.ndarray, strategy: str = "keep_left"):
+    # deal with non stereo array formats
+    if len(audio.shape) == 1:
+        return audio
+    elif len(audio.shape) != 2:
+        raise ValueError("Unknown audio array format.")
+
+    # deal with single audio channel
+    if audio.shape[0] == 1:
+        return audio[0]
+    elif audio.shape[1] == 1:
+        return audio[:, 0]
+    # deal with more than two channels
+    elif audio.shape[0] != 2 and audio.shape[1] != 2:
+        raise ValueError("Expected stereo input audio but got too many channels.")
+
+    # put channel first
+    if audio.shape[1] == 2:
+        audio = audio.T
+
+    # make stereo audio monophonic
+    if strategy == "keep_left":
+        return audio[0]
+    elif strategy == "keep_right":
+        return audio[1]
+    elif strategy == "sum":
+        return np.mean(audio, axis=0)
+    elif strategy == "diff":
+        return audio[0] - audio[1]
+
+
+def normalise_signal_dupli(audio: np.ndarray, factor: float):
+    return audio / factor
+
+
+def resample_audio_dupli(audio: np.ndarray, original_sr: float, target_sr: float):
+    return resampy.resample(audio, original_sr, target_sr)
+
 @gin.configurable
 def extract_f0_with_crepe(
     audio: np.ndarray,
