@@ -25,6 +25,6 @@ gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instan
 
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
---dataset-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0 \
---checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0 \
+--dataset-path /root/data/nws/monophonic-4secchunks-di_f0 \
+--checkpoint-path /root/data/nws/monophonic-4secchunks-di_f0 \
 --load-data-to-memory
