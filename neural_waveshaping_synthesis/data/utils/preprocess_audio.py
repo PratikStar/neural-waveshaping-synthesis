@@ -6,6 +6,7 @@ import librosa
 import numpy as np
 import resampy
 import scipy.io.wavfile as wavfile
+from pathlib import Path
 
 from .f0_extraction import extract_f0_with_crepe, extract_f0_with_pyin
 from .loudness_extraction import extract_perceptual_loudness, extract_rms
