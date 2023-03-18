@@ -145,7 +145,7 @@ def preprocess_single_audio_file(
             if normalisation_factor:
                 di_audio = normalise_signal_dupli(di_audio, normalisation_factor)
 
-            print("Resampling audio file: %s..." % di_path)
+            print("Resampling audio file: %s..." % di_file)
             print(f"audio.shape: {di_audio.shape}")
 
             di_audio = resample_audio_dupli(di_audio, original_sr, target_sr)
