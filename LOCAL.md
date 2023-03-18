@@ -12,7 +12,7 @@ rsync -avz "/Users/pratik/data/A_sharp_3" w:/work/gk77/k77021/data
 rsync -avz "/Users/pratik/data/single_note_distorted" w:/work/gk77/k77021/data
 rsync -avz "/Users/pratik/data/di_1_one_clip" w:/work/gk77/k77021/data
 
-rsync -avz "/Users/pratik/Downloads" w:/work/gk77/k77021/data
+rsync -avz "/Users/pratik/Downloads" w:/work/gk77/k77021/nws
 
 # from wisteria
 rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
