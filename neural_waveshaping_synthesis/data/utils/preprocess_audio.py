@@ -106,7 +106,6 @@ def preprocess_single_audio_file(
     loudness_extractor: Callable = extract_perceptual_loudness,
     mfcc_extractor: Callable = extract_mfcc,
     normalisation_factor: Union[float, None] = None,
-    f0_from_di: bool = False,
 ):
     print("\nLoading audio file: %s..." % file)
     original_sr, audio = wavfile.read(file)
@@ -123,7 +122,7 @@ def preprocess_single_audio_file(
     audio = resample_audio(audio, original_sr, target_sr)
 
     print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
-    f0, confidence = f0_extractor(audio, file)
+    f0, confidence = f0_extractor(audio, file, normalisation_factor)
     print(f"audio.shape: {audio.shape}")
     print(f"f0.shape: {f0.shape}")
 
