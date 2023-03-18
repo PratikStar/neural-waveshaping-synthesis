@@ -33,6 +33,7 @@ def extract_f0_with_crepe(
 ):
     # convert to torch tensor with channel dimension (necessary for CREPE)
     audio = torch.tensor(audio).unsqueeze(0)
+    
     if f0_from_di:
         print("Getting f0 estimate from DI")
         file = Path(file)
@@ -59,11 +60,7 @@ def extract_f0_with_crepe(
             di_audio = resample_audio(di_audio, original_sr, target_sr)
 
             print("Extracting DI f0 with extractor")
-            f0, confidence = f0_extractor(di_audio, file)
 
-            f0, confidence =  _get_f0_estimate_from_di(
-                ex, frame_rate, center, viterbi
-            )
     else:
         f0, confidence = torchcrepe.predict(
             audio,
