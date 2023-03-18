@@ -132,15 +132,16 @@ def preprocess_single_audio_file(
         file = Path(file)
         di_file = file.parent / f"09A DI - {file.name.split()[-1].split('.')[0]}.wav"
         if not di_file.exists():
-            raise Exception(f"DI not found at {di_path}")
+            raise Exception(f"DI not found at {di_file}")
 
         if di_file.name in di_f0_estimates:
-            f0, confidence = di_f0_estimates[di_filename]
+            f0, confidence = di_f0_estimates[di_file.name]
         else:
             print("Loading DI file: %s..." % di_file)
+
             di_original_sr, di_audio = wavfile.read(di_file)
-            di_audio = convert_to_float32_audio_dupli(di_audio)
-            di_audio = make_monophonic_dupli(di_audio)
+            di_audio = convert_to_float32_audio(di_audio)
+            di_audio = make_monophonic(di_audio)
 
             if normalisation_factor:
                 di_audio = normalise_signal_dupli(di_audio, normalisation_factor)
