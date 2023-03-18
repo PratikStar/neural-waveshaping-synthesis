@@ -28,4 +28,4 @@ preprocess_audio.normalise_audio = True
 preprocess_audio.control_decimation_factor = %control_hop
 
 
-preprocess_audio.confidence_threshold = 0.85
+preprocess_audio.confidence_threshold = 0.65
