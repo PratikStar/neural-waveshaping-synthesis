@@ -29,6 +29,7 @@ def extract_f0_with_crepe(
     interpolate_fn: Optional[Callable] = linear_interpolation,
     f0_from_di: bool = False,
     normalisation_factor: Union[float, None] = None,
+    target_sr: float = 16000.0,
 ):
     # convert to torch tensor with channel dimension (necessary for CREPE)
     audio = torch.tensor(audio).unsqueeze(0)
