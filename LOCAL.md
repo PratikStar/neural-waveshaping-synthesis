@@ -21,3 +21,10 @@ rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
 
 # GCP
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
+
+
+python scripts/train.py \
+--gin-file gin/train/train_newt.gin \
+--dataset-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0 \
+--checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0 \
+--load-data-to-memory
