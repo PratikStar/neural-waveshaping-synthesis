@@ -21,7 +21,7 @@ rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
 
 # GCP
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
-gcloud compute scp ~/Downloads/ --zone us-west1-b instance-3
+gcloud compute scp ~/Downloads/monophonic-4secchunks-di_f0-20230318T164941Z-001.zip --zone us-west1-b instance-3
 
 
 python scripts/train.py \
