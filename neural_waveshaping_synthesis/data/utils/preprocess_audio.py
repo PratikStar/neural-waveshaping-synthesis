@@ -135,6 +135,7 @@ def preprocess_single_audio_file(
             raise Exception(f"DI not found at {di_file}")
 
         if di_file.name in di_f0_estimates:
+            print("Found precalculated DI F0")
             f0, confidence = di_f0_estimates[di_file.name]
         else:
             print("Loading DI file: %s..." % di_file.name)
