@@ -97,16 +97,16 @@ def extract_f0_with_crepe(
         else:
             print("\nLoading DI file: %s..." % di_path)
             original_sr, di_audio = wavfile.read(di_path)
-            di_audio = convert_to_float32_audio(di_audio)
-            di_audio = make_monophonic(di_audio)
+            di_audio = convert_to_float32_audio_dupli(di_audio)
+            di_audio = make_monophonic_dupli(di_audio)
 
             if normalisation_factor:
-                di_audio = normalise_signal(di_audio, normalisation_factor)
+                di_audio = normalise_signal_dupli(di_audio, normalisation_factor)
 
             print("Resampling audio file: %s..." % di_path)
             print(f"audio.shape: {di_audio.shape}")
 
-            di_audio = resample_audio(di_audio, original_sr, target_sr)
+            di_audio = resample_audio_dupli(di_audio, original_sr, target_sr)
 
             print("Extracting DI f0")
             f0, confidence = torchcrepe.predict(
