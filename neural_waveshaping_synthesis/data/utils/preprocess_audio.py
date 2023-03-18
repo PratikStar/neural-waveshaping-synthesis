@@ -130,7 +130,7 @@ def preprocess_single_audio_file(
     else:
         print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
     f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
-    print(f"audio.shape: {audio.shape}")
+
     print(f"f0.shape: {f0.shape}")
 
     print(f"%samples with conf > 0.95: {len([i for i in confidence if i >= 0.95])/len(confidence)*100}%")
