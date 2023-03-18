@@ -55,7 +55,7 @@ def extract_f0_with_crepe(
             print("Resampling audio file: %s..." % di_path)
             print(f"audio.shape: {di_audio.shape}")
 
-            audio = resample_audio(audio, original_sr, target_sr)
+            audio = resample_audio(di_audio, original_sr, target_sr)
 
             print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
             f0, confidence = f0_extractor(audio, file)
