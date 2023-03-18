@@ -110,6 +110,7 @@ def preprocess_single_audio_file(
     normalisation_factor: Union[float, None] = None,
     f0_from_di: bool = False
 ):
+    global di_f0_estimates
     print("\nLoading audio file: %s..." % file)
     original_sr, audio = wavfile.read(file)
     print(f"sr: {original_sr}, {audio.shape}")
@@ -126,7 +127,7 @@ def preprocess_single_audio_file(
 
     if f0_from_di and any("09A" in f for f in files):
         print("Replacing  timbre Dataset...")
-        
+
     print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
     f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
     print(f"audio.shape: {audio.shape}")
