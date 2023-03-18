@@ -125,8 +125,9 @@ def preprocess_single_audio_file(
 
     audio = resample_audio(audio, original_sr, target_sr)
 
-    if f0_from_di and any("09A" in f for f in files):
+    if f0_from_di:
         print("Replacing  timbre Dataset...")
+    else:
 
     print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
     f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
