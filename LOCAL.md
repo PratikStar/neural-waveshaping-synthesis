@@ -18,9 +18,6 @@ rsync -avz "/Users/pratik/Downloads/monophonic-4secchunks-di_f0" w:/work/gk77/k7
 rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
 
 
-python scripts/create_dataset.py \
---gin-file gin/data/urmp_4second_crepe.gin \
---data-directory /work/gk77/k77021/data/A_sharp_3 \
---output-directory /work/gk77/k77021/nws \
---device cuda:0
 
+# GCP
+gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east1-c instance-gpu
