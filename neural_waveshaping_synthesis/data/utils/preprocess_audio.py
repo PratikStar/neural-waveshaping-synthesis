@@ -127,8 +127,6 @@ def preprocess_single_audio_file(
     audio = resample_audio(audio, original_sr, target_sr)
 
     if f0_from_di:
-        print("Replacing f0 from DI...")
-
         file = Path(file)
         di_file = file.parent / f"09A DI - {file.name.split()[-1].split('.')[0]}.wav"
         if not di_file.exists():
@@ -147,7 +145,7 @@ def preprocess_single_audio_file(
             if normalisation_factor:
                 di_audio = normalise_signal(di_audio, normalisation_factor)
 
-            print("Resampling audio file: %s..." % di_file)
+            print("Resampling audio file: %s..." % di_file.name)
             print(f"audio.shape: {di_audio.shape}")
 
             di_audio = resample_audio(di_audio, di_original_sr, target_sr)
