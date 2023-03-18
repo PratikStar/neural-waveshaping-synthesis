@@ -59,7 +59,7 @@ def extract_f0_with_crepe(
             di_audio = resample_audio(di_audio, original_sr, target_sr)
 
             print("Extracting DI f0 with extractor")
-            f0, confidence = f0_extractor(audio, file)
+            f0, confidence = f0_extractor(di_audio, file)
 
             f0, confidence =  _get_f0_estimate_from_di(
                 ex, frame_rate, center, viterbi
