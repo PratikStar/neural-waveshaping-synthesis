@@ -73,6 +73,8 @@ def extract_f0_with_crepe(
                 # decoder=torchcrepe.decode.weighted_argmax,
                 return_harmonicity=True,
             )
+            di_f0_estimates[di_filename] = [f0, confidence]
+
     else:
         f0, confidence = torchcrepe.predict(
             audio,
