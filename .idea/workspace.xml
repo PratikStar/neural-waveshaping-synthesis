@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e1d0e94-8f78-4334-8937-1f404620a660" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/utils/preprocess_audio.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/utils/preprocess_audio.py" afterDir="false" />
-    </list>
+    <list default="true" id="7e1d0e94-8f78-4334-8937-1f404620a660" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +25,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/pratik/repos/neural-waveshaping-synthesis"
+    "last_opened_file_path": "/Users/pratik/repos/neural-waveshaping-synthesis",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="RecentsManager">
