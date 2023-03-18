@@ -50,7 +50,7 @@ def extract_f0_with_crepe(
             di_audio = make_monophonic(di_audio)
 
             if normalisation_factor:
-                audio = normalise_signal(di_audio, normalisation_factor)
+                di_audio = normalise_signal(di_audio, normalisation_factor)
 
             print("Resampling audio file: %s..." % file)
             print(f"audio.shape: {audio.shape}")
