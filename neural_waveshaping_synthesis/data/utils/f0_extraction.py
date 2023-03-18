@@ -36,13 +36,14 @@ def extract_f0_with_crepe(
         print("Getting f0 estimate from DI")
         file = Path(file)
         di_filename = f"09A DI - {file.name.split()[-1].split('.').strip()}.wav"
+        di_path = file.parent / di_filename
+        if not di_path.exists():
+            raise Exception(f"DI not found at {di_path}")
+
 
         if di_filename in di_f0_estimates:
             f0, confidence = di_f0_estimates[di_filename]
         else:
-            di_path = file.parent / di_filename
-            if not di_path.exists():
-                raise Exception(f"DI not found at {di_path}")
 
             print("\nLoading DI file: %s..." % di_path)
             original_sr, di_audio = wavfile.read(di_path)
