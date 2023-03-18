@@ -10,6 +10,7 @@ import torchcrepe
 from .upsampling import linear_interpolation
 from ...utils import apply
 from pathlib import Path
+import scipy.io.wavfile as wavfile
 
 
 CREPE_WINDOW_LENGTH = 1024
