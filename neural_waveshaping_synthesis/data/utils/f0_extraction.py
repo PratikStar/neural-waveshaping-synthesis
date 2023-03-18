@@ -27,7 +27,7 @@ def _get_f0_estimate_from_di(
     f0_from_di: bool = False
 ):
 
-    
+
     """Add fundamental frequency (f0) estimate using CREPE."""
     global di_f0_estimates
     logging.debug(f"In _get_f0_estimate_from_di, keys of example: {ex.keys()}")
@@ -71,7 +71,11 @@ def extract_f0_with_crepe(
     audio = torch.tensor(audio).unsqueeze(0)
     if f0_from_di:
         print("Getting f0 estimate from DI")
-        f0, confidence =  _get_f0_estimate_from_di(ex, frame_rate, center, viterbi)
+        file = Path(file)
+        
+        f0, confidence =  _get_f0_estimate_from_di(
+            ex, frame_rate, center, viterbi
+        )
     else:
         f0, confidence = torchcrepe.predict(
             audio,
