@@ -54,19 +54,23 @@ def extract_f0_with_crepe(
 ):
     # convert to torch tensor with channel dimension (necessary for CREPE)
     audio = torch.tensor(audio).unsqueeze(0)
-    f0, confidence = torchcrepe.predict(
-        audio,
-        sample_rate,
-        hop_length,
-        minimum_frequency,
-        maximum_frequency,
-        "full" if full_model else "tiny",
-        batch_size=batch_size,
-        device=device,
-        decoder=torchcrepe.decode.viterbi,
-        # decoder=torchcrepe.decode.weighted_argmax,
-        return_harmonicity=True,
-    )
+    if f0_from_di:
+        print("Getting f0 estimate from DI")
+        f0, confidence =  _get_f0_estimate_from_di(ex, frame_rate, center, viterbi)
+    else:
+        f0, confidence = torchcrepe.predict(
+            audio,
+            sample_rate,
+            hop_length,
+            minimum_frequency,
+            maximum_frequency,
+            "full" if full_model else "tiny",
+            batch_size=batch_size,
+            device=device,
+            decoder=torchcrepe.decode.viterbi,
+            # decoder=torchcrepe.decode.weighted_argmax,
+            return_harmonicity=True,
+        )
 
     f0, confidence = f0.squeeze().numpy(), confidence.squeeze().numpy()
 
