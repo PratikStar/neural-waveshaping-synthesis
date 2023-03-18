@@ -127,6 +127,14 @@ def preprocess_single_audio_file(
 
     if f0_from_di:
         print("Replacing f0 from DI...")
+
+        file = Path(file)
+
+        di_filename = f"09A DI - {file.name.split()[-1].split('.')[0]}.wav"
+        di_path = file.parent / di_filename
+        if not di_path.exists():
+            raise Exception(f"DI not found at {di_path}")
+
     else:
         print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
     f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
