@@ -266,6 +266,7 @@ def preprocess_audio(
         f0_extractor=f0_extractor,
         loudness_extractor=loudness_extractor,
         normalisation_factor=None if not normalise_audio else normalisation_factor,
+        f0_from_di=f0_from_di
     )
     for file in files:
         yield processor(file)
