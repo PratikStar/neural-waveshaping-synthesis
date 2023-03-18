@@ -236,6 +236,7 @@ def preprocess_audio(
     f0_extractor: Callable = extract_f0_with_crepe,
     loudness_extractor: Callable = extract_perceptual_loudness,
     normalise_audio: bool = False,
+    f0_from_di: bool = True
 ):
     if normalise_audio:
         print("Finding normalisation factor...")
@@ -251,7 +252,7 @@ def preprocess_audio(
 
     # Check if dataset is timbre dataset.
 
-    if any("09A" in f for f in files):
+    if f0_from_di and any("09A" in f for f in files):
         print("Replacing  timbre Dataset...")
     processor = partial(
         preprocess_single_audio_file,
