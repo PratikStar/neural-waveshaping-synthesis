@@ -37,6 +37,7 @@ def extract_f0_with_crepe(
     if f0_from_di:
         print("Getting f0 estimate from DI")
         file = Path(file)
+        print(file.name.split()[-1].split('.')[0].strip())
         di_filename = f"09A DI - {file.name.split()[-1].split('.')[0].strip()}.wav"
         di_path = file.parent / di_filename
         if not di_path.exists():
