@@ -73,15 +73,14 @@ def extract_f0_with_crepe(
     if f0_from_di:
         print("Getting f0 estimate from DI")
         file = Path(file)
-        fn = file.name
-        di_filename =  f"09A DI - {file.name.split()[-1].split('.').strip()}.wav"
+        di_filename = f"09A DI - {file.name.split()[-1].split('.').strip()}.wav"
         di_path = file.parent / di_filename
         if not di_path.exists():
             raise Exception(f"DI not found at {di_path}")
 
         print("\nLoading DI file: %s..." % di_path)
-        original_sr, audio = wavfile.read(di_path)
-        audio = convert_to_float32_audio(audio)
+        original_sr, di_audio = wavfile.read(di_path)
+        di_audio = convert_to_float32_audio(di_audio)
         audio = make_monophonic(audio)
 
         if normalisation_factor:
