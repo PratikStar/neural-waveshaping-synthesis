@@ -35,29 +35,33 @@ def extract_f0_with_crepe(
         print("Getting f0 estimate from DI")
         file = Path(file)
         di_filename = f"09A DI - {file.name.split()[-1].split('.').strip()}.wav"
-        di_path = file.parent / di_filename
-        if not di_path.exists():
-            raise Exception(f"DI not found at {di_path}")
 
-        print("\nLoading DI file: %s..." % di_path)
-        original_sr, di_audio = wavfile.read(di_path)
-        di_audio = convert_to_float32_audio(di_audio)
-        di_audio = make_monophonic(di_audio)
+        if di_filename in di_f0_estimates:
+            f0, confidence = di_f0_estimates[di_filename]
+        else:
+            di_path = file.parent / di_filename
+            if not di_path.exists():
+                raise Exception(f"DI not found at {di_path}")
 
-        if normalisation_factor:
-            audio = normalise_signal(di_audio, normalisation_factor)
+            print("\nLoading DI file: %s..." % di_path)
+            original_sr, di_audio = wavfile.read(di_path)
+            di_audio = convert_to_float32_audio(di_audio)
+            di_audio = make_monophonic(di_audio)
 
-        print("Resampling audio file: %s..." % file)
-        print(f"audio.shape: {audio.shape}")
+            if normalisation_factor:
+                audio = normalise_signal(di_audio, normalisation_factor)
 
-        audio = resample_audio(audio, original_sr, target_sr)
+            print("Resampling audio file: %s..." % file)
+            print(f"audio.shape: {audio.shape}")
 
-        print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
-        f0, confidence = f0_extractor(audio, file)
+            audio = resample_audio(audio, original_sr, target_sr)
 
-        f0, confidence =  _get_f0_estimate_from_di(
-            ex, frame_rate, center, viterbi
-        )
+            print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
+            f0, confidence = f0_extractor(audio, file)
+
+            f0, confidence =  _get_f0_estimate_from_di(
+                ex, frame_rate, center, viterbi
+            )
     else:
         f0, confidence = torchcrepe.predict(
             audio,
