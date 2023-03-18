@@ -151,6 +151,7 @@ def preprocess_single_audio_file(
             di_audio = resample_audio_dupli(di_audio, di_original_sr, target_sr)
 
             print("Extracting DI f0")
+            f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
             f0, confidence = torchcrepe.predict(
                 di_audio,
                 sample_rate,
