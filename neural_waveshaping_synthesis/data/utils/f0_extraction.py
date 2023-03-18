@@ -13,6 +13,7 @@ from pathlib import Path
 
 
 CREPE_WINDOW_LENGTH = 1024
+di_f0_estimates = {}
 
 def _get_f0_estimate_from_di(
     audio: np.ndarray,
@@ -81,7 +82,7 @@ def extract_f0_with_crepe(
         print("\nLoading DI file: %s..." % di_path)
         original_sr, di_audio = wavfile.read(di_path)
         di_audio = convert_to_float32_audio(di_audio)
-        audio = make_monophonic(audio)
+        di_audio = make_monophonic(di_audio)
 
         if normalisation_factor:
             audio = normalise_signal(audio, normalisation_factor)
