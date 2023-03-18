@@ -138,7 +138,7 @@ def preprocess_single_audio_file(
             f0, confidence = di_f0_estimates[di_filename]
         else:
             print("Loading DI file: %s..." % di_file)
-            original_sr, di_audio = wavfile.read(di_file)
+            di_original_sr, di_audio = wavfile.read(di_file)
             di_audio = convert_to_float32_audio_dupli(di_audio)
             di_audio = make_monophonic_dupli(di_audio)
 
