@@ -167,7 +167,7 @@ def preprocess_single_audio_file(
             di_f0_estimates[di_filename] = [f0, confidence]
     else:
         print("Extracting f0 with extractor '%s': %s..." % (f0_extractor.__name__, file))
-    f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
+        f0, confidence = f0_extractor(audio=audio, file=file, normalisation_factor=normalisation_factor, target_sr=target_sr)
 
     print(f"f0.shape: {f0.shape}")
 
