@@ -74,7 +74,7 @@ def extract_f0_with_crepe(
         print("Getting f0 estimate from DI")
         file = Path(file)
         fn = file.name
-        di_filename =  
+        di_filename =  f"09A DI - {file.name.split()[-1].split('.')}.wav"
         f0, confidence =  _get_f0_estimate_from_di(
             ex, frame_rate, center, viterbi
         )
