@@ -12,6 +12,8 @@ from .loudness_extraction import extract_perceptual_loudness, extract_rms
 from .mfcc_extraction import extract_mfcc
 from ...utils import apply, apply_unpack, unzip
 
+di_f0_estimates = {}
+
 
 def read_audio_files(files: list):
     rates_and_audios = apply(wavfile.read, files)
@@ -250,7 +252,7 @@ def preprocess_audio(
     # Check if dataset is timbre dataset.
 
     if any("09A" in f for f in files):
-
+        
     processor = partial(
         preprocess_single_audio_file,
         control_decimation_factor=control_decimation_factor,
