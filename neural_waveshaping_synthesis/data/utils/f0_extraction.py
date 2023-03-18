@@ -9,6 +9,7 @@ import torchcrepe
 
 from .upsampling import linear_interpolation
 from ...utils import apply
+from pathlib import Path
 
 
 CREPE_WINDOW_LENGTH = 1024
