@@ -42,6 +42,7 @@ def _get_f0_estimate_from_di(ex, frame_rate, center, viterbi):
 @gin.configurable
 def extract_f0_with_crepe(
     audio: np.ndarray,
+    file: str,
     sample_rate: float,
     hop_length: int = 128,
     minimum_frequency: float = 50.0,
