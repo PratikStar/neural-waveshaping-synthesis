@@ -76,7 +76,8 @@ def extract_f0_with_crepe(
         fn = file.name
         di_filename =  f"09A DI - {file.name.split()[-1].split('.').strip()}.wav"
         di_path = file.parent / di_filename
-        
+        if not di_path.exists():
+            raise Exception(f"DI not found at {di_path}")
         f0, confidence =  _get_f0_estimate_from_di(
             ex, frame_rate, center, viterbi
         )
