@@ -148,7 +148,7 @@ def preprocess_single_audio_file(
             print("Resampling audio file: %s..." % di_file)
             print(f"audio.shape: {di_audio.shape}")
 
-            di_audio = resample_audio_dupli(di_audio, original_sr, target_sr)
+            di_audio = resample_audio_dupli(di_audio, di_original_sr, target_sr)
 
             print("Extracting DI f0")
             f0, confidence = torchcrepe.predict(
