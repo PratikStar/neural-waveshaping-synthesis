@@ -7,7 +7,7 @@ extract_f0_with_crepe.device = %device
 extract_f0_with_crepe.full_model = True
 extract_f0_with_crepe.interpolate_fn = %interpolation
 extract_f0_with_crepe.hop_length = %control_hop
-extract_f0_with_crepe.f0_from_di = True
+extract_f0_with_crepe.f0_from_di = False
 
 extract_perceptual_loudness.sample_rate = %sample_rate
 extract_perceptual_loudness.interpolate_fn = %interpolation
