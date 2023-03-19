@@ -76,6 +76,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear")
+        print(f"f0_upsampled: {f0_upsampled.shape}")
         x = self.render_exciter(f0_upsampled)
 
         control_embedding = self.get_embedding(control)
