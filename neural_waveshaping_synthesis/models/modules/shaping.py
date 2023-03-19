@@ -67,6 +67,7 @@ class NEWT(nn.Module):
     def forward(self, exciter, control_embedding):
         print(f"\nIn NEWT forward")
         film_params = self.mlp(control_embedding)
+        print(f"After ")
         film_params = F.upsample(film_params, exciter.shape[-1], mode="linear")
         gamma_index, beta_index, gamma_norm, beta_norm = torch.split(
             film_params, self.n_waveshapers, 1
