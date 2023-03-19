@@ -74,6 +74,7 @@ class NeuralWaveshaping(pl.LightningModule):
     def get_embedding(self, control):
         print(f"\n In get_embedding")
         f0, other = control[:, 0:1], control[:, 1:2]
+        print("splitting control in f0 and other")
         control = torch.cat((f0, other), dim=1)
         return self.embedding(control)
 
