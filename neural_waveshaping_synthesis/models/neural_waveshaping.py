@@ -73,6 +73,8 @@ class NeuralWaveshaping(pl.LightningModule):
 
     def forward(self, f0, control):
         print(f"In forward")
+        print(f"f0: {f0.shape}")
+        print(f"control: {control.shape}")
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear")
         x = self.render_exciter(f0_upsampled)
 
