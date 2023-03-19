@@ -98,7 +98,7 @@ class NeuralWaveshaping(pl.LightningModule):
 
         control_embedding = self.get_embedding(control)
 
-        print(f"")
+        print(f"Invoking NEWT")
         x = self.newt(x, control_embedding)
 
         H = self.h_generator(control_embedding)
