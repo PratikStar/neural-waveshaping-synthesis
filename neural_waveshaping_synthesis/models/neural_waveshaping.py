@@ -22,7 +22,9 @@ class ControlModule(nn.Module):
         self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
     def forward(self, x):
-        x, _ = self.gru(x.transpose(1, 2))
+        print("Invoking ControlModule")
+
+    x, _ = self.gru(x.transpose(1, 2))
         return self.proj(x.transpose(1, 2))
 
 
