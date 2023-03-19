@@ -72,9 +72,11 @@ class NEWT(nn.Module):
         film_params = F.upsample(film_params, exciter.shape[-1], mode="linear")
         print(f"After upsample: {film_params.shape}")
 
+        print(f"Doing torch split")
         gamma_index, beta_index, gamma_norm, beta_norm = torch.split(
             film_params, self.n_waveshapers, 1
         )
+        print(f"")
 
         x = self.waveshaping_index(exciter, gamma_index, beta_index)
         x = self.shaping_fn(x)
