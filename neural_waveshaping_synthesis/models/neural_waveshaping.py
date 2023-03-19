@@ -64,7 +64,8 @@ class NeuralWaveshaping(pl.LightningModule):
     def render_exciter(self, f0):
         print(f"\tCalling Harmonic oscillator with f0[:, 0]")
         sig = self.osc(f0[:, 0])
-        print(f"sign")
+        print(f"sig: {sig.shape}")
+        print(f"")
         sig = self.harmonic_mixer(sig)
         return sig
 
