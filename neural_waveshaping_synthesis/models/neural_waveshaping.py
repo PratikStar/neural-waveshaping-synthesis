@@ -78,7 +78,8 @@ class NeuralWaveshaping(pl.LightningModule):
         print("torch.cat((f0, other), dim=1)")
         control = torch.cat((f0, other), dim=1)
         print(f"New control: {control.shape}")
-        comtrol_embedding self.embedding(control)
+        control_embedding = self.embedding(control)
+        return control_embedding
 
     def forward(self, f0, control):
         print(f"\n\nIn forward")
