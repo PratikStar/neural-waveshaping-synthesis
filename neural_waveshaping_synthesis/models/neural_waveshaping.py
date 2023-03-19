@@ -22,9 +22,8 @@ class ControlModule(nn.Module):
         self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
     def forward(self, x):
-        print("Invoking ControlModule")
-
-    x, _ = self.gru(x.transpose(1, 2))
+        print(f"Running ControlModule.forward")
+        x, _ = self.gru(x.transpose(1, 2))
         return self.proj(x.transpose(1, 2))
 
 
@@ -97,8 +96,7 @@ class NeuralWaveshaping(pl.LightningModule):
 
         x = self.render_exciter(f0_upsampled)
         print(f"x: {x.shape}")
-
-
+        
         control_embedding = self.get_embedding(control)
 
         x = self.newt(x, control_embedding)
