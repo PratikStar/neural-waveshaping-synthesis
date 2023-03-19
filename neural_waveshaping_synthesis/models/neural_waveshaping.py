@@ -62,7 +62,7 @@ class NeuralWaveshaping(pl.LightningModule):
         self.reverb = Reverb()
 
     def render_exciter(self, f0):
-        print(f"\tCalling Harmonic oscillator with f0[:, 0]")
+        print(f"\nCalling Harmonic oscillator with f0[:, 0]")
         sig = self.osc(f0[:, 0])
         print(f"sig: {sig.shape}")
         print(f"")
@@ -75,7 +75,7 @@ class NeuralWaveshaping(pl.LightningModule):
         return self.embedding(control)
 
     def forward(self, f0, control):
-        print(f"\nIn forward")
+        print(f"\n\nIn forward")
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear")
