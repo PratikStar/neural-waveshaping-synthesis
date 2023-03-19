@@ -72,6 +72,7 @@ class NeuralWaveshaping(pl.LightningModule):
         return sig
 
     def get_embedding(self, control):
+        print(f"\n In get_embedding")
         f0, other = control[:, 0:1], control[:, 1:2]
         control = torch.cat((f0, other), dim=1)
         return self.embedding(control)
@@ -80,7 +81,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"\n\nIn forward")
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
-        
+
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear")
         print(f"f0_upsampled: {f0_upsampled.shape}")
 
