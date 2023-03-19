@@ -68,6 +68,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"Calling Harmonic Mixer")
         sig = self.harmonic_mixer(sig)
         print(f"sig: {sig.shape}")
+        print(f"Returning from render_exciter\n")
         return sig
 
     def get_embedding(self, control):
