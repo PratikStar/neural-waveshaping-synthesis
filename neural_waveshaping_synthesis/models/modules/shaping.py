@@ -86,6 +86,7 @@ class NEWT(nn.Module):
 
         print("Calling waveshaping_index with exciter, gamma_index, beta_index")
         x = self.waveshaping_index(exciter, gamma_index, beta_index)
+        print(f"x: {x.shape}")
         x = self.shaping_fn(x)
         x = self.normalising_coeff(x, gamma_norm, beta_norm)
 
