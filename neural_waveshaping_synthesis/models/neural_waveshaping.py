@@ -143,6 +143,9 @@ class NeuralWaveshaping(pl.LightningModule):
 
         recon = self(f0, control)
 
+        print(f"recon: {recon.shape}")
+        print(f"audio: {audio.shape}")
+
         loss = self.stft_loss(recon, audio)
         return loss, recon, audio
 
