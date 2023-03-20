@@ -85,7 +85,7 @@ class NeuralWaveshaping(pl.LightningModule):
 
         return control_embedding
 
-    def forward(self, f0, control):
+    def forward(self, f0, control): # control is 19 dimensional
         print(f"\n\nIn forward")
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
