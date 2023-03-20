@@ -66,6 +66,8 @@ class NEWT(nn.Module):
 
     def forward(self, exciter, control_embedding):
         print(f"\nIn NEWT forward")
+        print(f"exciter: {exciter.shape}")
+        print(f"control_embedding: {control_embedding.shape}")
         film_params = self.mlp(control_embedding)
         print(f"After TimeDistributedMLP: {film_params.shape}")
 
