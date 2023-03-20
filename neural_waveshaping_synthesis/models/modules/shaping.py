@@ -98,6 +98,7 @@ class NEWT(nn.Module):
         # return x
         print("Calling mixer")
         x = self.mixer(x)
+        print(f"\t{x.shape}")
         return x
 
 
