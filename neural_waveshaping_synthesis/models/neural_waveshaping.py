@@ -66,8 +66,8 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"\nCalling Harmonic oscillator with f0_upsampled[:, 0]")
         sig = self.osc(f0[:, 0])
         print(f"signal returned by harmonic oscillator: {sig.shape}")
-        
-        print(f"Calling Harmonic Mixer")
+
+        print(f"Calling Harmonic Mixer, applying Conv1d on harmonic spectrum")
         sig = self.harmonic_mixer(sig)
         print(f"sig: {sig.shape}")
         print(f"Returning from render_exciter\n")
