@@ -96,7 +96,8 @@ class NEWT(nn.Module):
         print("")
 
         # return x
-        return self.mixer(x)
+        x = self.mixer(x)
+        return x
 
 
 class FastNEWT(NEWT):
