@@ -77,9 +77,10 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"\n In get_embedding")
         print("splitting control in f0 and other")
         f0, other = control[:, 0:1], control[:, 1:2]
-        print("Doing control = torch.cat((f0, other), dim=1)")
+        print(f"f0: {f0.shape}")
+        print(f"other: {other.shape}")
         control = torch.cat((f0, other), dim=1)
-        print(f"control: {control.shape}")
+        print(f"concatenating f0 and other: {control.shape}")
         print("Invoking ControlModule")
         control_embedding = self.embedding(control)
         print(f"control_embedding: {control_embedding.shape}")
