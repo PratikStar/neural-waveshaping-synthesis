@@ -90,8 +90,9 @@ class NEWT(nn.Module):
         print("Calling TrainableNonlinearity")
         x = self.shaping_fn(x)
         print(f"\t{x.shape}")
-        
+        print("Calling normalising_coeff")
         x = self.normalising_coeff(x, gamma_norm, beta_norm)
+        print(f"\t{x.shape}")
         print("")
 
         # return x
