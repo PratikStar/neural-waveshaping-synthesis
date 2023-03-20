@@ -118,9 +118,9 @@ class NeuralWaveshaping(pl.LightningModule):
         x = x.sum(1)
         print(f"x.sum(1) -->: {x.shape}")
 
-        print("Calling reverb")
-        x = self.reverb(x)
-        print(f"x: {x.shape}")
+        # print("Calling reverb")
+        # x = self.reverb(x)
+        # print(f"x: {x.shape}")
 
         return x
 
