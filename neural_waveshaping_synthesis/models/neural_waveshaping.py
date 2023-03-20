@@ -100,7 +100,7 @@ class NeuralWaveshaping(pl.LightningModule):
 
         control_embedding = self.get_embedding(control)
 
-        print(f"Invoking NEWT with x and control_embedding")
+        print(f"\nInvoking NEWT with x and control_embedding")
         x = self.newt(x, control_embedding)
         print(f"NEWT returns, x: {x.shape}")
 
