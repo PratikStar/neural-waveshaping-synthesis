@@ -76,7 +76,11 @@ class NEWT(nn.Module):
         gamma_index, beta_index, gamma_norm, beta_norm = torch.split(
             film_params, self.n_waveshapers, 1
         )
-        print(f"")
+        print(f"gamma_index: {gamma_index.shape}")
+        print(f"beta_index: {beta_index.shape}")
+        print(f"gamma_norm: {gamma_norm.shape}")
+        print(f"beta_norm: {beta_norm.shape}")
+
 
         x = self.waveshaping_index(exciter, gamma_index, beta_index)
         x = self.shaping_fn(x)
