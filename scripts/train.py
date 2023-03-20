@@ -69,7 +69,7 @@ def main(
         logger = pl.loggers.WandbLogger(project="nws")
         logger.watch(model, log="all")
 
-
+    print(f"data: {data.}")
     kwargs = trainer_kwargs()
     trainer = pl.Trainer(
         logger=logger if with_wandb else None,
