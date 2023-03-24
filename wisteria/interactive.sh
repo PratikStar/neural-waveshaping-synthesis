@@ -17,6 +17,6 @@ echo "======================"
 
 python scripts/create_dataset.py \
 --gin-file gin/data/urmp_4second_crepe.gin \
---data-directory /work/gk77/k77021/data/timbre/monophonic-4secchunks \
+--data-directory /work/gk77/k77021/data/timbre/monophonic-4secchunks-di_f0-44032hz \
 --output-directory /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz \
 --device cuda:0
