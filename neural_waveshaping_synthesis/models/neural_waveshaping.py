@@ -26,7 +26,9 @@ class ControlModule(nn.Module):
         print(f"{x.shape}")
         x, _ = self.gru(x.transpose(1, 2))
         print(f"{x.shape}")
-        return self.proj(x.transpose(1, 2))
+        x = self.proj(x.transpose(1, 2))
+        print(f"{x.shape}")
+        return x
 
 
 @gin.configurable
