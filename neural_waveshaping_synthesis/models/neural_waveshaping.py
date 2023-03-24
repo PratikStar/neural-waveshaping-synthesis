@@ -23,8 +23,9 @@ class ControlModule(nn.Module):
 
     def forward(self, x):
         print(f"Running ControlModule.forward")
-        print(f"x.shape")
+        print(f"{x.shape}")
         x, _ = self.gru(x.transpose(1, 2))
+        print(f"{x.shape}")
         return self.proj(x.transpose(1, 2))
 
 
