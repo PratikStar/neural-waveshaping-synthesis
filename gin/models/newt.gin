@@ -1,4 +1,4 @@
-sample_rate = 32000
+sample_rate = 44000
 
 control_embedding_size = 128
 n_waveshapers = 64
