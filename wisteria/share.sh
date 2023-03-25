@@ -26,6 +26,6 @@ echo "======================"
 
 python scripts/train.py \
   --gin-file gin/train/train_newt.gin \
-  --dataset-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-32khz \
-  --checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-32khz \
+  --dataset-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz \
+  --checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz \
   --load-data-to-memory

@@ -17,7 +17,7 @@ rsync -avz "/Users/pratik/Downloads/monophonic-4secchunks-di_f0" w:/work/gk77/k7
 # from wisteria
 rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
 
-rsync -av w:/work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz/checkpoints/last.ckpt "/Users/pratik/Downloads" 
+rsync -av w:/work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz/checkpoints "/Users/pratik/Downloads/nws/monophonic-4secchunks-di_f0-44032hz" 
 
 # GCP
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
@@ -29,4 +29,3 @@ python scripts/train.py \
 --dataset-path /root/data/nws/monophonic-4secchunks-di_f0 \
 --checkpoint-path /root/data/nws/monophonic-4secchunks-di_f0 \
 --load-data-to-memory
-
