@@ -3,6 +3,7 @@ import gin
 import pytorch_lightning as pl
 import os
 
+import torch
 from neural_waveshaping_synthesis.data.general import GeneralDataModule
 from neural_waveshaping_synthesis.data.urmp import URMPDataModule
 from neural_waveshaping_synthesis.models.neural_waveshaping import NeuralWaveshaping
@@ -27,20 +28,35 @@ def trainer_kwargs(**kwargs):
 @click.option("--instrument", default="vn")
 @click.option("--load-data-to-memory", is_flag=True)
 @click.option("--with-wandb", is_flag=True, default=True)
-@click.option("--restore-checkpoint", default="")
+@click.option("--restore-checkpoint", is_flag=True, default=True)
 def main(
-    gin_file,
-    dataset_path,
-    checkpoint_path,
-    urmp,
-    device,
-    instrument,
-    load_data_to_memory,
-    with_wandb,
-    restore_checkpoint,
+        gin_file,
+        dataset_path,
+        checkpoint_path,
+        urmp,
+        device,
+        instrument,
+        load_data_to_memory,
+        with_wandb,
+        restore_checkpoint,
 ):
     gin.parse_config_file(gin_file)
+
+    print(f"torch: {torch.__version__}")
+    print(f"CUDA #devices: {torch.cuda.device_count()}")
+    device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
+    print(f"Device: {device}")
+
     model = get_model(with_wandb=with_wandb)
+
+    if restore_checkpoint:
+        print(f"Loading model from {checkpoint_path}")
+        model = NeuralWaveshaping.load_from_checkpoint(
+            checkpoint_path=os.path.join(checkpoint_path, "checkpoints", "last.ckpt"),
+            map_location=torch.device(device))
+        print(f"Epoch: {model.current_epoch}")
+        print(f"Step: {model.global_step}")
+        print(f"")
 
     if urmp:
         data = URMPDataModule(
