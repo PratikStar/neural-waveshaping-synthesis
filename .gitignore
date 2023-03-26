@@ -170,3 +170,4 @@ lightning_logs/*
 *.wav
 neural-timbre-shaping
 *.webm
+.idea

@@ -59,6 +59,7 @@ def main(
         print(f"")
 
     if urmp:
+        print("DataModule is URMP")
         data = URMPDataModule(
             dataset_path,
             instrument,

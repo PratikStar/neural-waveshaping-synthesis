@@ -26,9 +26,9 @@ class ControlModule(nn.Module):
         print(f"{x.shape}")
         x, _ = self.gru(x.transpose(1, 2))
         print(f"{x.shape}")
-        x = self.proj(x.transpose(1, 2))
-        print(f"{x.shape}")
-        return x
+        y = self.proj(x.transpose(1, 2))
+        print(f"{y.shape}")
+        return y, x
 
 
 @gin.configurable
@@ -87,10 +87,11 @@ class NeuralWaveshaping(pl.LightningModule):
         control = torch.cat((f0, other), dim=1)
         print(f"concatenating f0 and other, control: {control.shape}")
         print("Invoking ControlModule with control")
-        control_embedding = self.embedding(control)
+        control_embedding, gru_embedding = self.embedding(control)
         print(f"control_embedding: {control_embedding.shape}")
+        print(f"gru_embedding: {gru_embedding.shape}")
 
-        return control_embedding
+        return control_embedding, gru_embedding
 
     def forward(self, f0, control): # control is 19 dimensional: 1f0, 1 loudness, 1 confidence, 16mfcc
         print(f"\n\nIn forward")
@@ -103,7 +104,7 @@ class NeuralWaveshaping(pl.LightningModule):
         x = self.render_exciter(f0_upsampled)
         print(f"x: {x.shape}")
 
-        control_embedding = self.get_embedding(control)
+        control_embedding, gru_embedding = self.get_embedding(control)
 
         print(f"\nInvoking NEWT with x and control_embedding")
         x = self.newt(x, control_embedding)
@@ -126,7 +127,7 @@ class NeuralWaveshaping(pl.LightningModule):
         # x = self.reverb(x)
         # print(f"x: {x.shape}")
 
-        return x
+        return x, gru_embedding
 
     def configure_optimizers(self):
         self.stft_loss = auraloss.freq.MultiResolutionSTFTLoss()
@@ -145,7 +146,7 @@ class NeuralWaveshaping(pl.LightningModule):
         f0 = batch["f0"].float()
         control = batch["control"].float()
 
-        recon = self(f0, control)
+        recon, gru_embedding = self(f0, control)
 
         print(f"recon: {recon.shape}")
         print(f"audio: {audio.shape}")
