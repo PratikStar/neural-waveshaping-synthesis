@@ -14,7 +14,7 @@ from .mfcc_extraction import extract_mfcc
 from ...utils import apply, apply_unpack, unzip
 
 di_f0_estimates = {}
-
+f0_shape = None
 
 def read_audio_files(files: list):
     rates_and_audios = apply(wavfile.read, files)
@@ -109,9 +109,11 @@ def preprocess_single_audio_file(
     loudness_extractor: Callable = extract_perceptual_loudness,
     mfcc_extractor: Callable = extract_mfcc,
     normalisation_factor: Union[float, None] = None,
-    f0_from_di: bool = False
+    f0_from_di: bool = False,
+    f0_hardcode: bool = False,
+    f0_hardcoded: float = 440
 ):
-    global di_f0_estimates
+    global di_f0_estimates, f0_shape
     print("\nLoading audio file: %s..." % file)
     original_sr, audio = wavfile.read(file)
     print(f"sr: {original_sr}, {audio.shape}")
@@ -125,8 +127,21 @@ def preprocess_single_audio_file(
     print(f"audio.shape: {audio.shape}")
 
     audio = resample_audio(audio, original_sr, target_sr)
+    print(f"resampled audio: {audio.shape}")
 
-    if f0_from_di:
+    audio = audio[int(0.05 * target_sr): int(1.05 * target_sr)]
+    print(f"cut audio: {audio.shape}")
+
+    if f0_hardcode:
+        print("Getting the Hardcoded f0")
+        if f0_shape is None:
+            f0_sample, _ = f0_extractor(audio=audio)
+            f0_shape = f0_sample.shape
+
+        f0 = np.asarray([f0_hardcoded for i in range(f0_shape[0])])
+        confidence = np.asarray([100 for i in range(f0_shape[0])])
+    elif f0_from_di:
+        print("Getting F0 from DI")
         file = Path(file)
         di_file = file.parent / f"09A DI - {file.name.split()[-1].split('.')[0]}.wav"
         if not di_file.exists():
@@ -158,6 +173,7 @@ def preprocess_single_audio_file(
         f0, confidence = f0_extractor(audio=audio)
 
     print(f"f0.shape: {f0.shape}")
+    print(f"confidence.shape: {confidence.shape}")
 
     print(f"%samples with conf 0.95 <= i < 1.00: {len([i for i in confidence if 0.95 <= i < 1.00])/len(confidence)*100}%")
     print(f"%samples with conf 0.90 <= i < 0.95: {len([i for i in confidence if 0.90 <= i < 0.95]) / len(confidence) * 100}%")
@@ -268,7 +284,9 @@ def preprocess_audio(
     f0_extractor: Callable = extract_f0_with_crepe,
     loudness_extractor: Callable = extract_perceptual_loudness,
     normalise_audio: bool = False,
-    f0_from_di: bool = True
+    f0_from_di: bool = False,
+    f0_hardcode: bool = False,
+    f0_hardcoded: float = 440
 ):
     if normalise_audio:
         print("Finding normalisation factor...")
@@ -294,7 +312,9 @@ def preprocess_audio(
         f0_extractor=f0_extractor,
         loudness_extractor=loudness_extractor,
         normalisation_factor=None if not normalise_audio else normalisation_factor,
-        f0_from_di=f0_from_di
+        f0_from_di=f0_from_di,
+        f0_hardcode=f0_hardcode,
+        f0_hardcoded=f0_hardcoded
     )
     for file in files:
         yield processor(file)

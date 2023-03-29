@@ -1,4 +1,4 @@
-sample_rate = 44032
+sample_rate = 16000
 
 control_embedding_size = 128
 n_waveshapers = 64
@@ -16,6 +16,7 @@ TrainableNonlinearity.depth = 4
 ControlModule.control_size = 2
 ControlModule.hidden_size = 128
 ControlModule.embedding_size = %control_embedding_size
+ControlModule.embedding_strategy = 'GRU_LAST'
 
 noise_synth/TimeDistributedMLP.in_size = %control_embedding_size
 noise_synth/TimeDistributedMLP.hidden_size = %control_embedding_size

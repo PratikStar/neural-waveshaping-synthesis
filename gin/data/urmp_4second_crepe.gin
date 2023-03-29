@@ -1,4 +1,4 @@
-sample_rate = 44032
+sample_rate = 16000
 interpolation = None
 control_hop = 128
 
@@ -25,7 +25,9 @@ preprocess_audio.segment_length_in_seconds = 1
 preprocess_audio.hop_length_in_seconds = 1
 preprocess_audio.normalise_audio = True
 preprocess_audio.control_decimation_factor = %control_hop
-preprocess_audio.f0_from_di = True
+# preprocess_audio.f0_from_di = True
+preprocess_audio.f0_hardcode = True
+preprocess_audio.f0_hardcoded = 440
 
 
 preprocess_audio.confidence_threshold = 0.65

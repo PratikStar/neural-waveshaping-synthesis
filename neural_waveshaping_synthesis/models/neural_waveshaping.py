@@ -16,16 +16,29 @@ gin.external_configurable(nn.Conv1d, module="torch.nn")
 
 @gin.configurable
 class ControlModule(nn.Module):
-    def __init__(self, control_size: int, hidden_size: int, embedding_size: int):
+    def __init__(self, control_size: int, hidden_size: int, embedding_size: int, embedding_strategy: str = "NONE"):
         super().__init__()
+        self.embedding_strategy = embedding_strategy
         self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
         self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
     def forward(self, x):
         print(f"Running ControlModule.forward")
+        print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"{x.shape}")
         x, _ = self.gru(x.transpose(1, 2))
         print(f"{x.shape}")
+
+        if self.embedding_strategy == "GRU_LAST":
+            for b in range(x.shape[0]):
+                z = x[b, -1, :]
+                z = z.repeat(x.shape[1], 1)
+                x[b, :, :] = z
+            print(f"GRU_LAST control embedding shape: {x.shape}")
+
+        else:
+            pass
+
         y = self.proj(x.transpose(1, 2))
         print(f"{y.shape}")
         return y, x

@@ -11,8 +11,12 @@ cd /Users/pratik/data/A_sharp_3
 rsync -avz "/Users/pratik/data/A_sharp_3" w:/work/gk77/k77021/data
 rsync -avz "/Users/pratik/data/single_note_distorted" w:/work/gk77/k77021/data
 rsync -avz "/Users/pratik/data/di_1_one_clip" w:/work/gk77/k77021/data
-
 rsync -avz "/Users/pratik/Downloads/monophonic-4secchunks-di_f0" w:/work/gk77/k77021/nws
+
+rsync -avz "/Users/pratik/data/timbre_A4" w:/work/gk77/k77021/data
+
+# Rsync checkpoints and data
+rsync -avz w:/work/gk77/k77021/nws "/Users/pratik"
 
 # from wisteria
 rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"

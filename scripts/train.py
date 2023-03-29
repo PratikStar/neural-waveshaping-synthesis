@@ -23,12 +23,12 @@ def trainer_kwargs(**kwargs):
 @click.option("--gin-file", prompt="Gin config file")
 @click.option("--dataset-path", prompt="Dataset root")
 @click.option("--checkpoint-path", prompt="Dataset root")
-@click.option("--urmp", is_flag=True)
+@click.option("--urmp", is_flag=False)
 @click.option("--device", default="0")
 @click.option("--instrument", default="vn")
 @click.option("--load-data-to-memory", is_flag=True)
 @click.option("--with-wandb", is_flag=True, default=True)
-@click.option("--restore-checkpoint", is_flag=True, default=True)
+@click.option("--restore-checkpoint", is_flag=True, default=False)
 def main(
         gin_file,
         dataset_path,

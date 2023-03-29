@@ -1,7 +1,7 @@
 #!/bin/bash
 #PJM -g gk77
 #PJM -L rscgrp=share-interactive
-#PJM -N nws_data_all
+#PJM -N nws_onenote
 #PJM -j
 
 source /work/01/gk77/k77021/.bashrc
@@ -17,13 +17,14 @@ echo "======================"
 
 #python scripts/create_dataset.py \
 #--gin-file gin/data/urmp_4second_crepe.gin \
-#--data-directory /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz \
-#--output-directory /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz \
+#--data-directory /work/gk77/k77021/data/timbre_A4 \
+#--output-directory /work/gk77/k77021/nws/timbre_A4-16k-f0_hardcoded \
 #--device cuda:0
 
 
 python scripts/train.py \
   --gin-file gin/train/train_newt.gin \
-  --dataset-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz \
-  --checkpoint-path /work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz \
-  --load-data-to-memory
+  --dataset-path /work/gk77/k77021/nws/timbre_A4-16k-f0_hardcoded \
+  --checkpoint-path /work/gk77/k77021/nws/timbre_A4-16k-f0_hardcoded \
+  --load-data-to-memory \
+  --restore-checkpoint
