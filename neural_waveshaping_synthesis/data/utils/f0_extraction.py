@@ -24,6 +24,8 @@ def extract_f0_with_crepe(
         interpolate_fn: Optional[Callable] = linear_interpolation,
 ):
     # convert to torch tensor with channel dimension (necessary for CREPE)
+    print(f"In extract_f0_with_crepe, audio: {audio.shape}, sample_rate: {sample_rate}, hop_length: {hop_length}, interpolate_fn: {interpolate_fn}")
+
     audio = torch.tensor(audio).unsqueeze(0)
     f0, confidence = torchcrepe.predict(
         audio,
@@ -40,6 +42,7 @@ def extract_f0_with_crepe(
     )
 
     f0, confidence = f0.squeeze().numpy(), confidence.squeeze().numpy()
+    print(f"f0: {f0.shape}")
 
     if interpolate_fn:
         f0 = interpolate_fn(
