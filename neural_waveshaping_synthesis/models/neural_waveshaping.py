@@ -26,7 +26,7 @@ class ControlModule(nn.Module):
         print(f"Running ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"{x.shape}")
-        print(f"before GRU: {x[0,1,:10].detach().cpu().numpy()}")
+        # print(f"before GRU: {x[0,1,:10].detach().cpu().numpy()}")
         x, _ = self.gru(x.transpose(1, 2))
         print(f"{x.shape}")
         print(x[0,1,:10].detach().cpu().numpy())
