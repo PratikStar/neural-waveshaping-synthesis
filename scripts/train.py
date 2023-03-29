@@ -41,7 +41,7 @@ def main(
         restore_checkpoint,
 ):
     gin.parse_config_file(gin_file)
-
+    torch.autograd.set_detect_anomaly(True)
     print(f"torch: {torch.__version__}")
     print(f"CUDA #devices: {torch.cuda.device_count()}")
     device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'

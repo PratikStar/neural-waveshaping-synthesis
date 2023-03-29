@@ -129,8 +129,10 @@ def preprocess_single_audio_file(
     audio = resample_audio(audio, original_sr, target_sr)
     print(f"resampled audio: {audio.shape}")
 
-    audio = audio[int(0.05 * target_sr): int(1.05 * target_sr)]
-    print(f"cut audio: {audio.shape}")
+    if f0_hardcode:
+        print("NOTICE XXX, THIS IS FOR SINGLE NOTE DATASET!!!")
+        audio = audio[int(0.05 * target_sr): int(1.05 * target_sr)]
+        print(f"cut audio: {audio.shape}")
 
     if f0_hardcode:
         print("Getting the Hardcoded f0")
@@ -186,6 +188,7 @@ def preprocess_single_audio_file(
         % (loudness_extractor.__name__, file)
     )
     loudness = loudness_extractor(audio)
+    print(f"loudness: {loudness.shape}")
 
     print(
         "Extracting MFCC with extractor '%s': %s..." % (mfcc_extractor.__name__, file)

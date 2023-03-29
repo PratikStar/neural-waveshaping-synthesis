@@ -30,12 +30,18 @@ class ControlModule(nn.Module):
         print(f"{x.shape}")
 
         if self.embedding_strategy == "GRU_LAST":
+            x_tmp = []
             for b in range(x.shape[0]):
+                print(f"batch: {b}")
                 z = x[b, -1, :]
+                # print(f"last embedding: {z}\n")
                 z = z.repeat(x.shape[1], 1)
-                x[b, :, :] = z
+                x_tmp.append(z)
+            x = torch.stack(x_tmp)
             print(f"GRU_LAST control embedding shape: {x.shape}")
-
+            print(x[0,1,:10])
+            print(x[0,35,:10])
+            print(x[0,133,:10])
         else:
             pass
 
