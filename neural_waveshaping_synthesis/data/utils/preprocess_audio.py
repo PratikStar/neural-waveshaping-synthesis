@@ -144,9 +144,9 @@ def preprocess_single_audio_file(
         confidence = np.asarray([100 for i in range(f0_shape[0])])
 
     elif f0_from_di:
-        print("Getting F0 from DI")
+        print("Getting F0 from DI. NOTICE THE DI FILE LOGIC!!!")
         file = Path(file)
-        di_file = file.parent / f"09A DI - {file.name.split()[-1].split('.')[0]}.wav"
+        di_file = file.parent / "A4_half.wav"
         if not di_file.exists():
             raise Exception(f"DI not found at {di_file}")
 
