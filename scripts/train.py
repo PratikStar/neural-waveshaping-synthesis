@@ -78,7 +78,7 @@ def main(
     checkpointing = pl.callbacks.ModelCheckpoint(
         monitor="val/loss", save_top_k=10, save_last=True,
         dirpath=os.path.join(checkpoint_path, "checkpoints"),
-        every_n_epochs=20
+        # every_n_epochs=20
     )
     callbacks = [checkpointing]
     if with_wandb:

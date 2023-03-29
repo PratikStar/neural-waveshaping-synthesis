@@ -27,11 +27,29 @@ rsync -av w:/work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz/checkpoint
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
 gcloud compute scp ~/Downloads/monophonic-4secchunks-di_f0-20230318T164941Z-001.zip instance-3:/home/pratik --zone us-west1-b
 
-gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
+gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
+```shell
+sudo su
+apt-get install git wget
+# install miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
+wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh
+bash Miniconda3<tab>
+source /root/.bashrc
+pip install --upgrade pip
+
+ssh-keygen
+<add key to github>
+git clone git@github.com:PratikStar/neural-waveshaping-synthesis.git
+cd neural-waveshaping-synthesis
+pip install .
+pip install -r requirements.txt
+
+gcloud compute scp /Users/pratik/nws/timbre_A4-16k-f0_hardcoded instance-gpu2:/home/pratik/nws --zone us-east4-c --recurse --compress
 
 
+```
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
---dataset-path /root/data/nws/monophonic-4secchunks-di_f0 \
---checkpoint-path /root/data/nws/monophonic-4secchunks-di_f0 \
+--dataset-path /root/nws/timbre_A4 \
+--checkpoint-path /root/nws/timbre_A4 \
 --load-data-to-memory
