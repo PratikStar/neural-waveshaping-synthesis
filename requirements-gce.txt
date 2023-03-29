@@ -258,7 +258,6 @@ prophet==1.1.2
 proto-plus==1.22.2
 protobuf==3.19.6
 psutil==5.9.4
-psycopg2==2.9.5
 ptyprocess==0.7.0
 py4j==0.10.9.7
 pyarrow==9.0.0
