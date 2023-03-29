@@ -42,7 +42,7 @@ pip install --upgrade pip
 gcloud compute scp /Users/pratik/nws/timbre_A4-16k-f0_hardcoded instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded --zone us-east4-c --recurse --compress
 
 #data
-gcloud compute scp /Users/pratik/nws/timbre_A4-16k-f0_hardcoded instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded --zone us-east4-c --recurse --compress
+gcloud compute scp /Users/pratik/data/timbre_A4 instance-gpu2:/home/pratik/data/timbre_A4 --zone us-east4-c --recurse --compress
 
 ssh-keygen
 <add key to github>
