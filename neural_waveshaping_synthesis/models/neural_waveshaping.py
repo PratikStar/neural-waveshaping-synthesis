@@ -29,8 +29,8 @@ class ControlModule(nn.Module):
         x, _ = self.gru(x.transpose(1, 2))
         print(f"{x.shape}")
         print(x[0,1,:10].detach().cpu().numpy())
-        print(x[0,2,:10].detach().cpu().numpy())
-        print(x[0,3,:10].detach().cpu().numpy())
+        print(x[0,2,:10].detach().numpy())
+        print(x[0,3,:10])
 
         if self.embedding_strategy == "GRU_LAST":
             x_tmp = []
