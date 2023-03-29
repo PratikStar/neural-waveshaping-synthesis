@@ -40,8 +40,8 @@ class ControlModule(nn.Module):
             x = torch.stack(x_tmp)
             print(f"GRU_LAST control embedding shape: {x.shape}")
             print(x[0,1,:10])
-            print(x[0,35,:10])
-            print(x[0,133,:10])
+            print(x[0,2,:10])
+            print(x[0,3,:10])
         else:
             pass
 
