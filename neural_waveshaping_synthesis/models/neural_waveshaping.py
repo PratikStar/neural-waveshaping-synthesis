@@ -26,6 +26,7 @@ class ControlModule(nn.Module):
         print(f"Running ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"{x.shape}")
+        print(f"before GRU: {x[0,1,:10].detach().cpu().numpy()}")
         x, _ = self.gru(x.transpose(1, 2))
         print(f"{x.shape}")
         print(x[0,1,:10].detach().cpu().numpy())
@@ -111,6 +112,8 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"other: {other.shape}")
         control = torch.cat((f0, other), dim=1)
         print(f"concatenating f0 and other, control: {control.shape}")
+        print(f"control: {control[0,0,:10].detach().cpu().numpy()}")
+
         print("Invoking ControlModule with control")
         control_embedding, gru_embedding = self.embedding(control)
         print(f"control_embedding: {control_embedding.shape}")
