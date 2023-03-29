@@ -1,5 +1,7 @@
 
 `
+watch -n60 ./watch-acp.sh
+
 # 1. Rsync repo
 cd /Users/pratik/repos/neural-waveshaping-synthesis
 watch -d -n5 "rsync -av --exclude-from=\".rsyncignore_upload\" \"/Users/pratik/repos/neural-waveshaping-synthesis\" w:/work/gk77/k77021/repos"
