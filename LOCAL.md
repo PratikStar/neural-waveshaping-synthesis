@@ -37,19 +37,23 @@ bash Miniconda3<tab>
 source /root/.bashrc
 pip install --upgrade pip
 
+gcloud compute scp /Users/pratik/nws/timbre_A4-16k-f0_hardcoded instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded --zone us-east4-c --recurse --compress
+
 ssh-keygen
 <add key to github>
 git clone git@github.com:PratikStar/neural-waveshaping-synthesis.git
 cd neural-waveshaping-synthesis
 pip install .
-pip install -r requirements.txt
-
-gcloud compute scp /Users/pratik/nws/timbre_A4-16k-f0_hardcoded instance-gpu2:/home/pratik/nws --zone us-east4-c --recurse --compress
+#pip install -r requirements.txt # DONT RUN THIS ON GCP!!
 
 
+<mv to root>
+conda create --name nws python=3.9.16
+conda activate nws
+pip install pytorch-lightning wandb torchcrepe auraloss librosa black gin-config
 ```
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
---dataset-path /root/nws/timbre_A4 \
---checkpoint-path /root/nws/timbre_A4 \
+--dataset-path /root/nws/timbre_A4-16k-f0_hardcoded \
+--checkpoint-path /root/nws/timbre_A4-16k-f0_hardcoded \
 --load-data-to-memory
