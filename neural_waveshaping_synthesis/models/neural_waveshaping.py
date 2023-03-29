@@ -43,12 +43,13 @@ class ControlModule(nn.Module):
                 x_tmp.append(z)
             x = torch.stack(x_tmp)
             print(f"GRU_LAST control embedding shape: {x.shape}")
+
             print(x[0,1,:10].detach().cpu().numpy())
             print(x[0,2,:10].detach().cpu().numpy())
             print(x[0,3,:10].detach().cpu().numpy())
-            # print(x[1,1,:10].detach().cpu().numpy())
-            # print(x[1,2,:10].detach().cpu().numpy())
-            # print(x[1,3,:10].detach().cpu().numpy())
+            print(x[1,1,:10].detach().cpu().numpy())
+            print(x[1,2,:10].detach().cpu().numpy())
+            print(x[1,3,:10].detach().cpu().numpy())
         else:
             pass
 
