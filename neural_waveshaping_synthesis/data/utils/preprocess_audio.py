@@ -142,6 +142,7 @@ def preprocess_single_audio_file(
 
         f0 = np.asarray([f0_hardcoded for i in range(f0_shape[0])])
         confidence = np.asarray([100 for i in range(f0_shape[0])])
+
     elif f0_from_di:
         print("Getting F0 from DI")
         file = Path(file)
