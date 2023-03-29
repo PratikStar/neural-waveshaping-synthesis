@@ -103,6 +103,10 @@ def lazy_create_dataset(
                 os.path.join(output_directory, "temp", "audio", audio_file_name),
                 audio,
             )
+            print("f0 is...")
+            print(f0)
+            print("loudness is...")
+            print(loudness)
             control = np.stack((f0, loudness, confidence), axis=0)
             control = np.concatenate((control, mfcc), axis=0)
             np.save(
