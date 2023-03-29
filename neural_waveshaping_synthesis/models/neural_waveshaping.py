@@ -42,6 +42,9 @@ class ControlModule(nn.Module):
             print(x[0,1,:10])
             print(x[0,2,:10])
             print(x[0,3,:10])
+            print(x[1,1,:10])
+            print(x[1,2,:10])
+            print(x[1,3,:10])
         else:
             pass
 
