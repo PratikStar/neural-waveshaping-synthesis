@@ -25,6 +25,9 @@ rsync -av w:/work/gk77/k77021/data/A_sharp_3 "/Users/pratik/Downloads"
 
 rsync -av w:/work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz/checkpoints "/Users/pratik/Downloads/nws/monophonic-4secchunks-di_f0-44032hz" 
 
+
+
+
 # GCP
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
 gcloud compute scp ~/Downloads/monophonic-4secchunks-di_f0-20230318T164941Z-001.zip instance-3:/home/pratik --zone us-west1-b
@@ -57,6 +60,13 @@ conda create --name nws python=3.9.16
 conda activate nws
 pip install pytorch-lightning wandb torchcrepe auraloss librosa black gin-config
 ```
+
+python scripts/create_dataset.py \
+--gin-file gin/data/urmp_4second_crepe.gin \
+--data-directory /work/gk77/k77021/data/timbre_A4 \
+--output-directory /work/gk77/k77021/nws/timbre_A4-16k-f0_hardcoded \
+--device cuda:0
+
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/nws/timbre_A4-16k-f0_hardcoded \
