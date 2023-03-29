@@ -31,7 +31,7 @@ class ControlModule(nn.Module):
         print(x[0,1,:10].detach().cpu().numpy())
         print(x[0,2,:10].detach().cpu().numpy())
         print(x[0,3,:10].detach().cpu().numpy())
-        
+
         if self.embedding_strategy == "GRU_LAST":
             x_tmp = []
             for b in range(x.shape[0]):
@@ -45,9 +45,9 @@ class ControlModule(nn.Module):
             print(x[0,1,:10].detach().cpu().numpy())
             print(x[0,2,:10].detach().cpu().numpy())
             print(x[0,3,:10].detach().cpu().numpy())
-            print(x[1,1,:10].detach().cpu().numpy())
-            print(x[1,2,:10].detach().cpu().numpy())
-            print(x[1,3,:10].detach().cpu().numpy())
+            # print(x[1,1,:10].detach().cpu().numpy())
+            # print(x[1,2,:10].detach().cpu().numpy())
+            # print(x[1,3,:10].detach().cpu().numpy())
         else:
             pass
 
