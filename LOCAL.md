@@ -71,4 +71,4 @@ python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/nws/timbre_A4-16k-f0_hardcoded \
 --checkpoint-path /root/nws/timbre_A4-16k-f0_hardcoded \
---load-data-to-memory
+--load-data-to-memory  >> ~/logs/timbre_A4-16k-f0_hardcoded_$(date +%Y%m%d_%H%M%S).log 2>&1 &
