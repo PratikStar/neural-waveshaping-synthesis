@@ -57,12 +57,9 @@ class ControlModule(nn.Module):
             # print(x[1,3,:10].detach().cpu().numpy())
         elif self.embedding_strategy == "FLATTEN_LINEAR":
 
-            flat = nn.Flatten(1,2)
-            b = flat(a)
-            b = b.unsqueeze(1)
-
-            m = nn.Linear(125*128, 128)
-
+            flattened_x = self.flatten(x)
+            flattened_x = flattened_x.unsqueeze(1)
+            z = self.linear_encode(flattened_x)
             conv = nn.Conv1d(1, 125, 1)
 
 
