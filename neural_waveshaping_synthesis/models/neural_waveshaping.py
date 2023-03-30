@@ -23,9 +23,9 @@ class ControlModule(nn.Module):
         self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
     def forward(self, x):
-        print(f"Running ControlModule.forward")
+        print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
-        print(f"{x.shape}")
+        print(f"Input to control module: {x.shape}")
         # print(f"before GRU: {x[0,1,:10].detach().cpu().numpy()}")
         x, _ = self.gru(x.transpose(1, 2))
         print(f"{x.shape}")
