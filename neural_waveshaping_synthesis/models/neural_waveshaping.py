@@ -22,7 +22,10 @@ class ControlModule(nn.Module):
         self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
         self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
-        self.flatten = nn.Flatten(1, 2)
+        if self.embedding_strategy == "FLATTEN_LINEAR":
+            self.flatten = nn.Flatten(1, 2)
+            self.linear_z = nn.Linear()
+
     def forward(self, x):
         print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
