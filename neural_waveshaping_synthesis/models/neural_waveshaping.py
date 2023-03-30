@@ -16,7 +16,7 @@ gin.external_configurable(nn.Conv1d, module="torch.nn")
 
 @gin.configurable
 class ControlModule(nn.Module):
-    def __init__(self, control_size: int, hidden_size: int, embedding_size: int, embedding_strategy: str = "NONE"):
+    def __init__(self, control_size: int, hidden_size: int, embedding_size: int, sample_rate, control_hop, embedding_strategy: str = "NONE"):
         super().__init__()
         self.embedding_strategy = embedding_strategy
         self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
