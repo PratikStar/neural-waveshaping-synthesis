@@ -60,7 +60,7 @@ class ControlModule(nn.Module):
             flattened_x = self.flatten(x)
             flattened_x = flattened_x.unsqueeze(1)
             z = self.linear_encode(flattened_x)
-            conv = nn.Conv1d(1, 125, 1)
+            x = self.con1d_decode(z)
 
 
         y = self.proj(x.transpose(1, 2))
