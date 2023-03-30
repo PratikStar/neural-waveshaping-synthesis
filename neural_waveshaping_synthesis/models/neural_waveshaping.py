@@ -54,7 +54,7 @@ class ControlModule(nn.Module):
             pass
 
         y = self.proj(x.transpose(1, 2))
-        print(f"{y.shape}")
+        print(f"After Cond1D: {y.shape}")
         return y, x
 
 
