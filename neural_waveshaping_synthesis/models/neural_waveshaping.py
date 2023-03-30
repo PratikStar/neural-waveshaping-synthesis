@@ -24,7 +24,7 @@ class ControlModule(nn.Module):
 
         if self.embedding_strategy == "FLATTEN_LINEAR":
             self.flatten = nn.Flatten(1, 2)
-            self.linear_z = nn.Linear(hidden_size, hidden_size)
+            self.linear_z = nn.Linear(hidden_size * , hidden_size)
 
     def forward(self, x):
         print(f"\nRunning ControlModule.forward")
