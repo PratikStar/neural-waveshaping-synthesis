@@ -68,6 +68,7 @@ def main(
             shuffle=True,
         )
     else:
+        print("DataModule is GeneralDataModule")
         data = GeneralDataModule(
             dataset_path,
             load_to_memory=load_data_to_memory,
