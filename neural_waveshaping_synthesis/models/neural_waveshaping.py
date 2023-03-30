@@ -59,8 +59,12 @@ class ControlModule(nn.Module):
 
             flattened_x = self.flatten(x)
             flattened_x = flattened_x.unsqueeze(1)
+            print(f"flattened_x: {flattened_x.shape}")
+
             z = self.linear_encode(flattened_x)
+            print(f"z: {z.shape}")
             x = self.con1d_decode(z)
+            print(f"con1d_decoded x: {x.shape}")
 
 
         y = self.proj(x.transpose(1, 2))
