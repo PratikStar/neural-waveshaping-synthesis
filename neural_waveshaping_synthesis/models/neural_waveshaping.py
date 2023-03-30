@@ -28,7 +28,7 @@ class ControlModule(nn.Module):
         print(f"Input to control module: {x.shape}")
         # print(f"before GRU: {x[0,1,:10].detach().cpu().numpy()}")
         x, _ = self.gru(x.transpose(1, 2))
-        print(f"{x.shape}")
+        print(f"After GRU: {x.shape}")
         print(x[0,1,:10].detach().cpu().numpy())
         print(x[0,2,:10].detach().cpu().numpy())
         print(x[0,3,:10].detach().cpu().numpy())
