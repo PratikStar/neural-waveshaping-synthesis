@@ -65,6 +65,8 @@ class ControlModule(nn.Module):
             print(f"z: {z.shape}")
             x = self.con1d_decode(z)
             print(f"con1d_decoded x: {x.shape}")
+        else:
+            pass
 
 
         y = self.proj(x.transpose(1, 2))
