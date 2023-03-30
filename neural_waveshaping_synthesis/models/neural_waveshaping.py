@@ -24,8 +24,8 @@ class ControlModule(nn.Module):
 
         if self.embedding_strategy == "FLATTEN_LINEAR":
             self.flatten = nn.Flatten(1, 2)
-            self.linear_encode = nn.Linear(hidden_size * sample_rate // control_hop , hidden_size)
-            self.con1d_decode = nn.Conv1d(1, * sample_rate // control_hop, kernel_size=1) # kernel size is hyperparam
+            self.linear_encode = nn.Linear(hidden_size * (sample_rate // control_hop) , hidden_size)
+            self.con1d_decode = nn.Conv1d(1, sample_rate // control_hop, kernel_size=1) # kernel size is hyperparam
 
     def forward(self, x):
         print(f"\nRunning ControlModule.forward")
