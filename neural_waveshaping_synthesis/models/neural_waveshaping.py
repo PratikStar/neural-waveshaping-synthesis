@@ -137,8 +137,10 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"x: {x[0,0,:10].detach().cpu().numpy()}")
 
         control_embedding, gru_embedding = self.get_embedding(control)
-        print(f"control_embedding: {control_embedding[0,0,:10].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0,1,:10].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0,:10,0].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0,:10,1].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0,:10,2].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0,:10,3].detach().cpu().numpy()}")
 
         print(f"\nInvoking NEWT with x and control_embedding")
         x = self.newt(x, control_embedding)
