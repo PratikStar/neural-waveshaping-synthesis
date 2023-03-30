@@ -22,6 +22,7 @@ class ControlModule(nn.Module):
         self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
         self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
+        self.flatten = nn.Flatten(1, 2)
     def forward(self, x):
         print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
@@ -50,8 +51,16 @@ class ControlModule(nn.Module):
             # print(x[1,1,:10].detach().cpu().numpy())
             # print(x[1,2,:10].detach().cpu().numpy())
             # print(x[1,3,:10].detach().cpu().numpy())
-        else:
-            pass
+        elif self.embedding_strategy == "FLATTEN_LINEAR":
+
+            flat = nn.Flatten(1,2)
+            b = flat(a)
+            b = b.unsqueeze(1)
+
+            m = nn.Linear(125*128, 128)
+
+            conv = nn.Conv1d(1, 125, 1)
+
 
         y = self.proj(x.transpose(1, 2))
         print(f"After Cond1D: {y.shape}")
