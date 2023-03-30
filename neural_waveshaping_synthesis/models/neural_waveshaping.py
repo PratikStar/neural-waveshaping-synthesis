@@ -36,7 +36,7 @@ class ControlModule(nn.Module):
         if self.embedding_strategy == "GRU_LAST":
             x_tmp = []
             for b in range(x.shape[0]):
-                print(f"batch: {b}")
+                # print(f"batch: {b}")
                 z = x[b, -1, :]
                 # print(f"last embedding: {z}\n")
                 z = z.repeat(x.shape[1], 1)
