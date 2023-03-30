@@ -57,6 +57,8 @@ def main(
         print(f"Epoch: {model.current_epoch}")
         print(f"Step: {model.global_step}")
         print(f"")
+    else:
+        print("NOT loading from checkpoint...")
 
     if urmp:
         print("DataModule is URMP")
