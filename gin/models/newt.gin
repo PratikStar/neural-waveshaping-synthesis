@@ -16,7 +16,7 @@ TrainableNonlinearity.depth = 4
 ControlModule.control_size = 2
 ControlModule.hidden_size = 128
 ControlModule.embedding_size = %control_embedding_size
-#ControlModule.embedding_strategy = 'GRU_LAST'
+ControlModule.embedding_strategy = 'FLATTEN_LINEAR'
 
 noise_synth/TimeDistributedMLP.in_size = %control_embedding_size
 noise_synth/TimeDistributedMLP.hidden_size = %control_embedding_size
