@@ -34,7 +34,7 @@ gcloud compute scp ~/Downloads/monophonic-4secchunks-di_f0-20230318T164941Z-001.
 
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
 
-gcloud compute scp /Users/pratik/data/half_notes_chromatic_data/wav/A4_half.wav instance-gpu2:/home/pratik/timbre_A4 --zone us-east4-c --recurse --compress
+gcloud compute scp instance-gpu2:/home/pratik/last-v3.ckpt /Users/pratik/nws/half_notes_chromatic_data/wav/A4_half.wav --zone us-east4-c --recurse --compress
 
 ```shell
 sudo su
