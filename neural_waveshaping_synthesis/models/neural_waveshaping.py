@@ -31,7 +31,7 @@ class ControlModule(nn.Module):
         self.sample_rate = sample_rate
         self.control_hop = control_hop
 
-        if self.embedding_strategy in ["NONE", "GRU_LAST", "FLATTEN_LINEAR"]:
+        if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
@@ -48,18 +48,25 @@ class ControlModule(nn.Module):
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
         elif self.embedding_strategy == "FLATTEN_LINEAR":
+            self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
+            self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
             self.flatten = nn.Flatten(1, 2)
             self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // self.control_hop) , hidden_size)
             self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop, kernel_size=1) # kernel size is hyperparam
         else:
             print("Please provide a correct embedding_strategy!!")
-            
+
 
     def forward(self, x):
         print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"Input to control module: {x.shape}")
 
+        if self.embedding_strategy == "NONE":
+            x, _ = self.gru(x.transpose(1, 2))
+            print(f"After GRU: {x.shape}")
+            print(x[0, 1, :10].detach().cpu().numpy())
+            print(x[0, 2, :10].detach().cpu().numpy())
         if self.embedding_strategy == "GRU_LAST":
             x, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU: {x.shape}")
