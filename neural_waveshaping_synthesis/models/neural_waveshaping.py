@@ -104,9 +104,11 @@ class ControlModule(nn.Module):
             print(f"flattened_x (for z_static): {flattened_x.shape}")
 
             z_static = self.linear_encode(flattened_x)
-            print(f"After linear encode: {z_static.shape}")
+            print(f"z_static After linear encode: {z_static.shape}")
 
             z_static = z_static.repeat(1, self.sample_rate // self.control_hop, 1)
+            print(f"z_static After repeat: {z_static.shape}")
+            print(f"z_static After repeat: {z_static.shape}")
 
         else:
             pass
