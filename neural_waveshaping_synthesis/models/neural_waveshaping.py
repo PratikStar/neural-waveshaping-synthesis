@@ -112,11 +112,8 @@ class ControlModule(nn.Module):
             print(z_static[0,1,:10].detach().cpu().numpy())
 
             x = torch.cat((z_dynamic, z_static), 2)
-
-
         else:
             pass
-
 
         y = self.proj(x.transpose(1, 2))
         print(f"After Cond1D: {y.shape}")
