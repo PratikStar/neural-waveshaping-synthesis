@@ -98,6 +98,7 @@ def main(
         # resume_from_checkpoint=restore_checkpoint if restore_checkpoint != "" else None,
         **kwargs
     )
+    wandb.watch(model)
     trainer.fit(model, data)
 
 
