@@ -35,6 +35,13 @@ class ControlModule(nn.Module):
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
+        elif self.embedding_strategy == "FLATTEN_LINEAR":
+            self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
+            self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
+            self.flatten = nn.Flatten(1, 2)
+            self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // self.control_hop) , hidden_size)
+            self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop, kernel_size=1) # kernel size is hyperparam
+
         elif self.embedding_strategy == "STATIC_DYNAMIC_Z":
             self.z_dynamic_size = z_dynamic_size
             self.z_static_size = z_static_size
@@ -43,16 +50,8 @@ class ControlModule(nn.Module):
             # static
             self.flatten = nn.Flatten(1, 2)
             self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
-
-
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
-        elif self.embedding_strategy == "FLATTEN_LINEAR":
-            self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
-            self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
-            self.flatten = nn.Flatten(1, 2)
-            self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // self.control_hop) , hidden_size)
-            self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop, kernel_size=1) # kernel size is hyperparam
         else:
             print("Please provide a correct embedding_strategy!!")
 
@@ -104,7 +103,6 @@ class ControlModule(nn.Module):
             print(f"con1d_decoded x: {x.shape}")
         elif self.embedding_strategy == "STATIC_DYNAMIC_Z":
             # dynamic
-
             z_dynamic, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
             print(z_dynamic[0,1,:10].detach().cpu().numpy())
@@ -122,6 +120,10 @@ class ControlModule(nn.Module):
             print(z_static[0,1,:10].detach().cpu().numpy())
 
             x = torch.cat((z_dynamic, z_static), 2)
+            print(f"After cat: {x.shape}")
+            print(x[0,0,:12].detach().cpu().numpy())
+            print(x[0,1,:12].detach().cpu().numpy())
+
         else:
             pass
 
