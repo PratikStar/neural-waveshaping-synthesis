@@ -36,6 +36,8 @@ gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instan
 
 gcloud compute scp instance-gpu2:/home/pratik/last-v3.ckpt /Users/pratik/nws/timbre_A4-16k-f0_hardcoded/checkpoints --zone us-east4-c --recurse --compress
 
+
+
 ```shell
 sudo su
 apt-get install git wget
