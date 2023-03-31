@@ -30,6 +30,7 @@ class ControlModule(nn.Module):
         self.embedding_strategy = embedding_strategy
         self.sample_rate = sample_rate
         self.control_hop = control_hop
+
         if self.embedding_strategy in ["NONE", "GRU_LAST", "FLATTEN_LINEAR"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
@@ -55,7 +56,6 @@ class ControlModule(nn.Module):
         print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"Input to control module: {x.shape}")
-
 
         if self.embedding_strategy == "GRU_LAST":
             x, _ = self.gru(x.transpose(1, 2))
