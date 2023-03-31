@@ -238,6 +238,22 @@ class NeuralWaveshaping(pl.LightningModule):
         # print(f"x: {x.shape}")
 
         return x, gru_embedding
+    def encode(self, f0, control):
+        print(f"\n\n================= In Encode ===================")
+        print(f"f0: {f0.shape}")
+        print(f"control: {control.shape}")
+        print(f"f0: {f0[0,0,:10].detach().cpu().numpy()}")
+
+        f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear") # f0.shape[-1] is number of frames
+        print(f"f0_upsampled: {f0_upsampled.shape}")
+        print(f"f0_upsampled: {f0_upsampled[0,0,:10].detach().cpu().numpy()}")
+
+        x = self.render_exciter(f0_upsampled)
+        print(f"x: {x.shape}")
+        print(f"x: {x[0,0,:10].detach().cpu().numpy()}")
+
+        control_embedding, gru_embedding = self.get_embedding(control)
+    def decode(self, f0, control):
 
     def configure_optimizers(self):
         self.stft_loss = auraloss.freq.MultiResolutionSTFTLoss()
