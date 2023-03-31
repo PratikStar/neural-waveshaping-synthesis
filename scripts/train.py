@@ -52,7 +52,7 @@ def main(
     if restore_checkpoint:
         print(f"Loading model from {checkpoint_path}")
         model = NeuralWaveshaping.load_from_checkpoint(
-            checkpoint_path=os.path.join(checkpoint_path, "checkpoints", "last.ckpt"),
+            checkpoint_path=os.path.join(checkpoint_path, "checkpoints", "last-v2.ckpt"),
             map_location=torch.device(device))
         print(f"Epoch: {model.current_epoch}")
         print(f"Step: {model.global_step}")

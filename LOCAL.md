@@ -1,5 +1,3 @@
-
-`
 watch -n60 ./watch-acp.sh
 
 # 1. Rsync repo
