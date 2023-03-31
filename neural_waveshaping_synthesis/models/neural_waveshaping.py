@@ -253,6 +253,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"x: {x[0,0,:10].detach().cpu().numpy()}")
 
         control_embedding, gru_embedding = self.get_embedding(control)
+        return control_embedding, gru_embedding
     def decode(self, f0, control):
 
     def configure_optimizers(self):
