@@ -19,8 +19,8 @@ ControlModule.embedding_size = %control_embedding_size
 ControlModule.embedding_strategy = 'STATIC_DYNAMIC_Z'
 ControlModule.sample_rate = %sample_rate
 ControlModule.control_hop = %control_hop
-ControlModule.z_dynamic_size = 8 # sum of dynamic and static should equal ControlModule.hidden_size
-ControlModule.z_static_size = 120 # sum of dynamic and static should equal ControlModule.hidden_size
+ControlModule.z_dynamic_size = 16 # sum of dynamic and static should equal ControlModule.hidden_size
+ControlModule.z_static_size = 112 # sum of dynamic and static should equal ControlModule.hidden_size
 
 
 noise_synth/TimeDistributedMLP.in_size = %control_embedding_size
