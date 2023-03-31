@@ -89,7 +89,7 @@ def main(
         callbacks.append(lr_logger)
         logger = pl.loggers.WandbLogger(project="nws")
         logger.watch(model, log="all")
-
+        wandb.watch(model)
     kwargs = trainer_kwargs()
     trainer = pl.Trainer(
         logger=logger if with_wandb else None,
@@ -98,7 +98,7 @@ def main(
         # resume_from_checkpoint=restore_checkpoint if restore_checkpoint != "" else None,
         **kwargs
     )
-    wandb.watch(model)
+
     trainer.fit(model, data)
 
 
