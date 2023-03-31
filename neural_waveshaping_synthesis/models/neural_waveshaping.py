@@ -275,11 +275,6 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"torch.cat((x, noise), dim=1) -->: {x.shape}")
         x = x.sum(1)
         print(f"x.sum(1) -->: {x.shape}")
-
-        # print("Calling reverb")
-        # x = self.reverb(x)
-        # print(f"x: {x.shape}")
-
         return x, z
 
     def configure_optimizers(self):
