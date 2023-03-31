@@ -52,7 +52,7 @@ def main(
     model = get_model(with_wandb=with_wandb)
 
     if restore_checkpoint:
-        print(f"Loading model from {checkpoint_path}")
+        print(f"Loading model from {checkpoint_path}/{checkpoint_file}")
         model = NeuralWaveshaping.load_from_checkpoint(
             checkpoint_path=os.path.join(checkpoint_path, "checkpoints", checkpoint_file),
             map_location=torch.device(device))
