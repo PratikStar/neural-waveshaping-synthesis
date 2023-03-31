@@ -35,7 +35,7 @@ class ControlModule(nn.Module):
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
-        if self.embedding_strategy == "STATIC_DYNAMIC_Z":
+        elif self.embedding_strategy == "STATIC_DYNAMIC_Z":
             self.z_dynamic_size = z_dynamic_size
             self.z_static_size = z_static_size
             # dynamic
@@ -51,6 +51,9 @@ class ControlModule(nn.Module):
             self.flatten = nn.Flatten(1, 2)
             self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // self.control_hop) , hidden_size)
             self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop, kernel_size=1) # kernel size is hyperparam
+        else:
+            print("Please provide a correct embedding_strategy!!")
+            
 
     def forward(self, x):
         print(f"\nRunning ControlModule.forward")
