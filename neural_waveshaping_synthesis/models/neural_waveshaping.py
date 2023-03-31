@@ -105,8 +105,8 @@ class ControlModule(nn.Module):
             # dynamic
             z_dynamic, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
+            print(z_dynamic[0,0,:10].detach().cpu().numpy())
             print(z_dynamic[0,1,:10].detach().cpu().numpy())
-            print(z_dynamic[0,2,:10].detach().cpu().numpy())
             #static z
             flattened_x = self.flatten(x).unsqueeze(1)
             print(f"flattened_x (for z_static): {flattened_x.shape}")
