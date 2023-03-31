@@ -16,29 +16,52 @@ gin.external_configurable(nn.Conv1d, module="torch.nn")
 
 @gin.configurable
 class ControlModule(nn.Module):
-    def __init__(self, control_size: int, hidden_size: int, embedding_size: int, sample_rate: int, control_hop: int, embedding_strategy: str = "NONE"):
+    def __init__(self,
+                 control_size: int, # input to controlemodule
+                 hidden_size: int, # z
+                 embedding_size: int, # output of controlmodule
+                 sample_rate: int,
+                 control_hop: int,
+                 z_dynamic_size: int = None,
+                 z_static_size: int = None,
+                 embedding_strategy: str = "NONE" # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
+                 ):
         super().__init__()
         self.embedding_strategy = embedding_strategy
-        self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
-        self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
+        self.sample_rate = sample_rate
+        self.control_hop = control_hop
+        if self.embedding_strategy in ["NONE", "GRU_LAST", "FLATTEN_LINEAR"]:
+            self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
+            self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
 
-        if self.embedding_strategy == "FLATTEN_LINEAR":
+        if self.embedding_strategy == "STATIC_DYNAMIC_Z":
+            self.z_dynamic_size = z_dynamic_size
+            self.z_static_size = z_static_size
+            # dynamic
+            self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
+            # static
             self.flatten = nn.Flatten(1, 2)
-            self.linear_encode = nn.Linear(hidden_size * (sample_rate // control_hop) , hidden_size)
+            self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
+
+
+            self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
+
+        elif self.embedding_strategy == "FLATTEN_LINEAR":
+            self.flatten = nn.Flatten(1, 2)
+            self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // control_hop) , hidden_size)
             self.con1d_decode = nn.Conv1d(1, sample_rate // control_hop, kernel_size=1) # kernel size is hyperparam
 
     def forward(self, x):
         print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"Input to control module: {x.shape}")
-        # print(f"before GRU: {x[0,1,:10].detach().cpu().numpy()}")
-        x, _ = self.gru(x.transpose(1, 2))
-        print(f"After GRU: {x.shape}")
-        print(x[0,1,:10].detach().cpu().numpy())
-        print(x[0,2,:10].detach().cpu().numpy())
-        print(x[0,3,:10].detach().cpu().numpy())
+
 
         if self.embedding_strategy == "GRU_LAST":
+            x, _ = self.gru(x.transpose(1, 2))
+            print(f"After GRU: {x.shape}")
+            print(x[0,1,:10].detach().cpu().numpy())
+            print(x[0,2,:10].detach().cpu().numpy())
             x_tmp = []
             for b in range(x.shape[0]):
                 # print(f"batch: {b}")
@@ -56,6 +79,10 @@ class ControlModule(nn.Module):
             # print(x[1,2,:10].detach().cpu().numpy())
             # print(x[1,3,:10].detach().cpu().numpy())
         elif self.embedding_strategy == "FLATTEN_LINEAR":
+            x, _ = self.gru(x.transpose(1, 2))
+            print(f"After GRU: {x.shape}")
+            print(x[0,1,:10].detach().cpu().numpy())
+            print(x[0,2,:10].detach().cpu().numpy())
 
             flattened_x = self.flatten(x)
             flattened_x = flattened_x.unsqueeze(1)
@@ -65,6 +92,22 @@ class ControlModule(nn.Module):
             print(f"z: {z.shape}")
             x = self.con1d_decode(z)
             print(f"con1d_decoded x: {x.shape}")
+        elif self.embedding_strategy == "STATIC_DYNAMIC_Z":
+            # dynamic
+
+            z_dynamic, _ = self.gru(x.transpose(1, 2))
+            print(f"After GRU: {z_dynamic.shape}")
+            print(z_dynamic[0,1,:10].detach().cpu().numpy())
+            print(z_dynamic[0,2,:10].detach().cpu().numpy())
+            #static z
+            flattened_x = self.flatten(x).unsqueeze(1)
+            print(f"flattened_x (for z_static): {flattened_x.shape}")
+
+            z_static = self.linear_encode(flattened_x)
+            print(f"After linear encode: {z_static.shape}")
+
+            z_static = z_static.repeat(1, ,1)
+
         else:
             pass
 
