@@ -2,7 +2,7 @@ import click
 import gin
 import pytorch_lightning as pl
 import os
-
+import wandb
 import torch
 from neural_waveshaping_synthesis.data.general import GeneralDataModule
 from neural_waveshaping_synthesis.data.urmp import URMPDataModule
@@ -90,7 +90,7 @@ def main(
         logger = pl.loggers.WandbLogger(project="nws")
         logger.watch(model, log="all")
         wandb.watch(model)
-        
+
     kwargs = trainer_kwargs()
     trainer = pl.Trainer(
         logger=logger if with_wandb else None,
