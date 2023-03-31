@@ -121,8 +121,8 @@ class ControlModule(nn.Module):
 
             x = torch.cat((z_dynamic, z_static), 2)
             print(f"After cat: {x.shape}")
-            print(x[0,0,:12].detach().cpu().numpy())
-            print(x[0,1,:12].detach().cpu().numpy())
+            print(x[0,0,:128].detach().cpu().numpy())
+            print(x[0,1,:128].detach().cpu().numpy())
 
         else:
             pass
