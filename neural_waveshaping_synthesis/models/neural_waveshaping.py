@@ -108,7 +108,8 @@ class ControlModule(nn.Module):
 
             z_static = z_static.repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"z_static After repeat: {z_static.shape}")
-            print(f"z_static After repeat: {z_static.shape}")
+            print(z_static[0,0,:10].detach().cpu().numpy())
+            print(z_static[0,1,:10].detach().cpu().numpy())
 
         else:
             pass
