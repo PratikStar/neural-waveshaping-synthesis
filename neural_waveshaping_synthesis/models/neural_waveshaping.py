@@ -254,7 +254,34 @@ class NeuralWaveshaping(pl.LightningModule):
 
         control_embedding, z = self.get_embedding(control)
         return control_embedding, z
-    def decode(self, f0, control):
+    def decode(self, control_embedding, z):
+        print(f"control_embedding: {control_embedding[0,:10,0].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0,:10,1].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0,:10,2].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0,:10,3].detach().cpu().numpy()}")
+
+        print(f"\nInvoking NEWT with x and control_embedding")
+        x = self.newt(x, control_embedding)
+        print(f"NEWT returns, x: {x.shape}")
+
+        print("\nInvoking h_generator with control_embedding for noise synth")
+        H = self.h_generator(control_embedding)
+        print(f"H: {H.shape}")
+
+        print("\nInvoking noise_synth")
+        noise = self.noise_synth(H)
+        print(f"noise: {noise.shape}")
+
+        x = torch.cat((x, noise), dim=1)
+        print(f"torch.cat((x, noise), dim=1) -->: {x.shape}")
+        x = x.sum(1)
+        print(f"x.sum(1) -->: {x.shape}")
+
+        # print("Calling reverb")
+        # x = self.reverb(x)
+        # print(f"x: {x.shape}")
+
+        return x, z
 
     def configure_optimizers(self):
         self.stft_loss = auraloss.freq.MultiResolutionSTFTLoss()
