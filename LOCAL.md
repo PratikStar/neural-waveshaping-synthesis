@@ -32,7 +32,9 @@ gcloud compute scp ~/Downloads/monophonic-4secchunks-di_f0-20230318T164941Z-001.
 
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
 
-gcloud compute scp instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v2.ckpt /Users/pratik/nws/ --zone us-east4-c --recurse --compress
+## checkpoint transfer. gcp to local
+cp /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt /home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt
+gcloud compute scp instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt /Users/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt --zone us-east4-c --recurse --compress
 
 
 
@@ -83,4 +85,5 @@ python scripts/train.py \
 --dataset-path /root/data/nws/timbre_A4-16k-f0_di \
 --checkpoint-path /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16 \
 --checkpoint-file last.ckpt \
+--restore-checkpoint \
 --load-data-to-memory  >> ~/logs/timbre_A4-16k-f0_hardcoded-static_dynamic_z16_$(date +%Y%m%d_%H%M%S).log 2>&1 &
