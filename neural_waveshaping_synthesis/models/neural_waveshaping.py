@@ -130,7 +130,8 @@ class ControlModule(nn.Module):
         y = self.proj(x.transpose(1, 2))
         print(f"After Cond1D: {y.shape}")
         return y, x
-    def get_control_from_z(self, x, z):
+
+    def get_control_from_z(self, controls, z):
         print(f"\nRunning get_control_from_z")
         print(f"Input to control module: {x.shape}")
         if self.embedding_strategy == "STATIC_DYNAMIC_Z":
