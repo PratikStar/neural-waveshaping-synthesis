@@ -129,8 +129,8 @@ def preprocess_single_audio_file(
     audio = resample_audio(audio, original_sr, target_sr)
     print(f"resampled audio: {audio.shape}")
 
-    print("NOTICE XXX, THIS IS FOR SINGLE NOTE DATASET!!!")
-    audio = audio[int(0.05 * target_sr): int(1.05 * target_sr)]
+    # print("NOTICE XXX, THIS IS FOR SINGLE NOTE DATASET!!!")
+    # audio = audio[int(0.05 * target_sr): int(1.05 * target_sr)]
     print(f"cut audio: {audio.shape}")
 
     if f0_hardcode:
