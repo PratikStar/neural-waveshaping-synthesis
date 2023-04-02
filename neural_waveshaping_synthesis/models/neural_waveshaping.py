@@ -144,7 +144,6 @@ class ControlModule(nn.Module):
             # flattened_x = self.flatten(x).unsqueeze(1)
             # print(f"flattened_x (for z_static): {flattened_x.shape}")
 
-            z_static = z[0,0,8:]
             print(f"z_static: {z_static.shape}")
 
             z_static = z_static.repeat(1, self.sample_rate // self.control_hop, 1)
