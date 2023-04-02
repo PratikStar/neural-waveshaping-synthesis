@@ -131,7 +131,7 @@ class ControlModule(nn.Module):
         print(f"After Cond1D: {y.shape}")
         return y, x
 
-    def _get_control_from_z(self, controls, z):
+    def get_control_from_z_(self, controls, z):
         print(f"\nRunning get_control_from_z")
         print(f"Input to get_control_from_z: {controls.shape}, {z.shape}")
         if self.embedding_strategy == "STATIC_DYNAMIC_Z":
@@ -241,7 +241,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"control: {control[0,0,:10].detach().cpu().numpy()}")
 
         print("Invoking ControlModule with control")
-        control_embedding, gru_embedding = self.embedding._get_control_from_z(control)
+        control_embedding, gru_embedding = self.embedding.get_control_from_z_(control, z)
         print(f"control_embedding: {control_embedding.shape}")
         print(f"gru_embedding: {gru_embedding.shape}")
 
