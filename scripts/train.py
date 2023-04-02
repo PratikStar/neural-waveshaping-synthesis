@@ -54,8 +54,7 @@ def main(
         wandb_project = os.environ['WANDB_PROJECT']
         wandb_entity = os.environ['WANDB_ENTITY']
 
-        wandb.init(config=config,
-                   reinit=True,
+        wandb.init(reinit=True,
                    wandb_entity=wandb_entity,
                    wandb_project=wandb_project
                    # id=
