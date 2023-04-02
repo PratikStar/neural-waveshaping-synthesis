@@ -223,11 +223,11 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"control: {control[0,0,:10].detach().cpu().numpy()}")
 
         print("Invoking ControlModule with control")
-        control_embedding, gru_embedding = self.embedding(control)
+        control_embedding, z = self.embedding(control)
         print(f"control_embedding: {control_embedding.shape}")
-        print(f"gru_embedding: {gru_embedding.shape}")
+        print(f"z: {z.shape}")
 
-        return control_embedding, gru_embedding
+        return control_embedding, z
 
     def get_control_from_z(self, control, z):
         print(f"\n In get_control_from_z")
