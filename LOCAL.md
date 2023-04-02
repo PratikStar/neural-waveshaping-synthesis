@@ -33,7 +33,7 @@ gcloud compute scp ~/Downloads/monophonic-4secchunks-di_f0-20230318T164941Z-001.
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
 
 ## checkpoint transfer. gcp to local
-cp /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt /home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt
+cp /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v4.ckpt /home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt
 gcloud compute scp instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt /Users/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt --zone us-east4-c --recurse --compress
 
 
