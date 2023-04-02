@@ -229,6 +229,24 @@ class NeuralWaveshaping(pl.LightningModule):
 
         return control_embedding, gru_embedding
 
+    def get_control_from_z(self, control, z):
+        print(f"\n In get_embedding")
+        print(f"control: {control.shape}")
+        print("splitting control in f0 and other")
+        f0, other = control[:, 0:1], control[:, 1:2]
+        print(f"f0: {f0.shape}")
+        print(f"other: {other.shape}")
+        control = torch.cat((f0, other), dim=1)
+        print(f"concatenating f0 and other, control: {control.shape}")
+        print(f"control: {control[0,0,:10].detach().cpu().numpy()}")
+
+        print("Invoking ControlModule with control")
+        control_embedding, gru_embedding = self.embedding._get_control_from_z(control)
+        print(f"control_embedding: {control_embedding.shape}")
+        print(f"gru_embedding: {gru_embedding.shape}")
+
+        return control_embedding, gru_embedding
+
     def forward(self, f0, control): # control is 19 dimensional: 1f0, 1 loudness, 1 confidence, 16mfcc
         print(f"\n\n================= In forward ===================")
         print(f"f0: {f0.shape}")
