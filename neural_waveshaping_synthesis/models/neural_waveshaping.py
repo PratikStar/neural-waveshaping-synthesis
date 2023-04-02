@@ -191,7 +191,7 @@ class NeuralWaveshaping(pl.LightningModule):
 
         self.sample_rate = sample_rate
 
-        self.embedding = ControlModule(z_dim=z_dim)
+        self.embedding = ControlModule(hidden_size=hidden_size)
 
         self.osc = HarmonicOscillator()
         self.harmonic_mixer = nn.Conv1d(self.osc.n_harmonics, n_waveshapers, 1)
