@@ -60,8 +60,8 @@ def main(
                    # id=
                    )
         config = dict(wandb.config)
-        dataset_path = f"/root/data/nws/timbre-16k-f0_di_{config[]}"
-        checkpoint_path = "/root/nws/timbre-16k-f0_di_85-static_dynamic_z_2_2"
+        checkpoint_path = f"/root/nws/timbre-16k-f0_di_85-static_dynamic_z_{config['hidden_size']}"
+
         model = get_model(with_wandb=with_wandb, hidden_size=config['hidden_size'])
     else:
         model = get_model(with_wandb=with_wandb)
