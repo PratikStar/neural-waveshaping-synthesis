@@ -24,7 +24,8 @@ class ControlModule(nn.Module):
                  control_hop: int,
                  z_dynamic_size: int = None,
                  z_static_size: int = None,
-                 embedding_strategy: str = "NONE" # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
+                 embedding_strategy: str = "NONE", # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
+                 z_dim: int = 0,
                  ):
         super().__init__()
         self.embedding_strategy = embedding_strategy
