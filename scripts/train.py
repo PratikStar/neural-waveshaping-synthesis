@@ -11,7 +11,7 @@ from neural_waveshaping_synthesis.models.neural_waveshaping import NeuralWavesha
 
 @gin.configurable
 def get_model(model, with_wandb, hidden_size=None):
-    return model(log_audio=with_wandb)
+    return model(log_audio=with_wandb, hidden_size=hidden_size)
 
 
 @gin.configurable
@@ -63,7 +63,7 @@ def main(
 
         model = get_model(with_wandb=with_wandb, hidden_size=dict(wandb.config)['hidden_size'])
     else:
-        model = get_model(with_wandb=with_wandb, hidden_size=None)
+        model = get_model(with_wandb=with_wandb)
 
     if restore_checkpoint:
         print(f"Loading model from {checkpoint_path}/{checkpoint_file}")
