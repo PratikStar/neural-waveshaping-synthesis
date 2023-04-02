@@ -62,7 +62,9 @@ def main(
         print(dict(wandb.config))
         exit()
 
-    model = get_model(with_wandb=with_wandb)
+        model = get_model(with_wandb=with_wandb, z_dim=dict(wandb.config)['z_dim'])
+    else:
+        model = get_model(with_wandb=with_wandb, z_dim=0)
 
     if restore_checkpoint:
         print(f"Loading model from {checkpoint_path}/{checkpoint_file}")
