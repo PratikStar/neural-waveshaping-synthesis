@@ -49,6 +49,20 @@ def main(
     device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
     print(f"Device: {device}")
 
+    if 'WANDB_SWEEP_ID' in os.environ:
+        print(f"WANDB_SWEEP_ID: {os.environ['WANDB_SWEEP_ID']}")
+        wandb_project = os.environ['WANDB_PROJECT']
+        wandb_entity = os.environ['WANDB_ENTITY']
+
+        print(dict(wandb.config))
+        # wandb.init(config=config,
+        #            reinit=True,
+        #            wandb_entity=wandb_entity,
+        #            wandb_project=wandb_project
+        #            # id=
+        #            )
+        exit()
+
     model = get_model(with_wandb=with_wandb)
 
     if restore_checkpoint:
