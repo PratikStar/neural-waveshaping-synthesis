@@ -30,4 +30,4 @@ preprocess_audio.f0_hardcode = False
 #preprocess_audio.f0_hardcoded = 440
 
 
-preprocess_audio.confidence_threshold = 0.85
+preprocess_audio.confidence_threshold = 0.75
