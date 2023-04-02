@@ -89,7 +89,7 @@ def main(
     if with_wandb:
         lr_logger = pl.callbacks.LearningRateMonitor(logging_interval="epoch")
         callbacks.append(lr_logger)
-        logger = pl.loggers.WandbLogger(project="nws")
+        logger = pl.loggers.WandbLogger(project="nws", log_model="all")
         logger.watch(model, log="all")
         wandb.watch(model)
 
