@@ -54,13 +54,13 @@ def main(
         wandb_project = os.environ['WANDB_PROJECT']
         wandb_entity = os.environ['WANDB_ENTITY']
 
+        wandb.init(config=config,
+                   reinit=True,
+                   wandb_entity=wandb_entity,
+                   wandb_project=wandb_project
+                   # id=
+                   )
         print(dict(wandb.config))
-        # wandb.init(config=config,
-        #            reinit=True,
-        #            wandb_entity=wandb_entity,
-        #            wandb_project=wandb_project
-        #            # id=
-        #            )
         exit()
 
     model = get_model(with_wandb=with_wandb)
