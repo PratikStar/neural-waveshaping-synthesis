@@ -292,10 +292,10 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"control_embedding: {control_embedding[0,:10,3].detach().cpu().numpy()}")
         return exciter_signal, control_embedding, z
 
-    def decode(self, x, control_embedding, z):
+    def decode(self, exciter_signal, control_embedding, z):
         control_embedding = self.decode_control_embedding(control_embedding, z)
-        print(f"\nInvoking NEWT with x and control_embedding")
-        x = self.newt(x, control_embedding)
+        print(f"\nInvoking NEWT with exciter_signal and control_embedding")
+        x = self.newt(exciter_signal, control_embedding)
         print(f"NEWT returns, x: {x.shape}")
 
         print("\nInvoking h_generator with control_embedding for noise synth")
