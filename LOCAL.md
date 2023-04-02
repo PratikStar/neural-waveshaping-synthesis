@@ -75,9 +75,8 @@ python scripts/create_dataset.py \
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/data/nws/timbre_A4-16k-f0_di \
---checkpoint-path /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z2 \
+--checkpoint-path /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z_2_2 \
 --checkpoint-file last.ckpt \
-
 --load-data-to-memory  >> ~/logs/timbre_A4-16k-f0_hardcoded-static_dynamic_z2_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
 
