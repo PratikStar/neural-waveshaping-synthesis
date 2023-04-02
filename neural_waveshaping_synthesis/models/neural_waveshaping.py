@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import wandb
+import os
 
 from .modules.dynamic import TimeDistributedMLP
 from .modules.generators import FIRNoiseSynth, HarmonicOscillator
@@ -25,14 +26,15 @@ class ControlModule(nn.Module):
                  z_dynamic_size: int = None,
                  z_static_size: int = None,
                  embedding_strategy: str = "NONE", # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
-                 z_dim: int = 0,
                  ):
         super().__init__()
         self.embedding_strategy = embedding_strategy
         self.sample_rate = sample_rate
         self.control_hop = control_hop
 
-        # If sweeps is on, get hidden size fomr z_dim, else from gin hidden_size
+        # If sweeps is on, get hidden size from z_dim, else from gin hidden_size
+        if 'WANDB_SWEEP_ID' in os.environ:
+
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
