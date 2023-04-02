@@ -32,6 +32,8 @@ class ControlModule(nn.Module):
         self.sample_rate = sample_rate
         self.control_hop = control_hop
 
+        # If sweeps is on, get hidden size fomr z_dim, else from gin hidden_size
+
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
