@@ -34,7 +34,7 @@ class ControlModule(nn.Module):
 
         # If sweeps is on, get hidden size from z_dim, else from gin hidden_size
         if 'WANDB_SWEEP_ID' in os.environ:
-            print("ControlModule recognizes this is a sweep!")
+            print(f"ControlModule recognizes this is a sweep! hidden_size: {hidden_size}")
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
