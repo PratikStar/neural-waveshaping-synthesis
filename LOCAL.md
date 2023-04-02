@@ -69,7 +69,7 @@ pip install pytorch-lightning wandb torchcrepe auraloss librosa black gin-config
 python scripts/create_dataset.py \
 --gin-file gin/data/urmp_4second_crepe.gin \
 --data-directory /root/data/timbre_A4 \
---output-directory /root/nws/timbre_A4-16k-f0_di \
+--output-directory /root/nws/timbre_A4-16k-f0_di_0.85 \
 --device cuda:0
 
 python scripts/train.py \
