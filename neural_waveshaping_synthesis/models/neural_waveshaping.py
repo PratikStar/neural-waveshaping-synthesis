@@ -23,8 +23,8 @@ class ControlModule(nn.Module):
                  embedding_size: int, # output of controlmodule
                  sample_rate: int,
                  control_hop: int,
-                 z_dynamic_size: int = None,
-                 z_static_size: int = None,
+                 # z_dynamic_size: int = None,
+                 # z_static_size: int = None,
                  embedding_strategy: str = "NONE", # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
                  ):
         super().__init__()
