@@ -4,7 +4,7 @@ command:
   - --gin-file
   - gin/train/train_newt.gin
   - --dataset-path
-  - timbre-16k-f0_di_75
+  - /root/data/nws/timbre-16k-f0_di_75
   - --load-data-to-memory
 method: bayes
 metric:
