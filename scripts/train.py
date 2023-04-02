@@ -68,7 +68,7 @@ def main(
 
 
     if restore_checkpoint:
-        print(f"Loading model from {checkpoint_path}/{checkpoint_file}")
+        print(f"Loading model from {checkpoint_path}/{checkpoint_file}. PLEASE CHECK IF THE PATH IS CORRECT")
         model = NeuralWaveshaping.load_from_checkpoint(
             checkpoint_path=os.path.join(checkpoint_path, "checkpoints", checkpoint_file),
             map_location=torch.device(device))
