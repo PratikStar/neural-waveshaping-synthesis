@@ -156,8 +156,8 @@ def lazy_create_dataset(
 def create_dataset(
     files: Sequence[str],
     output_directory: str,
-    splits: Sequence[str] = ("train", "val", "test"),
-    split_proportions: Sequence[float] = (0.9, 0.1, 0),
+    splits: Sequence[str] = ("train", "val"),
+    split_proportions: Sequence[float] = (0.9, 0.1),
     lazy: bool = True,
 ):
     create_directories(output_directory, (*splits, "temp"))
