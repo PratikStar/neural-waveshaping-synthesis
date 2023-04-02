@@ -55,8 +55,8 @@ def main(
         wandb_entity = os.environ['WANDB_ENTITY']
 
         wandb.init(reinit=True,
-                   wandb_entity=wandb_entity,
-                   wandb_project=wandb_project
+                   entity=wandb_entity,
+                   project=wandb_project
                    # id=
                    )
         print(dict(wandb.config))
