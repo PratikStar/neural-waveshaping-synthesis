@@ -311,7 +311,6 @@ class NeuralWaveshaping(pl.LightningModule):
 
     def decode(self, exciter_signal, control_embedding, z):
         print(f"\n\n================= In Decode ===================")
-        # control_embedding = self.decode_control_embedding(control_embedding, z)
         print(f"\nInvoking NEWT with exciter_signal and control_embedding")
         x = self.newt(exciter_signal, control_embedding)
         print(f"NEWT returns, x: {x.shape}")
