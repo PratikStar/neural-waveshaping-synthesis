@@ -281,16 +281,16 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"f0_upsampled: {f0_upsampled.shape}")
         print(f"f0_upsampled: {f0_upsampled[0,0,:10].detach().cpu().numpy()}")
 
-        x = self.render_exciter(f0_upsampled)
-        print(f"x: {x.shape}")
-        print(f"x: {x[0,0,:10].detach().cpu().numpy()}")
+        exciter_signal = self.render_exciter(f0_upsampled)
+        print(f"x: {exciter_signal.shape}")
+        print(f"x: {exciter_signal[0,0,:10].detach().cpu().numpy()}")
 
         control_embedding, z = self.get_embedding(control)
         print(f"control_embedding: {control_embedding[0,:10,0].detach().cpu().numpy()}")
         print(f"control_embedding: {control_embedding[0,:10,1].detach().cpu().numpy()}")
         print(f"control_embedding: {control_embedding[0,:10,2].detach().cpu().numpy()}")
         print(f"control_embedding: {control_embedding[0,:10,3].detach().cpu().numpy()}")
-        return x, control_embedding, z
+        return exciter_signal, control_embedding, z
 
     def decode(self, x, control_embedding, z):
         control_embedding = self.decode_control_embedding(control_embedding, z)
