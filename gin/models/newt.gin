@@ -14,7 +14,7 @@ NEWT.out_channels = 1
 TrainableNonlinearity.depth = 4
 
 ControlModule.control_size = 2
-ControlModule.hidden_size = 4
+#ControlModule.hidden_size = 4
 ControlModule.embedding_size = %control_embedding_size
 ControlModule.embedding_strategy = 'STATIC_DYNAMIC_Z'
 ControlModule.sample_rate = %sample_rate
