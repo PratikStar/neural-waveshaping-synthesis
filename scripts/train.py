@@ -23,7 +23,7 @@ def trainer_kwargs(**kwargs):
 @click.option("--gin-file", prompt="Gin config file")
 @click.option("--dataset-path", prompt="Dataset root")
 @click.option("--checkpoint-path", prompt="Dataset root")
-@click.option("--checkpoint-file", prompt=".ckpt file", default="last.ckpt")
+@click.option("--checkpoint-file", default="last.ckpt")
 @click.option("--urmp", is_flag=False)
 @click.option("--device", default="0")
 @click.option("--instrument", default="vn")
