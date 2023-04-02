@@ -78,7 +78,7 @@ def segment_signal(
     segment_length_in_samples = int(sample_rate * segment_length_in_seconds)
     hop_length_in_samples = int(sample_rate * hop_length_in_seconds)
     segments = librosa.util.frame(
-        signal, segment_length_in_samples, hop_length_in_samples
+        signal, segment_length_in_samples, hop_length_in_samples, axis=0
     )
     print(f"segment shape: {segments.shape}")
     return segments
