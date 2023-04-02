@@ -22,7 +22,7 @@ def trainer_kwargs(**kwargs):
 @click.command()
 @click.option("--gin-file", prompt="Gin config file")
 @click.option("--dataset-path", prompt="Dataset root")
-@click.option("--checkpoint-path", prompt="Dataset root")
+# @click.option("--checkpoint-path", prompt="Dataset root")
 @click.option("--checkpoint-file", default="last.ckpt")
 @click.option("--urmp", is_flag=False)
 @click.option("--device", default="0")
@@ -33,7 +33,7 @@ def trainer_kwargs(**kwargs):
 def main(
         gin_file,
         dataset_path,
-        checkpoint_path,
+        # checkpoint_path,
         checkpoint_file,
         urmp,
         device,
@@ -59,11 +59,13 @@ def main(
                    project=wandb_project
                    # id=
                    )
-        print(dict(wandb.config))
-
-        model = get_model(with_wandb=with_wandb, hidden_size=dict(wandb.config)['hidden_size'])
+        config = dict(wandb.config)
+        dataset_path = f"/root/data/nws/timbre-16k-f0_di_{config[]}"
+        checkpoint_path = "/root/nws/timbre-16k-f0_di_85-static_dynamic_z_2_2"
+        model = get_model(with_wandb=with_wandb, hidden_size=config['hidden_size'])
     else:
         model = get_model(with_wandb=with_wandb)
+
 
     if restore_checkpoint:
         print(f"Loading model from {checkpoint_path}/{checkpoint_file}")
