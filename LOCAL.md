@@ -34,7 +34,7 @@ gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instan
 
 ## checkpoint transfer. gcp to local
 cp /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt /home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt
-gcloud compute scp instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt /Users/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z/checkpoints/last-v4.ckpt --zone us-east4-c --recurse --compress
+gcloud compute scp instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt /Users/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt --zone us-east4-c --recurse --compress
 
 
 
