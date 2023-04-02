@@ -270,7 +270,7 @@ class NeuralWaveshaping(pl.LightningModule):
         # x = self.reverb(x)
         # print(f"x: {x.shape}")
         return x, z
-    
+
     def encode(self, f0, control):
         print(f"\n\n================= In Encode ===================")
         print(f"f0: {f0.shape}")
