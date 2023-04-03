@@ -60,6 +60,7 @@ def main(
                    # id=
                    )
         config = dict(wandb.config)
+        print(config)
         checkpoint_path = f"/root/nws/timbre-16k-f0_di_{config['confidence_threshold']}-static_dynamic_z_{config['hidden_size']//2}_{config['hidden_size']//2}"
 
         model = get_model(with_wandb=with_wandb, hidden_size=config['hidden_size'])
