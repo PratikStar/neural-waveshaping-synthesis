@@ -35,7 +35,7 @@ gcloud --project nws1-382311 compute ssh --ssh-flag="-ServerAliveInterval=30" --
 
 
 ## scp data
-gcloud compute scp /home/olympus_shared/monophonic-4secchunks instance-gb:/home/olympus_shared/data/timbre --zone us-east4-c --recurse --compress
+gcloud compute scp /home/olympus_shared/monophonic-4secchunks instance-1:/home/olympus_shared/data/timbre --zone us-east4-c --recurse --compress
 rsync -r /home/gobeyond1994/data/timbre /root/data/
 
 gcloud compute scp instance-gpu2:/home/pratik/data/nws/timbre_A4-16k-f0_di /Users/pratik/data/nws/timbre_A4-16k-f0_di --zone us-east4-c --recurse --compress
