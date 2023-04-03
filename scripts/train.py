@@ -64,6 +64,7 @@ def main(
 
         model = get_model(with_wandb=with_wandb, hidden_size=config['hidden_size'])
     else:
+        print(f"This is NOT a sweep")
         model = get_model(with_wandb=with_wandb)
 
 
