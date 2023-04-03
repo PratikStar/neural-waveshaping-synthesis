@@ -147,6 +147,7 @@ def preprocess_single_audio_file(
         file = Path(file)
         # di_file = file.parent / "A4_half.wav"
         di_file = file.parent / f"09A DI - {file.name.split()[-1].split('.')[0]}.wav"
+        print(f"DI file: {di_file}")
         if not di_file.exists():
             raise Exception(f"DI not found at {di_file}")
 
