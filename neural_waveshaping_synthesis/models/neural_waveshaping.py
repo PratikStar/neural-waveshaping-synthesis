@@ -35,6 +35,8 @@ class ControlModule(nn.Module):
         # If sweeps is on, get hidden size from z_dim, else from gin hidden_size
         if 'WANDB_SWEEP_ID' in os.environ:
             print(f"ControlModule recognizes this is a sweep! hidden_size: {hidden_size}")
+            self.z_static_size = hidden_size[0]
+            self.z_dynamic_size = hidden_size[1]
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
@@ -48,8 +50,8 @@ class ControlModule(nn.Module):
             self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop, kernel_size=1) # kernel size is hyperparam
 
         elif self.embedding_strategy == "STATIC_DYNAMIC_Z":
-            self.z_dynamic_size = hidden_size // 2
-            self.z_static_size = hidden_size // 2
+            # self.z_dynamic_size = hidden_size // 2
+            # self.z_static_size = hidden_size // 2
             # dynamic
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
