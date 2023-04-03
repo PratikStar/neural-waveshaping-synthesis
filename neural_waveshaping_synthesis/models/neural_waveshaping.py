@@ -31,12 +31,14 @@ class ControlModule(nn.Module):
         self.embedding_strategy = embedding_strategy
         self.sample_rate = sample_rate
         self.control_hop = control_hop
+        self.hidden_size = hidden_size
 
         # If sweeps is on, get hidden size from z_dim, else from gin hidden_size
         if 'WANDB_SWEEP_ID' in os.environ:
             print(f"ControlModule recognizes this is a sweep! hidden_size: {hidden_size}")
             self.z_static_size = hidden_size[0]
             self.z_dynamic_size = hidden_size[1]
+            self.hidden_size = self.z_static_size + self.z_dynamic_size
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
@@ -57,7 +59,7 @@ class ControlModule(nn.Module):
             # static
             self.flatten = nn.Flatten(1, 2)
             self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
-            self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
+            self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
 
         else:
             print("Please provide a correct embedding_strategy!!")
