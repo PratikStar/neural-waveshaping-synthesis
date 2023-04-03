@@ -84,3 +84,11 @@ python scripts/train.py \
 
 
 wandb agent auditory-grounding/nws/j9qi8qkg  >> ~/logs/sweep_j9qi8qkg_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+
+python scripts/train.py \
+--gin-file gin/train/train_newt.gin \
+--dataset-path /root/data/nws/timbre-16k-f0_di_85 \
+--checkpoint-path /root/nws/timbre-16k-f0_di_75-static_dynamic_z_8_8 \
+--checkpoint-file last.ckpt \
+--load-data-to-memory  >> ~/logs/timbre_A4-16k-f0_hardcoded-static_dynamic_z_2_2_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+
