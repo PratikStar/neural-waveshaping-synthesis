@@ -12,8 +12,12 @@ metric:
   goal: minimize
 
 parameters:
-  hidden_size:
-    values: [4, 8, 16, 32, 64, 128]
+  z:
+    values: [
+              [2, 4], [2, 8], [2,16],
+              [4, 8], [4, 16], [4, 32],
+              [6, 12], [6, 24], [6, 48]
+    ]
   confidence_threshold:
     values: [75]
 
