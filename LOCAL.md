@@ -87,7 +87,7 @@ python scripts/train.py \
 --load-data-to-memory  >> ~/logs/timbre_A4-16k-f0_hardcoded-static_dynamic_z_2_2_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
 
-wandb agent auditory-grounding/nws/j9qi8qkg  >> ~/logs/sweep_j9qi8qkg_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+wandb agent auditory-grounding/nws/nqt7jmbw  >> ~/logs/sweep_nqt7jmbw_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
