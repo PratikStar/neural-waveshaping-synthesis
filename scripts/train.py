@@ -60,7 +60,7 @@ def main(
                    # id=
                    )
         config = dict(wandb.config)
-        config['hidden_size'] = sum(config['z'])
+        config['hidden_size'] = config['z']
         print(config)
         checkpoint_path = f"/root/nws/timbre-16k-f0_di_{config['confidence_threshold']}-static_dynamic_z_{config['z'][0]}_{config['z'][1]}"
 
