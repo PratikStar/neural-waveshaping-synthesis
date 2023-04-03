@@ -19,7 +19,7 @@ gin.external_configurable(nn.Conv1d, module="torch.nn")
 class ControlModule(nn.Module):
     def __init__(self,
                  control_size: int, # input to controlemodule
-                 hidden_size: int, # z
+                 hidden_size, # z
                  embedding_size: int, # output of controlmodule
                  sample_rate: int,
                  control_hop: int,
