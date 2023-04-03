@@ -40,9 +40,11 @@ class ControlModule(nn.Module):
             self.z_dynamic_size = hidden_size[1]
             self.hidden_size = self.z_static_size + self.z_dynamic_size
         else:
+            print("Control module is NOT in sweep mode")
             self.z_static_size = z_static_size
             self.z_dynamic_size = z_dynamic_size
             self.hidden_size = self.z_dynamic_size + self.z_static_size
+            print(f"self.z_static_size: {self.z_static_size}, self.z_dynamic_size: {self.z_dynamic_size}")
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
