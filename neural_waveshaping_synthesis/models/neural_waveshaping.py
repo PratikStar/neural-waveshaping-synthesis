@@ -40,8 +40,8 @@ class ControlModule(nn.Module):
             self.z_dynamic_size = hidden_size[1]
             self.hidden_size = self.z_static_size + self.z_dynamic_size
         else:
-            self.z_static_size = z_dynamic_size
-            self.z_dynamic_size = hidden_size[1]
+            self.z_static_size = z_static_size
+            self.z_dynamic_size = z_dynamic_size
             self.hidden_size = self.z_dynamic_size + self.z_static_size
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
