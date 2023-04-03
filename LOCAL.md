@@ -30,7 +30,7 @@ rsync -av w:/work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz/checkpoint
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
 ## pratikrsutar
 gcloud --project ddsp2-374016 compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
-## sutarprateeeeek
+## sutarprateeeeek. just use cloudshell
 gcloud --project nws1-382311 compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu
 
 
