@@ -14,4 +14,4 @@ trainer_kwargs.gradient_clip_val = 2.0
 # trainer_kwargs.accelerator = 'auto' wisteria
 
 
-GeneralDataModule.batch_size = 32
+GeneralDataModule.batch_size = 16
