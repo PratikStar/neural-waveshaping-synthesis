@@ -28,9 +28,12 @@ rsync -av w:/work/gk77/k77021/nws/monophonic-4secchunks-di_f0-44032hz/checkpoint
 
 # GCP
 gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-west1-b instance-3
+gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
+gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
+
+
 gcloud compute scp ~/Downloads/monophonic-4secchunks-di_f0-20230318T164941Z-001.zip instance-3:/home/pratik --zone us-west1-b
 
-gcloud compute ssh --ssh-flag="-ServerAliveInterval=30" --zone us-east4-c instance-gpu2
 
 gcloud compute scp /Users/pratik/data/timbre/monophonic-4secchunks instance-gpu2:/home/pratik/data/timbre --zone us-east4-c --recurse --compress
 
