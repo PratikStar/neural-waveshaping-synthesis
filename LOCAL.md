@@ -38,6 +38,8 @@ gcloud --project nws1-382311 compute ssh --ssh-flag="-ServerAliveInterval=30" --
 gcloud compute scp /Users/pratik/data/timbre/monophonic-4secchunks instance-gpu2:/home/pratik/data/timbre --zone us-east4-c --recurse --compress
 rsync /home/pratik/data/timbre /root/data/
 
+gcloud compute scp instance-gpu2:/home/pratik/data/nws/timbre_A4-16k-f0_di /Users/pratik/data/nws/timbre_A4-16k-f0_di --zone us-east4-c --recurse --compress
+
 ## checkpoint transfer. gcp to local
 cp /root/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt /home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt
 gcloud compute scp instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt /Users/pratik/nws/timbre_A4-16k-f0_hardcoded-static_dynamic_z16/checkpoints/last-v1.ckpt --zone us-east4-c --recurse --compress
@@ -53,7 +55,6 @@ bash Miniconda3<tab>
 source /root/.bashrc
 pip install --upgrade pip
 
-gcloud compute scp instance-gpu2:/home/pratik/data/nws/timbre_A4-16k-f0_di /Users/pratik/data/nws/timbre_A4-16k-f0_di --zone us-east4-c --recurse --compress
 
 #data
 gcloud compute scp /Users/pratik/data/timbre_A4 instance-gpu2:/home/pratik/data/timbre_A4 --zone us-east4-c --recurse --compress
