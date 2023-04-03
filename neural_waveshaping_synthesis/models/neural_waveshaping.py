@@ -39,6 +39,10 @@ class ControlModule(nn.Module):
             self.z_static_size = hidden_size[0]
             self.z_dynamic_size = hidden_size[1]
             self.hidden_size = self.z_static_size + self.z_dynamic_size
+        else:
+            self.z_static_size = z_dynamic_size
+            self.z_dynamic_size = hidden_size[1]
+            self.hidden_size = self.z_dynamic_size + self.z_static_size
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
