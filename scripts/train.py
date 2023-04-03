@@ -10,7 +10,7 @@ from neural_waveshaping_synthesis.models.neural_waveshaping import NeuralWavesha
 
 
 @gin.configurable
-def get_model(model, with_wandb, hidden_size=None):
+def get_model(model, with_wandb, hidden_size=16):
     return model(log_audio=with_wandb, hidden_size=hidden_size)
 
 
