@@ -71,6 +71,8 @@ pip install .
 conda create --name nws python=3.9.16
 conda activate nws
 pip install pytorch-lightning wandb torchcrepe auraloss librosa black gin-config
+
+wandb login
 ```
 
 python scripts/create_dataset.py \
