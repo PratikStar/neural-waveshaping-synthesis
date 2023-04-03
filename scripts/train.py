@@ -87,7 +87,7 @@ def main(
             dataset_path,
             instrument,
             load_to_memory=load_data_to_memory,
-            num_workers=16,
+            num_workers=4,
             shuffle=True,
         )
     else:
@@ -95,7 +95,7 @@ def main(
         data = GeneralDataModule(
             dataset_path,
             load_to_memory=load_data_to_memory,
-            num_workers=16,
+            num_workers=4,
             shuffle=True,
         )
 
