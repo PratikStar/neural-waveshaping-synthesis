@@ -89,5 +89,4 @@ python scripts/train.py \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
 --checkpoint-path /root/nws/timbre-16k-f0_di_75-static_dynamic_z_4_8 \
 --checkpoint-file last.ckpt \
---restore-checkpoint \
 --load-data-to-memory  >> ~/logs/timbre-16k-f0_di_75-static_dynamic_z_4_8_$(date +%Y%m%d_%H%M%S).log 2>&1 &
