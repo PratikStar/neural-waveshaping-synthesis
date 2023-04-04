@@ -44,6 +44,7 @@ class ControlModule(nn.Module):
             self.z_static_size = z_static_size
             self.z_dynamic_size = z_dynamic_size
             self.hidden_size = self.z_dynamic_size + self.z_static_size
+            wandb.config['hidden_size'] = [self.z_static_size, self.z_dynamic_size]
             print(f"self.z_static_size: {self.z_static_size}, self.z_dynamic_size: {self.z_dynamic_size}")
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
