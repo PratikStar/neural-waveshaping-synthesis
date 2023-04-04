@@ -10,7 +10,7 @@ NeuralWaveshaping.lr_decay_interval = 10000
 
 trainer_kwargs.max_steps = 30000
 trainer_kwargs.gradient_clip_val = 2.0
-trainer_kwargs.accelerator = 'dp'
+trainer_kwargs.accelerator = 'cuda'
 # trainer_kwargs.accelerator = 'auto' wisteria
 
 
