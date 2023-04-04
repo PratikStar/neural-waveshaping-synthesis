@@ -81,14 +81,6 @@ python scripts/create_dataset.py \
 --output-directory /root/data/nws/timbre-16k-f0_di_75 \
 --device cuda:0
 
-python scripts/train.py \
---gin-file gin/train/train_newt.gin \
---dataset-path /root/data/nws/timbre-16k-f0_di_85 \
---checkpoint-path /root/nws/timbre-16k-f0_di_85-static_dynamic_z_2_2 \
---checkpoint-file last.ckpt \
---load-data-to-memory  >> ~/logs/timbre_A4-16k-f0_hardcoded-static_dynamic_z_2_2_$(date +%Y%m%d_%H%M%S).log 2>&1 &
-
-
 wandb agent auditory-grounding/nws/63ag5eev  >> ~/logs/sweep_63ag5eev_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
 python scripts/train.py \
