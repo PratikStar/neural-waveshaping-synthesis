@@ -13,5 +13,4 @@ for f in os.listdir(path):
     wandb.log_artifact(artifact)
 
 run.finish()
-run.delete()
 
