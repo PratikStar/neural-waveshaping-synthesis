@@ -3,12 +3,12 @@ import os
 
 path = "/root/nws"
 
-wandb.init(project="nws", name="artifact_update")
+wandb.init(project="nws", name="artifact_upload")
 for f in os.listdir():
     if not f.startswith("timbre"):
         continue
     artifact = wandb.Artifact(f, type="model")
     artifact.add_dir(f)
-    wandb.log_artifact()
+    wandb.log_artifact(artifact)
 
 
