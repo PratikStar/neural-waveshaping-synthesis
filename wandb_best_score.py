@@ -25,9 +25,9 @@ for run in tqdm(runs):
         continue
     bests = [None] * len(targs)
     data = [row for row in run.scan_history(keys = keys)]
-    print(run.history().columns)
-    print(previous)
-    break
+    # print(run.history().columns)
+    # print(previous)
+    # break
     for i, (key, func) in enumerate(targs):
         bests[i] = func(row[key] for row in data)
         # Display incorrect "bests"
