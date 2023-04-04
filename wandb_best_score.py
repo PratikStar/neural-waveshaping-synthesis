@@ -16,6 +16,8 @@ keys = [targ[0] for targ in targs]
 changes = 0
 change_made = False
 for run in tqdm(runs):
+    print(run)
+    continue
     try:
         previous = [run.summary[key] for key in keys]
     except KeyError: # Catches incomplete runs
