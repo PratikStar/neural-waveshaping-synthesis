@@ -10,7 +10,7 @@ runs = [run for run in api.runs(WANDB_PROJECT)]
 print(f"{len(runs)} runs found")
 
 # Specify column name and comparison function (ideally min or max)
-targs = (("train_loss", min), ("valid_loss", min))
+targs = (("val/loss", min), ("train/loss", min))
 keys = [targ[0] for targ in targs]
 
 changes = 0
