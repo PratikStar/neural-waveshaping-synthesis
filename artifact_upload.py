@@ -12,5 +12,6 @@ for f in os.listdir(path):
     artifact.add_dir(path + "/" + f)
     wandb.log_artifact(artifact)
 
-run
+run.finish()
+run.delete()
 
