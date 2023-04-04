@@ -17,7 +17,7 @@ changes = 0
 change_made = False
 for run in tqdm(runs):
     print(run)
-    continue
+    # continue
     try:
         previous = [run.summary[key] for key in keys]
     except KeyError: # Catches incomplete runs
@@ -25,6 +25,7 @@ for run in tqdm(runs):
         continue
     bests = [None] * len(targs)
     data = [row for row in run.scan_history(keys = keys)]
+    continue
     for i, (key, func) in enumerate(targs):
         bests[i] = func(row[key] for row in data)
         # Display incorrect "bests"
