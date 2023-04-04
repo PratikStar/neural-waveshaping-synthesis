@@ -102,7 +102,7 @@ python scripts/train.py \
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
---checkpoint-path tmp \
+--checkpoint-path /root/tmp \
 --checkpoint-file last.ckpt \
 --restore-checkpoint \
 --load-data-to-memory 
