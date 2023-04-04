@@ -11,3 +11,4 @@ for f in os.listdir():
     artifact.add_dir(f)
     wandb.log_artifact()
 
+
