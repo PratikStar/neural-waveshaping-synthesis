@@ -25,7 +25,7 @@ for run in tqdm(runs):
         continue
     bests = [None] * len(targs)
     data = [row for row in run.scan_history(keys = keys)]
-    print(run.scan_history())
+    print(run.history())
     print(previous)
     break
     for i, (key, func) in enumerate(targs):
