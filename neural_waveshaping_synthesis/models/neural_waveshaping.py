@@ -406,7 +406,7 @@ class NeuralWaveshaping(pl.LightningModule):
         if batch_idx == 0 and self.log_audio:
             self._log_audio(f"og-{self.current_epoch}", audio[0].detach().cpu().squeeze())
             self._log_audio(f"recon-{self.current_epoch}", recon[0].detach().cpu().squeeze())
-            self._log_audio(f"recon-og-{self.current_epoch}", torch.cat(recon[0].detach().cpu().squeeze(), audio[0].detach().cpu().squeeze()))
+            self._log_audio(f"recon-og-{self.current_epoch}", torch.cat((recon[0].detach().cpu().squeeze(), audio[0].detach().cpu().squeeze())))
         return loss
 
     def test_step(self, batch, batch_idx):
