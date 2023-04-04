@@ -404,7 +404,7 @@ class NeuralWaveshaping(pl.LightningModule):
             sync_dist=True,
         )
         if batch_idx == 0 and self.log_audio:
-            self._log_audio(f"original-{}", audio[0].detach().cpu().squeeze())
+            self._log_audio(f"recon-og-{self.current_epoch}", audio[0].detach().cpu().squeeze())
             self._log_audio("recon", recon[0].detach().cpu().squeeze())
         return loss
 
