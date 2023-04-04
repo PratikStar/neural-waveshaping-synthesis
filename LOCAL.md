@@ -49,6 +49,7 @@ gcloud compute scp instance-gpu2:/home/pratik/nws/timbre_A4-16k-f0_hardcoded-sta
 ```shell
 sudo su
 apt-get install git wget
+ulimit -Sn 10000
 # install miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
 wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh
 bash Miniconda3<tab>
