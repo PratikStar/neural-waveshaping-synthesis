@@ -104,5 +104,4 @@ python scripts/train.py \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
 --checkpoint-path /root/tmp \
 --checkpoint-file last.ckpt \
---restore-checkpoint \
 --load-data-to-memory 
