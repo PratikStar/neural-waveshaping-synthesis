@@ -9,7 +9,7 @@ for f in os.listdir():
         continue
     print(f"For: {f}")
     artifact = wandb.Artifact(f, type="model")
-    artifact.add_dir(f)
+    artifact.add_dir(path + "/" + f)
     wandb.log_artifact(artifact)
 
 
