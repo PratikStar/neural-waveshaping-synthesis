@@ -47,7 +47,7 @@ def main(
     print(f"torch: {torch.__version__}")
     print(f"CUDA #devices: {torch.cuda.device_count()}")
     device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
-    print(f"Device: {device}")
+    print(f"Device: {torch.cuda.get_device_name(0)}")
 
     if 'WANDB_SWEEP_ID' in os.environ:
         print(f"WANDB_SWEEP_ID: {os.environ['WANDB_SWEEP_ID']}")
