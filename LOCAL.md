@@ -87,7 +87,7 @@ wandb agent auditory-grounding/nws/63ag5eev  >> ~/logs/sweep_63ag5eev_$(date +%Y
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
---checkpoint-path /root/nws/timbre-16k-f0_di_75-static_dynamic_z_2_4 \
---checkpoint-file last-v1.ckpt \
+--checkpoint-path /root/nws/timbre-16k-f0_di_75-static_dynamic_z_2_8 \
+--checkpoint-file last-v2.ckpt \
 --restore-checkpoint \
---load-data-to-memory  >> ~/logs/timbre-16k-f0_di_75-static_dynamic_z_2_4_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+--load-data-to-memory  >> ~/logs/timbre-16k-f0_di_75-static_dynamic_z_2_8_$(date +%Y%m%d_%H%M%S).log 2>&1 &
