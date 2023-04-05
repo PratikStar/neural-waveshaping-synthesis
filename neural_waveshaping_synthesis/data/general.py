@@ -90,6 +90,9 @@ class GeneralDataModule(pl.LightningDataModule):
 
     def train_dataloader(self):
         return self._make_dataloader(self.urmp_train)
+    
+    def trainval_dataloader(self):
+        return self._make_dataloader(self.urmp_train)
 
     def val_dataloader(self):
         return self._make_dataloader(self.urmp_val)
