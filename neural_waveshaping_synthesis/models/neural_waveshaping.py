@@ -65,7 +65,7 @@ class ControlModule(nn.Module):
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # dynamic
             self.timbre_z = {}
-            for i in range(20):
+            for i in range(21):
                 for a in ['A', 'B', 'C', 'D']:
                     self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size), requires_grad=True)
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
