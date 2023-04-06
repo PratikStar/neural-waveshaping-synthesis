@@ -74,7 +74,7 @@ class ControlModule(nn.Module):
         else:
             print("Please provide a correct embedding_strategy!!")
 
-    def forward(self, x, preset=None):
+    def forward(self, x, presets=None):
         print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"Input to control module: {x.shape}")
