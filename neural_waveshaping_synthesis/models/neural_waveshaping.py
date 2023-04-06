@@ -280,7 +280,7 @@ class NeuralWaveshaping(pl.LightningModule):
 
         return control_embedding, z
 
-    def forward(self, f0, control): # control is 19 dimensional: 1f0, 1 loudness, 1 confidence, 16mfcc
+    def forward(self, f0, control, preset=None): # control is 19 dimensional: 1f0, 1 loudness, 1 confidence, 16mfcc
         print(f"\n\n================= In forward ===================")
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
@@ -294,7 +294,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"x: {x.shape}")
         print(f"x: {x[0,0,:10].detach().cpu().numpy()}")
 
-        control_embedding, z = self.get_embedding(control, preset=)
+        control_embedding, z = self.get_embedding(control, preset=preset)
         print(f"control_embedding: {control_embedding[0,:10,0].detach().cpu().numpy()}")
         print(f"control_embedding: {control_embedding[0,:10,1].detach().cpu().numpy()}")
         print(f"control_embedding: {control_embedding[0,:10,2].detach().cpu().numpy()}")
