@@ -415,7 +415,8 @@ class NeuralWaveshaping(pl.LightningModule):
         )
 
     def training_step(self, batch, batch_idx):
-        loss, _, _ = self._run_step(batch)
+        with HiddenPrints():
+            loss, _, _ = self._run_step(batch)
         self.log(
             "train/loss",
             loss.item(),
