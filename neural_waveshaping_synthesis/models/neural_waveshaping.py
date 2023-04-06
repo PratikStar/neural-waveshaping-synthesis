@@ -150,7 +150,7 @@ class ControlModule(nn.Module):
             print(z_dynamic[0,0,:10].detach().cpu().numpy())
             print(z_dynamic[0,1,:10].detach().cpu().numpy())
 
-            z_static = self.timbre_z[preset].repeat(1, self.sample_rate // self.control_hop, 1)
+            z_static = self.timbre_z[presets].repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"z_static after repeat: {z_static.shape}")
             print(z_static[0,0,:10].detach().cpu().numpy())
             print(z_static[0,1,:10].detach().cpu().numpy())
