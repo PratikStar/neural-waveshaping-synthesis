@@ -10,6 +10,7 @@ import os
 from .modules.dynamic import TimeDistributedMLP
 from .modules.generators import FIRNoiseSynth, HarmonicOscillator
 from .modules.shaping import NEWT, Reverb
+from ..utils.utils import HiddenPrints
 
 gin.external_configurable(nn.GRU, module="torch.nn")
 gin.external_configurable(nn.Conv1d, module="torch.nn")
