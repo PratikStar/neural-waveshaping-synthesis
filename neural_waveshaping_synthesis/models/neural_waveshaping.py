@@ -26,6 +26,7 @@ class ControlModule(nn.Module):
                  z_dynamic_size: int = None,
                  z_static_size: int = None,
                  embedding_strategy: str = "NONE", # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
+                 device: None
                  ):
         super().__init__()
         self.embedding_strategy = embedding_strategy
