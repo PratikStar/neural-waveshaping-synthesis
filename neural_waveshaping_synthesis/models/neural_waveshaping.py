@@ -155,7 +155,7 @@ class ControlModule(nn.Module):
             # static
             stack = []
             for i in range(len(presets)):
-                print(f"Appending for {presets[i]}: {self.timbre_z[presets[i]]}")
+                # print(f"Appending for {presets[i]}: {self.timbre_z[presets[i]]}")
                 stack.append(self.timbre_z[presets[i]])
             z_static = torch.stack(stack)
             print(f"after stacking: {z_static.shape}")
