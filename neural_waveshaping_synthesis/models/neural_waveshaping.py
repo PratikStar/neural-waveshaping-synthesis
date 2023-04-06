@@ -31,19 +31,17 @@ class ControlModule(nn.Module):
         self.embedding_strategy = embedding_strategy
         self.sample_rate = sample_rate
         self.control_hop = control_hop
-        self.hidden_size = hidden_size
+        self.hidden_size = self.z_dynamic_size + self.z_static_size
 
         # If sweeps is on, get hidden size from z_dim, else from gin hidden_size
         if 'WANDB_SWEEP_ID' in os.environ:
             print(f"ControlModule recognizes this is a sweep! hidden_size: {hidden_size}")
             self.z_static_size = hidden_size[0]
             self.z_dynamic_size = hidden_size[1]
-            self.hidden_size = self.z_static_size + self.z_dynamic_size
         else:
             # print("Control module is NOT in sweep mode")
             self.z_static_size = z_static_size
             self.z_dynamic_size = z_dynamic_size
-            self.hidden_size = self.z_dynamic_size + self.z_static_size
             print(f"self.z_static_size: {self.z_static_size}, self.z_dynamic_size: {self.z_dynamic_size}")
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
@@ -57,10 +55,7 @@ class ControlModule(nn.Module):
             self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // self.control_hop) , hidden_size)
             self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop, kernel_size=1) # kernel size is hyperparam
 
-
         elif self.embedding_strategy == "STATIC_DYNAMIC_Z":
-            # self.z_dynamic_size = hidden_size // 2
-            # self.z_static_size = hidden_size // 2
             # dynamic
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
@@ -74,17 +69,17 @@ class ControlModule(nn.Module):
             self.timbre_z = {}
             for i in range(20):
                 for a in ['A', 'B', 'C', 'D']:
-                    self.timbre_z[f"{i:2d}{a}"] =
+                    self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size), requires_grad=True)
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
-            self.flatten = nn.Flatten(1, 2)
-            self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
+            # self.flatten = nn.Flatten(1, 2)
+            # self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
             self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
         else:
             print("Please provide a correct embedding_strategy!!")
 
 
-    def forward(self, x, preset):
+    def forward(self, x, preset=None):
         print(f"\nRunning ControlModule.forward")
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"Input to control module: {x.shape}")
@@ -151,7 +146,22 @@ class ControlModule(nn.Module):
             print(f"After cat: {x.shape}")
             print(x[0,0,:10].detach().cpu().numpy())
             print(x[0,1,:10].detach().cpu().numpy())
+        elif self.embedding_strategy == "CONCAT_STATIC_Z":
+            # dynamic
+            z_dynamic, _ = self.gru(x.transpose(1, 2))
+            print(f"After GRU (z_dynamic): {z_dynamic.shape}")
+            print(z_dynamic[0,0,:10].detach().cpu().numpy())
+            print(z_dynamic[0,1,:10].detach().cpu().numpy())
 
+            z_static = self.timbre_z[preset].repeat(1, self.sample_rate // self.control_hop, 1)
+            print(f"z_static after repeat: {z_static.shape}")
+            print(z_static[0,0,:10].detach().cpu().numpy())
+            print(z_static[0,1,:10].detach().cpu().numpy())
+
+            x = torch.cat((z_dynamic, z_static), 2)
+            print(f"After cat: {x.shape}")
+            print(x[0,0,:10].detach().cpu().numpy())
+            print(x[0,1,:10].detach().cpu().numpy())
         else:
             pass
 
