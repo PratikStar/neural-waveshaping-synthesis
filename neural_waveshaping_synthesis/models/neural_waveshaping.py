@@ -285,7 +285,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"\n\n================= In forward ===================")
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
-        print(f"preset: {preset}")
+        print(f"preset: {presets}")
         print(f"f0: {f0[0,0,:10].detach().cpu().numpy()}")
 
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear") # f0.shape[-1] is number of frames
@@ -296,7 +296,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"x: {x.shape}")
         print(f"x: {x[0,0,:10].detach().cpu().numpy()}")
 
-        control_embedding, z = self.get_embedding(control, preset=preset)
+        control_embedding, z = self.get_embedding(control, presets=presets)
         print(f"control_embedding: {control_embedding[0,:10,0].detach().cpu().numpy()}")
         print(f"control_embedding: {control_embedding[0,:10,1].detach().cpu().numpy()}")
         print(f"control_embedding: {control_embedding[0,:10,2].detach().cpu().numpy()}")
