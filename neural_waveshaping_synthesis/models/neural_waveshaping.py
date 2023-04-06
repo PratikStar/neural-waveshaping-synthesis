@@ -395,8 +395,7 @@ class NeuralWaveshaping(pl.LightningModule):
         f0 = batch["f0"].float()
         control = batch["control"].float()
 
-        with HiddenPrints():
-            recon, gru_embedding = self(f0, control,
+        recon, gru_embedding = self(f0, control,
                                         presets=[b[:3] for b in batch["name"]]
                                         )
 
