@@ -150,10 +150,11 @@ class ControlModule(nn.Module):
             print(z_dynamic[0,0,:10].detach().cpu().numpy())
             print(z_dynamic[0,1,:10].detach().cpu().numpy())
 
-            z_static = self.timbre_z[presets[0]]
+            # static
+            stack = []
             for i in range(1, len(presets)):
                 print(f"Appending for {presets[i]}: {self.timbre_z[presets[i]]}")
-                z_static.stack
+                stack
 
             z_static = self.timbre_z[presets].repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"z_static after repeat: {z_static.shape}")
