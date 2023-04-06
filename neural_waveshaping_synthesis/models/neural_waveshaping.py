@@ -66,9 +66,10 @@ class ControlModule(nn.Module):
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # dynamic
             self.timbre_z = {}
+            device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
             for i in range(21):
                 for a in ['A', 'B', 'C', 'D']:
-                    self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size, device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'), requires_grad=True)
+                    self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size, device=device), requires_grad=True)
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
             self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
