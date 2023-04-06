@@ -246,7 +246,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"Returning from render_exciter\n")
         return sig
 
-    def get_embedding(self, control, preset=None):
+    def get_embedding(self, control, presets=None):
         print(f"\n In get_embedding")
         print(f"control: {control.shape}")
         print("splitting control in f0 and other")
@@ -258,7 +258,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"control: {control[0,0,:10].detach().cpu().numpy()}")
 
         print("Invoking ControlModule with control")
-        control_embedding, z = self.embedding(control, preset)
+        control_embedding, z = self.embedding(control, presets)
         print(f"control_embedding: {control_embedding.shape}")
         print(f"z: {z.shape}")
 
