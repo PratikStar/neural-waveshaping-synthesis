@@ -63,8 +63,6 @@ class ControlModule(nn.Module):
             self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
             self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
-            # self.z_dynamic_size = hidden_size // 2
-            # self.z_static_size = hidden_size // 2
             # dynamic
             self.timbre_z = {}
             for i in range(20):
@@ -72,12 +70,9 @@ class ControlModule(nn.Module):
                     self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size), requires_grad=True)
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
-            # self.flatten = nn.Flatten(1, 2)
-            # self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
             self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
         else:
             print("Please provide a correct embedding_strategy!!")
-
 
     def forward(self, x, preset=None):
         print(f"\nRunning ControlModule.forward")
