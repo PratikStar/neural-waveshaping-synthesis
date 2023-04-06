@@ -31,7 +31,6 @@ class ControlModule(nn.Module):
         self.embedding_strategy = embedding_strategy
         self.sample_rate = sample_rate
         self.control_hop = control_hop
-        self.hidden_size = self.z_dynamic_size + self.z_static_size
 
         # If sweeps is on, get hidden size from z_dim, else from gin hidden_size
         if 'WANDB_SWEEP_ID' in os.environ:
@@ -42,6 +41,7 @@ class ControlModule(nn.Module):
             # print("Control module is NOT in sweep mode")
             self.z_static_size = z_static_size
             self.z_dynamic_size = z_dynamic_size
+            self.hidden_size = self.z_dynamic_size + self.z_static_size
             print(f"self.z_static_size: {self.z_static_size}, self.z_dynamic_size: {self.z_dynamic_size}")
 
         if self.embedding_strategy in ["NONE", "GRU_LAST"]:
