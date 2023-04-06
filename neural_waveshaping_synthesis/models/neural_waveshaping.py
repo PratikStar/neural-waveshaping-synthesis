@@ -79,6 +79,7 @@ class ControlModule(nn.Module):
         print(f"Embedding strategy: {self.embedding_strategy}")
         print(f"Input to control module: {x.shape}")
         print(f"Input presets to control module: {presets}")
+        print(f"presets embeddings: {self.timbre_z}")
 
         if self.embedding_strategy == "NONE":
             x, _ = self.gru(x.transpose(1, 2))
