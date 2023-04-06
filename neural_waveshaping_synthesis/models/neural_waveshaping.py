@@ -67,7 +67,7 @@ class ControlModule(nn.Module):
             self.timbre_z = {}
             for i in range(21):
                 for a in ['A', 'B', 'C', 'D']:
-                    self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size), requires_grad=True)
+                    self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size, device=device), requires_grad=True)
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
             self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
