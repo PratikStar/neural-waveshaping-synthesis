@@ -375,6 +375,14 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"presets: {presets}")
         print(f"f0: {f0[0, 0, :10].detach().cpu().numpy()}")
 
+        pis = []
+        for p in presets:
+            i = (int(p[:2]) - 1) * 4
+            s = int(ord(p[2])) - 64
+            pis.append(i + s - 1)
+        device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
+        presets = torch.tensor(pis).to(device)
+        
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop,
                                   mode="linear")  # f0.shape[-1] is number of frames
         print(f"f0_upsampled: {f0_upsampled.shape}")
