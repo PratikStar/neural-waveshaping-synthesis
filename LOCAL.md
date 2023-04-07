@@ -139,3 +139,4 @@ z_static = torch.stack(stack)
 z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
 
 x = torch.cat((z_dynamic, z_static), 2)
+y = self.conv1d(x.transpose(1, 2))
