@@ -425,10 +425,14 @@ class NeuralWaveshaping(pl.LightningModule):
         f0 = batch["f0"].float()
         control = batch["control"].float()
         presets=[b[:3] for b in batch["name"]]
+        pis = []
         for p in presets:
             i = int(p[:2])
             s = p[2]
             i = (i -1)*4
+            s = int(ord(s)) - 64
+            pis.append(i+s)
+
         recon, gru_embedding = self(f0, control,
                                         presets=
                                         )
