@@ -423,10 +423,10 @@ class NeuralWaveshaping(pl.LightningModule):
             i = (i -1)*4
             s = int(ord(s)) - 64
             pis.append(i+s)
-        self.device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
+        device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
 
         recon, gru_embedding = self(f0, control,
-                                        presets=torch.tensor(pis).to(self.device)
+                                        presets=torch.tensor(pis).to(device)
                                         )
 
         print(f"recon: {recon.shape}")
