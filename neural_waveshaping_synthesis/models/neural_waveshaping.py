@@ -201,6 +201,7 @@ class ControlModule(nn.Module):
             print(f"After cat: {x.shape}")
             print(x[0,0,:10].detach().cpu().numpy())
             print(x[0,1,:10].detach().cpu().numpy())
+        elif self.embedding_strategy == "CONCAT_STATIC_Z":
 
         else:
             pass
