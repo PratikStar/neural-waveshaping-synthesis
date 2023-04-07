@@ -171,7 +171,7 @@ class ControlModule(nn.Module):
             y = self.proj(x_gru.transpose(1, 2))
             print(f"After Cond1D: {y.shape}")
 
-            return y, x # NOTE, because I need "x" 
+            return y, x # NOTE, because I need "x"
         else:
             pass
 
@@ -204,6 +204,25 @@ class ControlModule(nn.Module):
             print(x[0,0,:10].detach().cpu().numpy())
             print(x[0,1,:10].detach().cpu().numpy())
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
+            # lookup
+
+            z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
+            print(f"after repeat: {z_static.shape}")
+            print(z_static[0,0,:10].detach().cpu().numpy())
+            print(z_static[0,1,:10].detach().cpu().numpy())
+
+            # concat
+            x = torch.cat((x.transpose(1, 2), z_static), 2)
+            print(f"After cat: {x.shape}")
+
+            x_gru, _ = self.gru(x)
+            print(f"After GRU (y): {x_gru.shape}")
+
+            y = self.proj(x_gru.transpose(1, 2))
+            print(f"After Cond1D: {y.shape}")
+
+            return y, x # NOTE, because I need "x"
+
             z_dynamic, _ = self.gru(controls.transpose(1, 2))
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
             print(z_dynamic[0,0,:10].detach().cpu().numpy())
