@@ -211,7 +211,7 @@ class ControlModule(nn.Module):
             # stack = []
             # for i in range(len(presets)):
             #     stack.append(self.timbre_z[presets[i]])
-            # z_static = torch.stack(stack)
+            z_static = torch.stack([z_static])
             # print(f"after stacking: {z_static.shape}")
 
             z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
