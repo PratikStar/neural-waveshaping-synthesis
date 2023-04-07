@@ -152,14 +152,15 @@ class ControlModule(nn.Module):
             print(x[0,0,:10].detach().cpu().numpy())
             print(x[0,1,:10].detach().cpu().numpy())
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
-            
+            # lookup
+
+            # concat
+
             z_dynamic, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
             print(z_dynamic[0,0,:10].detach().cpu().numpy())
             print(z_dynamic[0,1,:10].detach().cpu().numpy())
 
-            print("Here is the embedding table")
-            print(self.timbre_z["03C"])
             # static
             stack = []
             for i in range(len(presets)):
