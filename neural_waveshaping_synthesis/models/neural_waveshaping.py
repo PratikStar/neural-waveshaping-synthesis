@@ -337,10 +337,11 @@ class NeuralWaveshaping(pl.LightningModule):
         # print(f"x: {x.shape}")
         return x, z
 
-    def encode(self, f0, control):
+    def encode(self, f0, control, presets):
         print(f"\n\n================= In Encode ===================")
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
+        print(f"presets: {presets}")
         print(f"f0: {f0[0,0,:10].detach().cpu().numpy()}")
 
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear") # f0.shape[-1] is number of frames
