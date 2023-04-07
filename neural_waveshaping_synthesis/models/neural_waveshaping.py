@@ -154,9 +154,13 @@ class ControlModule(nn.Module):
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # lookup
             z_static = self.embed(presets)
+            z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
+            print(f"after lookup and repeat: {z_static}")
+            
             # concat
+            x = torch.cat((x.transpose(1, 2), z_static), 2)
 
-            z_dynamic, _ = self.gru(x.transpose(1, 2))
+            z_dynamic, _ = self.gru()
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
             print(z_dynamic[0,0,:10].detach().cpu().numpy())
             print(z_dynamic[0,1,:10].detach().cpu().numpy())
@@ -169,12 +173,10 @@ class ControlModule(nn.Module):
             z_static = torch.stack(stack)
             print(f"after stacking: {z_static.shape}")
 
-            z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"z_static after repeat: {z_static.shape}")
             print(z_static[0,0,:10].detach().cpu().numpy())
             print(z_static[0,1,:10].detach().cpu().numpy())
 
-            x = torch.cat((z_dynamic, z_static), 2)
             print(f"After cat: {x.shape}")
             print(x[0,0,:100].detach().cpu().numpy())
             print(x[0,1,:100].detach().cpu().numpy())
