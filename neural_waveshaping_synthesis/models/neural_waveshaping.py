@@ -428,6 +428,7 @@ class NeuralWaveshaping(pl.LightningModule):
         for p in presets:
             i = int(p[:2])
             s = p[2]
+            i = (i -1)*4
         recon, gru_embedding = self(f0, control,
                                         presets=
                                         )
