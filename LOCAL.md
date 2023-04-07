@@ -126,23 +126,4 @@ python scripts/train.py \
 
 
 
-tensor([1.5402, 1.0251], device='cuda:0', requires_grad=True), '16A': Parameter containing:
-tensor([-0.8716,  0.4374], device='cuda:0', requires_grad=True), '16B': Parameter containing:
-tensor([ 1.1323, -0.0626], device='cuda:0', requires_grad=True), '16C': Parameter containing:
-tensor([ 0.6360, -1.2588], device='cuda:0', requires_grad=True), '16D': Parameter containing:
-tensor([ 0.9573, -1.0312], device='cuda:0', requires_grad=True), '17A': Parameter containing:
-tensor([1.6513, 0.9334], device='cuda:0', requires_grad=True), '17B': Parameter containing:
-tensor([ 0.3052, -2.2169], device='cuda:0', requires_grad=True), '17C': Parameter containing:
-tensor([-0.0011, -0.6877], device='cuda:0', requires_grad=True), '17D': Parameter containing:
-tensor([-2.0784, -0.4871], device='cuda:0', requires_grad=True), '18A': Parameter containing:
-tensor([1.2532, 0.9139], device='cuda:0', requires_grad=True), '18B': Parameter containing:
-tensor([0.6645, 0.9340], device='cuda:0', requires_grad=True), '18C': Parameter containing:
-tensor([-1.4133, -0.7500], device='cuda:0', requires_grad=True), '18D': Parameter containing:
-tensor([ 1.6161, -2.8408], device='cuda:0', requires_grad=True), '19A': Parameter containing:
-tensor([-0.3787, -1.4616], device='cuda:0', requires_grad=True), '19B': Parameter containing:
-tensor([2.0803, 1.4841], device='cuda:0', requires_grad=True), '19C': Parameter containing:
-tensor([1.0718, 0.2456], device='cuda:0', requires_grad=True), '19D': Parameter containing:
-tensor([0.5412, 0.3958], device='cuda:0', requires_grad=True), '20A': Parameter containing:
-tensor([0.4412, 1.4371], device='cuda:0', requires_grad=True), '20B': Parameter containing:
-tensor([-1.5592, -1.3757], device='cuda:0', requires_grad=True), '20C': Parameter containing:
-tensor([-0.6601, -0.0484], device='cuda:0', requires_grad=True), '20
+
