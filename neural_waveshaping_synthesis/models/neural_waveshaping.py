@@ -72,7 +72,7 @@ class ControlModule(nn.Module):
                 for a in ['A', 'B', 'C', 'D']:
                     self.timbre_z[f"{i:02d}{a}"] = torch.nn.Parameter(torch.randn(self.z_static_size, device=device), requires_grad=True)
 
-            print("Init Here is the embedding table")
+            print("Init: Here is the embedding table")
             print(self.timbre_z)
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
