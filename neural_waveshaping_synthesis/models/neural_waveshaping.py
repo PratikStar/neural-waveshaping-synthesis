@@ -19,14 +19,14 @@ gin.external_configurable(nn.Conv1d, module="torch.nn")
 @gin.configurable
 class ControlModule(nn.Module):
     def __init__(self,
-                 control_size: int, # input to controlemodule
-                 hidden_size, # z
-                 embedding_size: int, # output of controlmodule
+                 control_size: int,  # input to controlemodule
+                 hidden_size,  # z
+                 embedding_size: int,  # output of controlmodule
                  sample_rate: int,
                  control_hop: int,
                  z_dynamic_size: int = None,
                  z_static_size: int = None,
-                 embedding_strategy: str = "NONE", # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
+                 embedding_strategy: str = "NONE",  # NONE, GRU_LAST, FLATTEN_LINEAR, STATIC_DYNAMIC_Z
                  device: str = None
                  ):
         super().__init__()
@@ -54,15 +54,16 @@ class ControlModule(nn.Module):
             self.gru = nn.GRU(control_size, hidden_size, batch_first=True)
             self.proj = nn.Conv1d(hidden_size, embedding_size, 1)
             self.flatten = nn.Flatten(1, 2)
-            self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // self.control_hop) , hidden_size)
-            self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop, kernel_size=1) # kernel size is hyperparam
+            self.linear_encode = nn.Linear(hidden_size * (self.sample_rate // self.control_hop), hidden_size)
+            self.con1d_decode = nn.Conv1d(1, self.sample_rate // self.control_hop,
+                                          kernel_size=1)  # kernel size is hyperparam
 
         elif self.embedding_strategy == "STATIC_DYNAMIC_Z":
             # dynamic
             self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
             # static
             self.flatten = nn.Flatten(1, 2)
-            self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop) , self.z_static_size)
+            self.linear_encode = nn.Linear(control_size * (self.sample_rate // self.control_hop), self.z_static_size)
             self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # dynamic
@@ -97,8 +98,8 @@ class ControlModule(nn.Module):
         if self.embedding_strategy == "GRU_LAST":
             x, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU: {x.shape}")
-            print(x[0,1,:10].detach().cpu().numpy())
-            print(x[0,2,:10].detach().cpu().numpy())
+            print(x[0, 1, :10].detach().cpu().numpy())
+            print(x[0, 2, :10].detach().cpu().numpy())
             x_tmp = []
             for b in range(x.shape[0]):
                 # print(f"batch: {b}")
@@ -109,17 +110,17 @@ class ControlModule(nn.Module):
             x = torch.stack(x_tmp)
             print(f"GRU_LAST control embedding shape: {x.shape}")
 
-            print(x[0,1,:10].detach().cpu().numpy())
-            print(x[0,2,:10].detach().cpu().numpy())
-            print(x[0,3,:10].detach().cpu().numpy())
+            print(x[0, 1, :10].detach().cpu().numpy())
+            print(x[0, 2, :10].detach().cpu().numpy())
+            print(x[0, 3, :10].detach().cpu().numpy())
             # print(x[1,1,:10].detach().cpu().numpy())
             # print(x[1,2,:10].detach().cpu().numpy())
             # print(x[1,3,:10].detach().cpu().numpy())
         elif self.embedding_strategy == "FLATTEN_LINEAR":
             x, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU: {x.shape}")
-            print(x[0,1,:10].detach().cpu().numpy())
-            print(x[0,2,:10].detach().cpu().numpy())
+            print(x[0, 1, :10].detach().cpu().numpy())
+            print(x[0, 2, :10].detach().cpu().numpy())
 
             flattened_x = self.flatten(x)
             flattened_x = flattened_x.unsqueeze(1)
@@ -133,9 +134,9 @@ class ControlModule(nn.Module):
             # dynamic
             z_dynamic, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
-            print(z_dynamic[0,0,:10].detach().cpu().numpy())
-            print(z_dynamic[0,1,:10].detach().cpu().numpy())
-            #static z
+            print(z_dynamic[0, 0, :10].detach().cpu().numpy())
+            print(z_dynamic[0, 1, :10].detach().cpu().numpy())
+            # static z
             flattened_x = self.flatten(x).unsqueeze(1)
             print(f"flattened_x (for z_static): {flattened_x.shape}")
 
@@ -144,13 +145,13 @@ class ControlModule(nn.Module):
 
             z_static = z_static.repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"z_static after repeat: {z_static.shape}")
-            print(z_static[0,0,:10].detach().cpu().numpy())
-            print(z_static[0,1,:10].detach().cpu().numpy())
+            print(z_static[0, 0, :10].detach().cpu().numpy())
+            print(z_static[0, 1, :10].detach().cpu().numpy())
 
             x = torch.cat((z_dynamic, z_static), 2)
             print(f"After cat: {x.shape}")
-            print(x[0,0,:10].detach().cpu().numpy())
-            print(x[0,1,:10].detach().cpu().numpy())
+            print(x[0, 0, :10].detach().cpu().numpy())
+            print(x[0, 1, :10].detach().cpu().numpy())
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # lookup
             z_static = self.embed(presets)
@@ -158,8 +159,8 @@ class ControlModule(nn.Module):
             print(z_static)
             z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"after repeat: {z_static.shape}")
-            print(z_static[0,0,:10].detach().cpu().numpy())
-            print(z_static[0,1,:10].detach().cpu().numpy())
+            print(z_static[0, 0, :10].detach().cpu().numpy())
+            print(z_static[0, 1, :10].detach().cpu().numpy())
 
             # concat
             x = torch.cat((x.transpose(1, 2), z_static), 2)
@@ -171,7 +172,7 @@ class ControlModule(nn.Module):
             y = self.proj(x_gru.transpose(1, 2))
             print(f"After Cond1D: {y.shape}")
 
-            return y, x # NOTE, because I need "x"
+            return y, x  # NOTE, because I need "x"
         else:
             pass
 
@@ -186,9 +187,9 @@ class ControlModule(nn.Module):
             # dynamic
             z_dynamic, _ = self.gru(controls.transpose(1, 2))
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
-            print(z_dynamic[0,0,:10].detach().cpu().numpy())
-            print(z_dynamic[0,1,:10].detach().cpu().numpy())
-            #static z will be provided
+            print(z_dynamic[0, 0, :10].detach().cpu().numpy())
+            print(z_dynamic[0, 1, :10].detach().cpu().numpy())
+            # static z will be provided
             # flattened_x = self.flatten(x).unsqueeze(1)
             # print(f"flattened_x (for z_static): {flattened_x.shape}")
 
@@ -196,20 +197,20 @@ class ControlModule(nn.Module):
 
             z_static = z_static.repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"z_static after repeat: {z_static.shape}")
-            print(z_static[0,0,:10].detach().cpu().numpy())
-            print(z_static[0,1,:10].detach().cpu().numpy())
+            print(z_static[0, 0, :10].detach().cpu().numpy())
+            print(z_static[0, 1, :10].detach().cpu().numpy())
 
             x = torch.cat((z_dynamic, z_static), 2)
             print(f"After cat: {x.shape}")
-            print(x[0,0,:10].detach().cpu().numpy())
-            print(x[0,1,:10].detach().cpu().numpy())
+            print(x[0, 0, :10].detach().cpu().numpy())
+            print(x[0, 1, :10].detach().cpu().numpy())
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # lookup
 
             z_static = [z_static].unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"after repeat: {z_static.shape}")
-            print(z_static[0,0,:10].detach().cpu().numpy())
-            print(z_static[0,1,:10].detach().cpu().numpy())
+            print(z_static[0, 0, :10].detach().cpu().numpy())
+            print(z_static[0, 1, :10].detach().cpu().numpy())
 
             # concat
             x = torch.cat((controls.transpose(1, 2), z_static), 2)
@@ -221,7 +222,7 @@ class ControlModule(nn.Module):
             y = self.proj(x_gru.transpose(1, 2))
             print(f"After Cond1D: {y.shape}")
 
-            return y, x # NOTE, because I need "x"
+            return y, x  # NOTE, because I need "x"
 
         else:
             pass
@@ -234,15 +235,15 @@ class ControlModule(nn.Module):
 @gin.configurable
 class NeuralWaveshaping(pl.LightningModule):
     def __init__(
-        self,
-        n_waveshapers: int,
-        control_hop: int,
-        sample_rate: float = 16000,
-        learning_rate: float = 1e-3,
-        lr_decay: float = 0.9,
-        lr_decay_interval: int = 10000,
-        log_audio: bool = True,
-        hidden_size: [] = None
+            self,
+            n_waveshapers: int,
+            control_hop: int,
+            sample_rate: float = 16000,
+            learning_rate: float = 1e-3,
+            lr_decay: float = 0.9,
+            lr_decay_interval: int = 10000,
+            log_audio: bool = True,
+            hidden_size: [] = None
     ):
         super().__init__()
         self.save_hyperparameters()
@@ -260,7 +261,6 @@ class NeuralWaveshaping(pl.LightningModule):
         self.harmonic_mixer = nn.Conv1d(self.osc.n_harmonics, n_waveshapers, 1)
 
         self.newt = NEWT()
-
 
         with gin.config_scope("noise_synth"):
             self.h_generator = TimeDistributedMLP()
@@ -288,7 +288,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"other: {other.shape}")
         control = torch.cat((f0, other), dim=1)
         print(f"concatenating f0 and other, control: {control.shape}")
-        print(f"control: {control[0,0,:10].detach().cpu().numpy()}")
+        print(f"control: {control[0, 0, :10].detach().cpu().numpy()}")
 
         print("Invoking ControlModule with control")
         control_embedding, z = self.embedding(control, presets)
@@ -306,7 +306,7 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"other: {other.shape}")
         control = torch.cat((f0, other), dim=1)
         print(f"concatenating f0 and other, control: {control.shape}")
-        print(f"control: {control[0,0,:10].detach().cpu().numpy()}")
+        print(f"control: {control[0, 0, :10].detach().cpu().numpy()}")
 
         print("Invoking ControlModule get_control_from_z_ with control and z")
         control_embedding, z = self.embedding.get_control_from_z_(control, z)
@@ -315,35 +315,36 @@ class NeuralWaveshaping(pl.LightningModule):
 
         return control_embedding, z
 
-    def forward(self, f0, control, presets=None): # control is 19 dimensional: 1f0, 1 loudness, 1 confidence, 16mfcc
+    def forward(self, f0, control, presets=None):  # control is 19 dimensional: 1f0, 1 loudness, 1 confidence, 16mfcc
 
         print(f"\n\n================= In forward ===================")
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
         print(f"preset: {presets}")
-        print(f"f0: {f0[0,0,:10].detach().cpu().numpy()}")
+        print(f"f0: {f0[0, 0, :10].detach().cpu().numpy()}")
 
         pis = []
         for p in presets:
-            i = (int(p[:2]) -1)*4
+            i = (int(p[:2]) - 1) * 4
             s = int(ord(p[2])) - 64
-            pis.append(i+s-1)
+            pis.append(i + s - 1)
         device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
         presets = torch.tensor(pis).to(device)
 
-        f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear") # f0.shape[-1] is number of frames
+        f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop,
+                                  mode="linear")  # f0.shape[-1] is number of frames
         print(f"f0_upsampled: {f0_upsampled.shape}")
-        print(f"f0_upsampled: {f0_upsampled[0,0,:10].detach().cpu().numpy()}")
+        print(f"f0_upsampled: {f0_upsampled[0, 0, :10].detach().cpu().numpy()}")
 
         x = self.render_exciter(f0_upsampled)
         print(f"x: {x.shape}")
-        print(f"x: {x[0,0,:10].detach().cpu().numpy()}")
+        print(f"x: {x[0, 0, :10].detach().cpu().numpy()}")
 
         control_embedding, z = self.get_embedding(control, presets=presets)
-        print(f"control_embedding: {control_embedding[0,:10,0].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0,:10,1].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0,:10,2].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0,:10,3].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 0].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 1].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 2].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 3].detach().cpu().numpy()}")
 
         print(f"\nInvoking NEWT with x and control_embedding")
         x = self.newt(x, control_embedding)
@@ -372,21 +373,22 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"f0: {f0.shape}")
         print(f"control: {control.shape}")
         print(f"presets: {presets}")
-        print(f"f0: {f0[0,0,:10].detach().cpu().numpy()}")
+        print(f"f0: {f0[0, 0, :10].detach().cpu().numpy()}")
 
-        f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear") # f0.shape[-1] is number of frames
+        f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop,
+                                  mode="linear")  # f0.shape[-1] is number of frames
         print(f"f0_upsampled: {f0_upsampled.shape}")
-        print(f"f0_upsampled: {f0_upsampled[0,0,:10].detach().cpu().numpy()}")
+        print(f"f0_upsampled: {f0_upsampled[0, 0, :10].detach().cpu().numpy()}")
 
         exciter_signal = self.render_exciter(f0_upsampled)
         print(f"x: {exciter_signal.shape}")
-        print(f"x: {exciter_signal[0,0,:10].detach().cpu().numpy()}")
+        print(f"x: {exciter_signal[0, 0, :10].detach().cpu().numpy()}")
 
         control_embedding, z = self.get_embedding(control, presets=presets)
-        print(f"control_embedding: {control_embedding[0,:10,0].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0,:10,1].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0,:10,2].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0,:10,3].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 0].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 1].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 2].detach().cpu().numpy()}")
+        print(f"control_embedding: {control_embedding[0, :10, 3].detach().cpu().numpy()}")
         return exciter_signal, control_embedding, z
 
     def decode(self, exciter_signal, control_embedding, z):
@@ -425,12 +427,11 @@ class NeuralWaveshaping(pl.LightningModule):
         audio = batch["audio"].float()
         f0 = batch["f0"].float()
         control = batch["control"].float()
-        presets=[b[:3] for b in batch["name"]]
-
+        presets = [b[:3] for b in batch["name"]]
 
         recon, gru_embedding = self(f0, control,
-                                        presets=[b[:3] for b in batch["name"]]
-                                        )
+                                    presets=[b[:3] for b in batch["name"]]
+                                    )
 
         print(f"recon: {recon.shape}")
         print(f"audio: {audio.shape}")
@@ -475,7 +476,8 @@ class NeuralWaveshaping(pl.LightningModule):
         if batch_idx == 0 and self.log_audio:
             # self._log_audio(f"og-{self.current_epoch}", audio[0].detach().cpu().squeeze())
             # self._log_audio(f"recon-{self.current_epoch}", recon[0].detach().cpu().squeeze())
-            self._log_audio(f"recon-og", torch.cat((recon[0].detach().cpu().squeeze(), audio[0].detach().cpu().squeeze())))
+            self._log_audio(f"recon-og",
+                            torch.cat((recon[0].detach().cpu().squeeze(), audio[0].detach().cpu().squeeze())))
         return loss
 
     def test_step(self, batch, batch_idx):
