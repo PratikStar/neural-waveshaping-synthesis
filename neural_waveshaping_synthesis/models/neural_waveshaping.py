@@ -434,7 +434,7 @@ class NeuralWaveshaping(pl.LightningModule):
             pis.append(i+s)
 
         recon, gru_embedding = self(f0, control,
-                                        presets=torch.tensor(pis)
+                                        presets=torch.tensor(pis).to(device)
                                         )
 
         print(f"recon: {recon.shape}")
