@@ -323,6 +323,14 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"preset: {presets}")
         print(f"f0: {f0[0,0,:10].detach().cpu().numpy()}")
 
+        pis = []
+        for p in presets:
+            i = (int(p[:2]) -1)*4
+            s = int(ord(p[2])) - 64
+            pis.append(i+s-1)
+        device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
+        presets = torch.tensor(pis).to(device)
+
         f0_upsampled = F.upsample(f0, f0.shape[-1] * self.control_hop, mode="linear") # f0.shape[-1] is number of frames
         print(f"f0_upsampled: {f0_upsampled.shape}")
         print(f"f0_upsampled: {f0_upsampled[0,0,:10].detach().cpu().numpy()}")
@@ -418,17 +426,10 @@ class NeuralWaveshaping(pl.LightningModule):
         f0 = batch["f0"].float()
         control = batch["control"].float()
         presets=[b[:3] for b in batch["name"]]
-        pis = []
-        for p in presets:
-            i = int(p[:2])
-            s = p[2]
-            i = (i -1)*4
-            s = int(ord(s)) - 64
-            pis.append(i+s-1)
-        device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
+
 
         recon, gru_embedding = self(f0, control,
-                                        presets=torch.tensor(pis).to(device)
+                                        presets=[b[:3] for b in batch["name"]]
                                         )
 
         print(f"recon: {recon.shape}")
