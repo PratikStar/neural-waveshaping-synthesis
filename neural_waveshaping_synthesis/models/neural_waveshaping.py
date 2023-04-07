@@ -170,8 +170,8 @@ class ControlModule(nn.Module):
 
             y = self.proj(x_gru.transpose(1, 2))
             print(f"After Cond1D: {y.shape}")
-            
-            return y, x # NOTE
+
+            return y, x # NOTE, because I need "x" 
         else:
             pass
 
