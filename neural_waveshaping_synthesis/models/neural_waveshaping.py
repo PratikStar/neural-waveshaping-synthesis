@@ -206,13 +206,13 @@ class ControlModule(nn.Module):
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # lookup
 
-            z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
+            z_static = [z_static].unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"after repeat: {z_static.shape}")
             print(z_static[0,0,:10].detach().cpu().numpy())
             print(z_static[0,1,:10].detach().cpu().numpy())
 
             # concat
-            x = torch.cat((x.transpose(1, 2), z_static), 2)
+            x = torch.cat((controls.transpose(1, 2), z_static), 2)
             print(f"After cat: {x.shape}")
 
             x_gru, _ = self.gru(x)
