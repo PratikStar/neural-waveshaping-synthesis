@@ -121,8 +121,8 @@ python scripts/train.py \
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
---checkpoint-path /root/tmp \
---load-data-to-memory
+--checkpoint-path /root/nws/timbre-16k-f0_di_75-embed_static_z_2_16 \
+--load-data-to-memory >> ~/logs/timbre-16k-f0_di_75-embed_static_z_2_16_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
 
 tensor([0.5230, 0.7163], device='cuda:0', requires_grad=True), '03C': Parameter containing:
