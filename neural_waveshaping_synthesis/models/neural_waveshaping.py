@@ -76,7 +76,7 @@ class ControlModule(nn.Module):
             print("Init: Here is the embedding table")
             print(self.embed)
 
-            self.gru = nn.GRU(control_size, self.z_dynamic_size, batch_first=True)
+            self.gru = nn.GRU(control_size, self.hidden_size, batch_first=True)
             # static
             self.proj = nn.Conv1d(self.hidden_size, embedding_size, 1)
         else:
