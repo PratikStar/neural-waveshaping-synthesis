@@ -105,24 +105,14 @@ python scripts/train.py \
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
---checkpoint-path /root/nws/timbre-16k-f0_di_75-concat_static_z_2_32 \
---checkpoint-file last-v1.ckpt \
---restore-checkpoint \
---load-data-to-memory  >> ~/logs/timbre-16k-f0_di_75-concat_static_z_2_32_$(date +%Y%m%d_%H%M%S).log 2>&1 &
-
-
-python scripts/train.py \
---gin-file gin/train/train_newt.gin \
---dataset-path /root/data/nws/timbre-16k-f0_di_75 \
---checkpoint-path /root/nws/timbre-16k-f0_di_75-concat_static_z_6_48 \
---load-data-to-memory  >> ~/logs/timbre-16k-f0_di_75-concat_static_z_6_48_$(date +%Y%m%d_%H%M%S).log 2>&1 &
-
-
-python scripts/train.py \
---gin-file gin/train/train_newt.gin \
---dataset-path /root/data/nws/timbre-16k-f0_di_75 \
 --checkpoint-path /root/nws/timbre-16k-f0_di_75-embed_static_z_2_16 \
 --load-data-to-memory >> ~/logs/timbre-16k-f0_di_75-embed_static_z_2_16_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+
+python scripts/train.py \
+--gin-file gin/train/train_newt.gin \
+--dataset-path /root/data/nws/timbre-16k-f0_di_75 \
+--checkpoint-path /root/nws/timbre-16k-f0_di_75-embed_static_z_4_32 \
+--load-data-to-memory >> ~/logs/timbre-16k-f0_di_75-embed_static_z_4_32_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
 
 tensor([0.5230, 0.7163], device='cuda:0', requires_grad=True), '03C': Parameter containing:
