@@ -161,25 +161,11 @@ class ControlModule(nn.Module):
             x = torch.cat((x.transpose(1, 2), z_static), 2)
             print(f"After cat: {x.shape}")
 
-            z_dynamic, _ = self.gru(x)
-            print(f"After GRU (z_dynamic): {z_dynamic.shape}")
-            print(z_dynamic[0,0,:10].detach().cpu().numpy())
-            print(z_dynamic[0,1,:10].detach().cpu().numpy())
+            x, _ = self.gru(x)
+            print(f"After GRU (y): {x.shape}")
+            print(x[0,0,:10].detach().cpu().numpy())
+            print(x[0,1,:10].detach().cpu().numpy())
 
-            # static
-            stack = []
-            for i in range(len(presets)):
-                # print(f"Appending for {presets[i]}: {self.timbre_z[presets[i]]}")
-                stack.append(self.timbre_z[presets[i]])
-            z_static = torch.stack(stack)
-            print(f"after stacking: {z_static.shape}")
-
-            print(f"z_static after repeat: {z_static.shape}")
-            print(z_static[0,0,:10].detach().cpu().numpy())
-            print(z_static[0,1,:10].detach().cpu().numpy())
-
-            print(x[0,0,:100].detach().cpu().numpy())
-            print(x[0,1,:100].detach().cpu().numpy())
         else:
             pass
 
