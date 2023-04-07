@@ -152,7 +152,7 @@ class ControlModule(nn.Module):
             print(x[0,0,:10].detach().cpu().numpy())
             print(x[0,1,:10].detach().cpu().numpy())
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
-            # dynamic
+            
             z_dynamic, _ = self.gru(x.transpose(1, 2))
             print(f"After GRU (z_dynamic): {z_dynamic.shape}")
             print(z_dynamic[0,0,:10].detach().cpu().numpy())
