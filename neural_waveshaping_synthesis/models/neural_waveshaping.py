@@ -165,11 +165,12 @@ class ControlModule(nn.Module):
             x = torch.cat((x.transpose(1, 2), z_static), 2)
             print(f"After cat: {x.shape}")
 
-            x, _ = self.gru(x)
-            print(f"After GRU (y): {x.shape}")
-            print(x[0,0,:10].detach().cpu().numpy())
-            print(x[0,1,:10].detach().cpu().numpy())
+            x_gru, _ = self.gru(x)
+            print(f"After GRU (y): {x_gru.shape}")
 
+            y = self.proj(x_gru.transpose(1, 2))
+            print(f"After Cond1D: {y.shape}")
+            return y, x
         else:
             pass
 
