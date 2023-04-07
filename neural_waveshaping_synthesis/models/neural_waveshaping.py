@@ -153,7 +153,7 @@ class ControlModule(nn.Module):
             print(x[0,1,:10].detach().cpu().numpy())
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # lookup
-
+            z_static = self.embed(presets)
             # concat
 
             z_dynamic, _ = self.gru(x.transpose(1, 2))
