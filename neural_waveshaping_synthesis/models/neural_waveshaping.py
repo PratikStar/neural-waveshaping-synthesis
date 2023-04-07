@@ -258,7 +258,6 @@ class NeuralWaveshaping(pl.LightningModule):
         self.harmonic_mixer = nn.Conv1d(self.osc.n_harmonics, n_waveshapers, 1)
 
         self.newt = NEWT()
-        self.device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
 
 
         with gin.config_scope("noise_synth"):
