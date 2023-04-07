@@ -157,7 +157,7 @@ class ControlModule(nn.Module):
             print(z_dynamic[0,1,:10].detach().cpu().numpy())
 
             print("Here is the embedding table")
-            print(self.timbre_z)
+            print(self.timbre_z["03C"])
             # static
             stack = []
             for i in range(len(presets)):
