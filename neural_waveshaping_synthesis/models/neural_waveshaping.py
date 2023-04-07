@@ -154,6 +154,8 @@ class ControlModule(nn.Module):
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # lookup
             z_static = self.embed(presets)
+            print("After lookup")
+            print(z_static)
             z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"after lookup and repeat: {z_static.shape}")
             print(x[0,0,:10].detach().cpu().numpy())
