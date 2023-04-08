@@ -40,6 +40,12 @@ class GeneralDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         # idx = 10
         name = self.data_list[idx]
+
+        if self.ctr == 0:
+            # accept new content
+            
+        else:
+            # accept cur_content
         print(f"In get_item: {name}")
         content = int(name.split()[-1][0])
         preset = name[:3]
