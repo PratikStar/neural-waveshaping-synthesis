@@ -7,7 +7,7 @@ dm = GeneralDataModule(
     shuffle=False,
     batch_size=3
 )
-dm.setup(stage="fit")
+dm.setup(stage="all")
 dl = dm.train_dataloader()
 print(len(dl))
 
