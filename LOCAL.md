@@ -1,4 +1,4 @@
-_watch -n5 ./watch-acp.sh
+watch -n5 ./watch-acp.sh
 
 # 1. Rsync repo
 cd /Users/pratik/repos/neural-waveshaping-synthesis
