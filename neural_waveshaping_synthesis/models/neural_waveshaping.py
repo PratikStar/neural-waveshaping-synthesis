@@ -168,8 +168,9 @@ class ControlModule(nn.Module):
             z_static_roll = z_static_roll.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
 
             # concat
-            x = torch.cat((x.transpose(1, 2), z_static), 2)
+            x_cat = torch.cat((x.transpose(1, 2), z_static), 2)
             print(f"After cat: {x.shape}")
+
             x_roll = torch.cat((x.transpose(1, 2), z_static_roll), 2)
             print(f"After cat roll: {x_roll.shape}")
 
