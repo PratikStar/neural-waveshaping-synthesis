@@ -51,6 +51,7 @@ class GeneralDataset(torch.utils.data.Dataset):
         if self.ctr == 0:
             # accept new content
             print(f"Accepting new content: {content}")
+            self.curr_content = content
         else:
             # accept cur_content
 
