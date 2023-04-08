@@ -30,6 +30,7 @@ class GeneralDataset(torch.utils.data.Dataset):
 
         self.data_mean = np.load(os.path.join(path, "data_mean.npy"))
         self.data_std = np.load(os.path.join(path, "data_std.npy"))
+        
 
     def __len__(self):
         return len(self.data_list)
