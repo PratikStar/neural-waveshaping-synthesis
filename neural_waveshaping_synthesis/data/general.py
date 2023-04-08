@@ -88,10 +88,10 @@ class MyBatchSampler(Sampler):
     def __init__(self, batches, batch_size):
         self.batches = batches
         self.batch_size = batch_size
-
+        self.content_enc = [1,2,3,4]
     def __iter__(self):
 
-foo = ['a', 'b', 'c', 'd', 'e']
+    foo = ['a', 'b', 'c', 'd', 'e']
 print(random.choice(foo))
         for batch in self.batches:
             yield batch
