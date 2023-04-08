@@ -43,6 +43,8 @@ class GeneralDataset(torch.utils.data.Dataset):
         content = int(name.split()[-1][0])
         preset = name[:3]
         print(f"content: {content}")
+        print(f"preset: {preset}")
+        
         if self.load_to_memory:
             audio = self.audio[idx]
             control = self.control[idx]
