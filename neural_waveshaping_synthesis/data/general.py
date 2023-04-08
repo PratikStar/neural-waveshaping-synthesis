@@ -124,9 +124,8 @@ class GeneralDataModule(pl.LightningDataModule):
 
     def setup(self, stage: str = None):
         print(f"CALL TO SETUP: {stage}")
-        if stage == "all":
 
-        elif stage == "fit":
+        if stage == "fit":
             self.urmp_train = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="train",
                                              load_to_memory=self.load_to_memory)
             print(f"length of train ds: {len(self.urmp_train)}")
