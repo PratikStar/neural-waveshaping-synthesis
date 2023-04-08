@@ -54,6 +54,7 @@ class GeneralDataset(torch.utils.data.Dataset):
             self.curr_content = content
         else:
             # accept cur_content
+            print(f"Going with curr_content: {self.curr_content}")
 
         if self.ctr
 
