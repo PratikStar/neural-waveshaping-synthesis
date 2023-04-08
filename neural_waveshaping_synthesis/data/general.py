@@ -12,7 +12,7 @@ class GeneralDataset(torch.utils.data.Dataset):
         # split = "train"
         self.load_to_memory = load_to_memory
         self.batch_size = batch_size
-        
+        self.ctr = 0
         self.split_path = os.path.join(path, split)
         self.data_list = [
             f.replace("audio_", "")
