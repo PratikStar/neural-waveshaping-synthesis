@@ -130,7 +130,7 @@ class GeneralDataModule(pl.LightningDataModule):
 
     def _make_dataloader(self, dataset):
         return torch.utils.data.DataLoader(
-            dataset, self.batch_size, batch_sampler= **self.dataloader_args
+            dataset, batch_sampler= MyBatchSampler(),self.dataloader_args
         )
 
     def train_dataloader(self):
