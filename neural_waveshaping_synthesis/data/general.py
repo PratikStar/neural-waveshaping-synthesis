@@ -46,6 +46,8 @@ class GeneralDataset(torch.utils.data.Dataset):
         print(f"content: {content}")
         print(f"preset: {preset}")
         if self.ctr
+
+            
         if self.load_to_memory:
             audio = self.audio[idx]
             control = self.control[idx]
