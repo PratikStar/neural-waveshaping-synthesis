@@ -71,7 +71,7 @@ class GeneralDataModule(pl.LightningDataModule):
         self.batch_size = batch_size
         self.dataloader_args = dataloader_args
         self.load_to_memory = load_to_memory
-
+        batch_sampler = MyBatchSampler([[1, 2, 3], [5, 6, 7], [4, 2, 1]])
     def prepare_data(self):
         pass
 
