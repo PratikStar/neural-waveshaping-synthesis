@@ -117,27 +117,5 @@ python scripts/train.py \
 python scripts/train.py \
 --gin-file gin/train/train_newt.gin \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
---checkpoint-path /root/nws/timbre-16k-f0_di_75-embed_static_z_6_48 \
---load-data-to-memory >> ~/logs/timbre-16k-f0_di_75-embed_static_z_6_48_$(date +%Y%m%d_%H%M%S).log 2>&1 &
-
-
-
-tensor([0.5230, 0.7163], device='cuda:0', requires_grad=True), '03C': Parameter containing:
-
-
-z_dynamic, _ = self.gru(x.transpose(1, 2))
-
-init()
-    # self.timbre_z is initialized
-
-forward():
-    ...
-    # static
-    stack = []
-    for i in range(len(presets)):
-        stack.append(self.timbre_z[presets[i]])
-    z_static = torch.stack(stack)
-    z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
-    x = torch.cat((z_dynamic, z_static), 2)
-    y = self.conv1d(x.transpose(1, 2))
-    ...
+--checkpoint-path /root/tmp \
+--load-data-to-memory 
