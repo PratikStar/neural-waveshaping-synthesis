@@ -256,7 +256,8 @@ class NeuralWaveshaping(pl.LightningModule):
             lr_decay_interval: int = 10000,
             log_audio: bool = True,
             hidden_size: [] = None,
-            loss_roll_w: float = 0.01
+            loss_roll_w: float = 0.01,
+            finetune: bool = False
     ):
         super().__init__()
         self.save_hyperparameters()
