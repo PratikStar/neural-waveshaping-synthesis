@@ -83,7 +83,7 @@ class GeneralDataset(torch.utils.data.Dataset):
             "name": os.path.splitext(os.path.basename(name))[0],
         }
 
->>> class MyBatchSampler(Sampler):
+class MyBatchSampler(Sampler):
     ...     def __init__(self, batches):
     ...         self.batches = batches
 ...
