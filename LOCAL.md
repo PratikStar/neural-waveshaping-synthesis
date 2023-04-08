@@ -137,18 +137,8 @@ dm.setup(stage="fit")
 dl = dm.train_dataloader()
 print(len(dl))
 
-def make_ds_d():
 it = iter(dl)
-itval = iter(dlval)
-for i in range(len(dlval)):
 batch = next(itval)
-if int(batch['name'][0].split()[-1][0]) == 1:
-ds_d[batch['name'][0][:3]] = batch
-for i in range(len(dl)):
-batch = next(it)
-if int(batch['name'][0].split()[-1][0]) == 1:
-ds_d[batch['name'][0][:3]] = batch
-# print("\n\n=======")
-# print(batch['name'])
-# break
-make_ds_d()
+print("\n\n=======")
+print(batch['name'])
+
