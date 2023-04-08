@@ -41,25 +41,25 @@ class GeneralDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         # idx = 10
         name = self.data_list[idx]
-        print(f"In get_item: {name}")
-        print(f"idx: {idx}")
-
-        content = int(name.split()[-1][0])
-        preset = name[:3]
-        print(f"content: {content}")
-        print(f"preset: {preset}")
-
-        if self.ctr == 0:
-            # accept new content
-            print(f"Accepting new content: {content}")
-            self.curr_content = content
-        else:
-            # accept cur_content
-            print(f"Going with curr_content: {self.curr_content}")
-            name = list(name)
-            name[-7] = str(content)
-            name = "".join(name)
-            print(f"New name: {name}")
+        # print(f"In get_item: {name}")
+        # print(f"idx: {idx}")
+        #
+        # content = int(name.split()[-1][0])
+        # preset = name[:3]
+        # print(f"content: {content}")
+        # print(f"preset: {preset}")
+        #
+        # if self.ctr == 0:
+        #     # accept new content
+        #     print(f"Accepting new content: {content}")
+        #     self.curr_content = content
+        # else:
+        #     # accept cur_content
+        #     print(f"Going with curr_content: {self.curr_content}")
+        #     name = list(name)
+        #     name[-7] = str(content)
+        #     name = "".join(name)
+        #     print(f"New name: {name}")
 
         if self.load_to_memory:
             audio = self.audio[idx]
@@ -72,9 +72,9 @@ class GeneralDataset(torch.utils.data.Dataset):
             control = np.load(os.path.join(self.split_path, "control", control_name))
         denormalised_control = (control * self.data_std) + self.data_mean
 
-        self.ctr += 1
-        if self.ctr == self.batch_size:
-            self.ctr = 0
+        # self.ctr += 1
+        # if self.ctr == self.batch_size:
+        #     self.ctr = 0
         return {
             "audio": audio,
             "f0": denormalised_control[0:1, :],
