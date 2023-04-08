@@ -30,7 +30,7 @@ class GeneralDataset(torch.utils.data.Dataset):
 
         self.data_mean = np.load(os.path.join(path, "data_mean.npy"))
         self.data_std = np.load(os.path.join(path, "data_std.npy"))
-        
+
 
     def __len__(self):
         return len(self.data_list)
@@ -72,7 +72,7 @@ class GeneralDataModule(pl.LightningDataModule):
         self.batch_size = batch_size
         self.dataloader_args = dataloader_args
         self.load_to_memory = load_to_memory
-        batch_sampler = MyBatchSampler([[1, 2, 3], [5, 6, 7], [4, 2, 1]])
+
     def prepare_data(self):
         pass
 
