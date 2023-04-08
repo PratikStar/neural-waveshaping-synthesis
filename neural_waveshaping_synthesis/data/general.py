@@ -42,7 +42,7 @@ class GeneralDataset(torch.utils.data.Dataset):
         name = self.data_list[idx]
         print(f"In get_item: {name}")
         print(f"idx: {idx}")
-        
+
         content = int(name.split()[-1][0])
         preset = name[:3]
         print(f"content: {content}")
@@ -50,7 +50,7 @@ class GeneralDataset(torch.utils.data.Dataset):
 
         if self.ctr == 0:
             # accept new content
-
+            print(f"Accepting new content: {content}")
         else:
             # accept cur_content
 
