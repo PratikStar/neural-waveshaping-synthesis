@@ -169,10 +169,10 @@ class ControlModule(nn.Module):
 
             # concat
             x_cat = torch.cat((x.transpose(1, 2), z_static), 2)
-            print(f"After cat: {x.shape}")
+            print(f"After cat: {x_cat.shape}")
 
             x_cat_roll = torch.cat((x.transpose(1, 2), z_static_roll), 2)
-            print(f"After cat roll: {x_roll.shape}")
+            print(f"After cat roll: {x_cat_roll.shape}")
 
             x_gru, _ = self.gru(x)
             print(f"After GRU (y): {x_gru.shape}")
