@@ -383,15 +383,15 @@ class NeuralWaveshaping(pl.LightningModule):
         noise_roll = self.noise_synth(H_roll)
         print(f"noise_roll: {noise_roll.shape}")
 
-        x_roll = torch.cat((x_roll, noise_roll), dim=1)
-        print(f"torch.cat((x_roll, noise_roll), dim=1) -->: {x_roll.shape}")
-        x_roll = x_roll.sum(1)
-        print(f"x_roll.sum(1) -->: {x_roll.shape}")
+        x_newt_roll = torch.cat((x_newt_roll, noise_roll), dim=1)
+        print(f"torch.cat((x_newt_roll, noise_roll), dim=1) -->: {x_newt_roll.shape}")
+        x_newt_roll = x_newt_roll.sum(1)
+        print(f"x_newt_roll.sum(1) -->: {x_newt_roll.shape}")
 
         # print("Calling reverb")
         # x = self.reverb(x)
         # print(f"x: {x.shape}")
-        return x_newt, x_roll
+        return x_newt, x_newt_roll
 
     def encode(self, f0, control, presets):
         print(f"\n\n================= In Encode ===================")
