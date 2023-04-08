@@ -155,24 +155,35 @@ class ControlModule(nn.Module):
         elif self.embedding_strategy == "CONCAT_STATIC_Z":
             # lookup
             z_static = self.embed(presets)
+            z_static_roll = torch.roll(z_static, 1, 0)
             print("After lookup")
             print(z_static)
+            print("After roll")
+            print(z_static_roll)
             z_static = z_static.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
             print(f"after repeat: {z_static.shape}")
             print(z_static[0, 0, :10].detach().cpu().numpy())
             print(z_static[0, 1, :10].detach().cpu().numpy())
 
+            z_static_roll = z_static_roll.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
+
             # concat
             x = torch.cat((x.transpose(1, 2), z_static), 2)
             print(f"After cat: {x.shape}")
+            x_roll = torch.cat((x.transpose(1, 2), z_static_roll), 2)
+            print(f"After cat roll: {x_roll.shape}")
 
             x_gru, _ = self.gru(x)
             print(f"After GRU (y): {x_gru.shape}")
+            x_gru_roll, _ = self.gru(x_roll)
+            print(f"After GRU roll (y): {x_gru_roll.shape}")
 
             y = self.proj(x_gru.transpose(1, 2))
             print(f"After Cond1D: {y.shape}")
+            y_roll = self.proj(x_gru_roll.transpose(1, 2))
+            print(f"After Cond1D: {y_roll.shape}")
 
-            return y, x  # NOTE, because I need "x"
+            return y, y_roll
         else:
             pass
 
@@ -243,7 +254,8 @@ class NeuralWaveshaping(pl.LightningModule):
             lr_decay: float = 0.9,
             lr_decay_interval: int = 10000,
             log_audio: bool = True,
-            hidden_size: [] = None
+            hidden_size: [] = None,
+            loss_roll_w: float = 0.01
     ):
         super().__init__()
         self.save_hyperparameters()
@@ -252,7 +264,7 @@ class NeuralWaveshaping(pl.LightningModule):
         self.lr_decay_interval = lr_decay_interval
         self.control_hop = control_hop
         self.log_audio = log_audio
-
+        self.loss_roll_w = loss_roll_w
         self.sample_rate = sample_rate
 
         self.embedding = ControlModule(hidden_size=hidden_size)
@@ -291,11 +303,11 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"control: {control[0, 0, :10].detach().cpu().numpy()}")
 
         print("Invoking ControlModule with control")
-        control_embedding, z = self.embedding(control, presets)
+        control_embedding, control_embedding_roll = self.embedding(control, presets)
         print(f"control_embedding: {control_embedding.shape}")
-        print(f"z: {z.shape}")
+        print(f"control_embedding_roll: {control_embedding_roll.shape}")
 
-        return control_embedding, z
+        return control_embedding, control_embedding_roll
 
     def get_control_from_z(self, control, z):
         print(f"\n In get_control_from_z")
@@ -340,33 +352,45 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"x: {x.shape}")
         print(f"x: {x[0, 0, :10].detach().cpu().numpy()}")
 
-        control_embedding, z = self.get_embedding(control, presets=presets)
-        print(f"control_embedding: {control_embedding[0, :10, 0].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0, :10, 1].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0, :10, 2].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0, :10, 3].detach().cpu().numpy()}")
+        control_embedding, control_embedding_roll = self.get_embedding(control, presets=presets)
 
+        ## Without ROLL
         print(f"\nInvoking NEWT with x and control_embedding")
         x = self.newt(x, control_embedding)
         print(f"NEWT returns, x: {x.shape}")
-
         print("\nInvoking h_generator with control_embedding for noise synth")
         H = self.h_generator(control_embedding)
         print(f"H: {H.shape}")
-
         print("\nInvoking noise_synth")
         noise = self.noise_synth(H)
         print(f"noise: {noise.shape}")
-
         x = torch.cat((x, noise), dim=1)
         print(f"torch.cat((x, noise), dim=1) -->: {x.shape}")
         x = x.sum(1)
         print(f"x.sum(1) -->: {x.shape}")
 
+        ## WITH ROLL
+        print(f"\nInvoking NEWT with x and control_embedding")
+        x_roll = self.newt(x, control_embedding_roll)
+        print(f"NEWT returns, x_roll: {x_roll.shape}")
+
+        print("\nInvoking h_generator with control_embedding for noise synth")
+        H_roll = self.h_generator(control_embedding_roll)
+        print(f"H_roll: {H_roll.shape}")
+
+        print("\nInvoking noise_synth")
+        noise_roll = self.noise_synth(H_roll)
+        print(f"noise_roll: {noise_roll.shape}")
+
+        x_roll = torch.cat((x_roll, noise_roll), dim=1)
+        print(f"torch.cat((x_roll, noise_roll), dim=1) -->: {x_roll.shape}")
+        x_roll = x_roll.sum(1)
+        print(f"x_roll.sum(1) -->: {x_roll.shape}")
+
         # print("Calling reverb")
         # x = self.reverb(x)
         # print(f"x: {x.shape}")
-        return x, z
+        return x, x_roll
 
     def encode(self, f0, control, presets):
         print(f"\n\n================= In Encode ===================")
@@ -392,12 +416,8 @@ class NeuralWaveshaping(pl.LightningModule):
         print(f"x: {exciter_signal.shape}")
         print(f"x: {exciter_signal[0, 0, :10].detach().cpu().numpy()}")
 
-        control_embedding, z = self.get_embedding(control, presets=presets)
-        print(f"control_embedding: {control_embedding[0, :10, 0].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0, :10, 1].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0, :10, 2].detach().cpu().numpy()}")
-        print(f"control_embedding: {control_embedding[0, :10, 3].detach().cpu().numpy()}")
-        return exciter_signal, control_embedding, z
+        control_embedding, control_embedding_roll = self.get_embedding(control, presets=presets)
+        return exciter_signal, control_embedding, control_embedding_roll
 
     def decode(self, exciter_signal, control_embedding, z):
         print(f"\n\n================= In Decode ===================")
@@ -437,28 +457,32 @@ class NeuralWaveshaping(pl.LightningModule):
         control = batch["control"].float()
         presets = [b[:3] for b in batch["name"]]
 
-        recon, gru_embedding = self(f0, control,
-                                    presets=[b[:3] for b in batch["name"]]
+        audio_roll = torch.roll(audio, 1, 0)
+        recon, recon_roll = self(f0, control,
+                                    presets=presets
                                     )
 
         print(f"recon: {recon.shape}")
         print(f"audio: {audio.shape}")
 
         loss = self.stft_loss(recon, audio)
-        return loss, recon, audio
+        loss_roll = self.stft_loss(recon_roll, audio_roll)
+        total_loss = loss + self.loss_roll_w * loss_roll
+
+        return loss, loss_roll, total_loss, recon, audio, recon_roll, audio_roll
 
     def _log_audio(self, name, audio):
         wandb.log(
             {
                 "audio/%s"
-                % name: wandb.Audio(audio, sample_rate=self.sample_rate, caption=name)
+                % name: wandb.Audio(audio, sample_rate=self.sample_rate, caption=f"name-{self.current_epoch}")
             },
             commit=False,
         )
 
     def training_step(self, batch, batch_idx):
         with HiddenPrints():
-            loss, _, _ = self._run_step(batch)
+            loss, loss_roll, total_loss, _, _,_,_ = self._run_step(batch)
         self.log(
             "train/loss",
             loss.item(),
@@ -468,12 +492,30 @@ class NeuralWaveshaping(pl.LightningModule):
             logger=True,
             sync_dist=True,
         )
-        return loss
+        self.log(
+            "train/loss_roll",
+            loss_roll.item(),
+            on_step=False,
+            on_epoch=True,
+            prog_bar=True,
+            logger=True,
+            sync_dist=True,
+        )
+        self.log(
+            "train/total_loss",
+            total_loss.item(),
+            on_step=False,
+            on_epoch=True,
+            prog_bar=True,
+            logger=True,
+            sync_dist=True,
+        )
+        return total_loss
 
     def validation_step(self, batch, batch_idx):
-        loss, recon, audio = self._run_step(batch)
+        loss, loss_roll, total_loss, recon, audio, recon_roll, audio_roll = self._run_step(batch)
         self.log(
-            "val/loss",
+            "train/loss",
             loss.item(),
             on_step=False,
             on_epoch=True,
@@ -481,12 +523,32 @@ class NeuralWaveshaping(pl.LightningModule):
             logger=True,
             sync_dist=True,
         )
+        self.log(
+            "train/loss_roll",
+            loss_roll.item(),
+            on_step=False,
+            on_epoch=True,
+            prog_bar=True,
+            logger=True,
+            sync_dist=True,
+        )
+        self.log(
+            "train/total_loss",
+            total_loss.item(),
+            on_step=False,
+            on_epoch=True,
+            prog_bar=True,
+            logger=True,
+            sync_dist=True,
+        )
         if batch_idx == 0 and self.log_audio:
-            # self._log_audio(f"og-{self.current_epoch}", audio[0].detach().cpu().squeeze())
-            # self._log_audio(f"recon-{self.current_epoch}", recon[0].detach().cpu().squeeze())
             self._log_audio(f"recon-og",
-                            torch.cat((recon[0].detach().cpu().squeeze(), audio[0].detach().cpu().squeeze())))
-        return loss
+                            torch.cat((recon[0].detach().cpu().squeeze(),
+                                       audio[0].detach().cpu().squeeze())))
+            self._log_audio(f"recon-og-roll",
+                            torch.cat((recon_roll[0].detach().cpu().squeeze(),
+                                       audio_roll[0].detach().cpu().squeeze())))
+        return total_loss
 
     def test_step(self, batch, batch_idx):
         loss, recon, audio = self._run_step(batch)

@@ -37,3 +37,4 @@ Reverb.sr = %sample_rate
 NeuralWaveshaping.n_waveshapers = %n_waveshapers
 NeuralWaveshaping.control_hop = %control_hop
 NeuralWaveshaping.sample_rate = %sample_rate
+NeuralWaveshaping.loss_roll_w = 0.01
