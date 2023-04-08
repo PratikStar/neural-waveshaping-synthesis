@@ -41,16 +41,17 @@ class GeneralDataset(torch.utils.data.Dataset):
         # idx = 10
         name = self.data_list[idx]
         print(f"In get_item: {name}")
-
+        content = int(name.split()[-1][0])
+        preset = name[:3]
+        print(f"content: {content}")
+        print(f"preset: {preset}")
+        
         if self.ctr == 0:
             # accept new content
 
         else:
             # accept cur_content
-        content = int(name.split()[-1][0])
-        preset = name[:3]
-        print(f"content: {content}")
-        print(f"preset: {preset}")
+
         if self.ctr
 
 
