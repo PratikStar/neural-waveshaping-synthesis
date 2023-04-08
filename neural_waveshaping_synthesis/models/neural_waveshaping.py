@@ -171,7 +171,7 @@ class ControlModule(nn.Module):
             x_cat = torch.cat((x.transpose(1, 2), z_static), 2)
             print(f"After cat: {x.shape}")
 
-            x_roll = torch.cat((x.transpose(1, 2), z_static_roll), 2)
+            x_cat_roll = torch.cat((x.transpose(1, 2), z_static_roll), 2)
             print(f"After cat roll: {x_roll.shape}")
 
             x_gru, _ = self.gru(x)
