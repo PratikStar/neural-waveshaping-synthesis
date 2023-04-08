@@ -121,6 +121,13 @@ python scripts/train.py \
 --checkpoint-path  /root/nws/timbre-16k-f0_di_75-embed_static_roll_z_6_48 \
 --load-data-to-memory  >> ~/logs/timbre-16k-f0_di_75-embed_static_roll_z_6_48_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
+python scripts/train.py \
+--gin-file gin/train/train_newt.gin \
+--dataset-path /root/data/nws/timbre-16k-f0_di_75_batch \
+--checkpoint-path  /root/nws/timbre-16k-f0_di_75-embed_static_roll_z_2_16 \
+--load-data-to-memory  >> ~/logs/timbre-16k-f0_di_75-embed_static_roll_z_2_16_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+
+
 mv  train/audio/* all/audio/
 mv  train/control/* all/control/
 mv  val/audio/* all/audio/
