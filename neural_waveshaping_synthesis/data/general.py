@@ -134,6 +134,7 @@ class GeneralDataModule(pl.LightningDataModule):
                                         load_to_memory=self.load_to_memory)
             self.urmp_all = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="all",
                                            load_to_memory=self.load_to_memory)
+            print(f"length of all ds: {len(self.urmp_all)}")
         elif stage == "test" or stage is None:
             self.urmp_test = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="test",
                                             load_to_memory=self.load_to_memory)
