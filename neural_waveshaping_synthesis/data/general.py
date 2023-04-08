@@ -99,9 +99,8 @@ class MyBatchSampler(Sampler):
         for b in self.batches:
             yield b
 
-
     def __len__(self):
-        return 3#len(self.batches)
+        return len(self.batches)
 
 
 @gin.configurable
