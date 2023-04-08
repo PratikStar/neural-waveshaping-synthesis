@@ -78,11 +78,11 @@ class GeneralDataModule(pl.LightningDataModule):
 
     def setup(self, stage: str = None):
         if stage == "fit":
-            self.urmp_train = GeneralDataset(self.data_dir, "train", self.load_to_memory)
+            self.urmp_train = GeneralDataset(self.data_dir, "train", self.load_to_memory, batch_size=self.batch_size)
             print(f"length of train ds: {len(self.urmp_train)}")
-            self.urmp_val = GeneralDataset(self.data_dir, "val", self.load_to_memory)
+            self.urmp_val = GeneralDataset(self.data_dir, "val", self.load_to_memory, batch_size=self.batch_size)
         elif stage == "test" or stage is None:
-            self.urmp_test = GeneralDataset(self.data_dir, "test", self.load_to_memory)
+            self.urmp_test = GeneralDataset(self.data_dir, "test", self.load_to_memory, batch_size=self.batch_size)
 
     def _make_dataloader(self, dataset):
         return torch.utils.data.DataLoader(
