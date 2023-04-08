@@ -120,3 +120,34 @@ python scripts/train.py \
 --dataset-path /root/data/nws/timbre-16k-f0_di_75 \
 --checkpoint-path /root/nws/timbre-16k-f0_di_75-embed_static_roll_z_2_16 \
 --load-data-to-memory >> ~/logs/timbre-16k-f0_di_75-embed_static_roll_z_2_16_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+
+
+dm = GeneralDataModule(
+dataset_path,
+load_to_memory=False,
+num_workers=1,
+shuffle=True,
+batch_size=3
+)
+dm.setup(stage="fit")
+dl = dm.train_dataloader()
+dlval = dm.val_dataloader()
+print(len(dl))
+print(len(dlval))
+ds_d = {}
+
+def make_ds_d():
+it = iter(dl)
+itval = iter(dlval)
+for i in range(len(dlval)):
+batch = next(itval)
+if int(batch['name'][0].split()[-1][0]) == 1:
+ds_d[batch['name'][0][:3]] = batch
+for i in range(len(dl)):
+batch = next(it)
+if int(batch['name'][0].split()[-1][0]) == 1:
+ds_d[batch['name'][0][:3]] = batch
+# print("\n\n=======")
+# print(batch['name'])
+# break
+make_ds_d()
