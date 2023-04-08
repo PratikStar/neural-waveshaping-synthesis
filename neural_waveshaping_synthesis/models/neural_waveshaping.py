@@ -368,12 +368,12 @@ class NeuralWaveshaping(pl.LightningModule):
         x_newt = torch.cat((x_newt, noise), dim=1)
         print(f"torch.cat((x_newt, noise), dim=1) -->: {x_newt.shape}")
         x_newt = x_newt.sum(1)
-        print(f"x.sum(1) -->: {x_newt.shape}")
+        print(f"x_newt.sum(1) -->: {x_newt.shape}")
 
         ## WITH ROLL
         print(f"\nInvoking NEWT with x and control_embedding")
-        x_roll = self.newt(x, control_embedding_roll)
-        print(f"NEWT returns, x_roll: {x_roll.shape}")
+        x_newt_roll = self.newt(x, control_embedding_roll)
+        print(f"NEWT returns, x_newt_roll: {x_newt_roll.shape}")
 
         print("\nInvoking h_generator with control_embedding for noise synth")
         H_roll = self.h_generator(control_embedding_roll)
