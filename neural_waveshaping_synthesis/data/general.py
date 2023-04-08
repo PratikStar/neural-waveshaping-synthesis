@@ -89,7 +89,7 @@ class MyBatchSampler(Sampler):
         self.batch_size = batch_size
         self.content_enc = [1,2,3,4]
         self.batches = []
-        num_batches = 320//self.batch_sizes
+        num_batches = 320//self.batch_size
         for i in range(num_batches):
             cnt = random.choice(self.content_enc)
             presets = random.sample(range(80), self.batch_size)
