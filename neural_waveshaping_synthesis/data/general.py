@@ -13,6 +13,7 @@ class GeneralDataset(torch.utils.data.Dataset):
         self.load_to_memory = load_to_memory
         self.batch_size = batch_size
         self.ctr = 0
+        self.curr_content = None
         self.split_path = os.path.join(path, split)
         self.data_list = [
             f.replace("audio_", "")
@@ -44,7 +45,7 @@ class GeneralDataset(torch.utils.data.Dataset):
         preset = name[:3]
         print(f"content: {content}")
         print(f"preset: {preset}")
-        
+        if self.ctr
         if self.load_to_memory:
             audio = self.audio[idx]
             control = self.control[idx]
