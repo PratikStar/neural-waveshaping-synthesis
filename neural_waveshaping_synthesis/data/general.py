@@ -95,8 +95,8 @@ class MyBatchSampler(Sampler):
         return batch
 
 
-    # def __len__(self):
-    #     return len(self.batches)
+    def __len__(self):
+        return len(self.batches)
 
 
 @gin.configurable
