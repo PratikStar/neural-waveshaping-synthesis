@@ -5,7 +5,7 @@ dm = GeneralDataModule(
     load_to_memory=False,
     num_workers=1,
     shuffle=False,
-    batch_size=3
+    batch_size=16
 )
 dm.setup(stage="all")
 dl = dm.all_dataloader()
