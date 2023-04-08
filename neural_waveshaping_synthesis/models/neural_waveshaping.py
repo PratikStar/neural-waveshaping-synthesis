@@ -357,7 +357,7 @@ class NeuralWaveshaping(pl.LightningModule):
 
         ## Without ROLL
         print(f"\nInvoking NEWT with x and control_embedding")
-        x = self.newt(x, control_embedding)
+        x_newt = self.newt(x, control_embedding)
         print(f"NEWT returns, x: {x.shape}")
         print("\nInvoking h_generator with control_embedding for noise synth")
         H = self.h_generator(control_embedding)
