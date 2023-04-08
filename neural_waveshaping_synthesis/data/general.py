@@ -7,7 +7,7 @@ import torch
 
 
 class GeneralDataset(torch.utils.data.Dataset):
-    def __init__(self, path: str, split: str = "train", load_to_memory: bool = True):
+    def __init__(self, path: str, batch_size: int, split: str = "train", load_to_memory: bool = True):
         super().__init__()
         # split = "train"
         self.load_to_memory = load_to_memory
