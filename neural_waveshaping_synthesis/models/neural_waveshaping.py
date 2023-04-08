@@ -169,7 +169,7 @@ class ControlModule(nn.Module):
             print(f"After Cond1D: {y.shape}")
 
 
-            z_static_roll = torch.roll(z_static, 1, 0)
+            z_static_roll = torch.roll(self.embed(presets), 1, 0)
             print("After roll")
             print(z_static_roll)
             z_static_roll = z_static_roll.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
