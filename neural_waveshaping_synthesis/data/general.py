@@ -60,6 +60,8 @@ class GeneralDataset(torch.utils.data.Dataset):
         denormalised_control = (control * self.data_std) + self.data_mean
 
         self.ctr += 1
+        if self.ctr == self.batch_size:
+            self.ctr = 0
         return {
             "audio": audio,
             "f0": denormalised_control[0:1, :],
