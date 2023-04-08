@@ -163,7 +163,6 @@ class ControlModule(nn.Module):
             print(z_static[0, 1, :10].detach().cpu().numpy())
 
 
-            
             z_static_roll = torch.roll(z_static, 1, 0)
             print("After roll")
             print(z_static_roll)
@@ -171,6 +170,10 @@ class ControlModule(nn.Module):
 
 
             z_static_roll = z_static_roll.unsqueeze(1).repeat(1, self.sample_rate // self.control_hop, 1)
+
+
+
+
 
             # concat
             x_cat = torch.cat((x.transpose(1, 2), z_static), 2)
