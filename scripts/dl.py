@@ -8,7 +8,7 @@ dm = GeneralDataModule(
     batch_size=3
 )
 dm.setup(stage="all")
-dl = dm.train_dataloader()
+dl = dm.all_dataloader()
 print(len(dl))
 
 it = iter(dl)
