@@ -125,7 +125,7 @@ python scripts/train.py \
 from neural_waveshaping_synthesis.data.general import GeneralDataModule
 
 dm = GeneralDataModule(
-dataset_path,
+"/root/data/nws/timbre-16k-f0_di_75",
 load_to_memory=False,
 num_workers=1,
 shuffle=True,
