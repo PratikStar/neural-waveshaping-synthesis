@@ -47,7 +47,7 @@ class GeneralDataset(torch.utils.data.Dataset):
         print(f"preset: {preset}")
         if self.ctr
 
-            
+
         if self.load_to_memory:
             audio = self.audio[idx]
             control = self.control[idx]
@@ -59,6 +59,7 @@ class GeneralDataset(torch.utils.data.Dataset):
             control = np.load(os.path.join(self.split_path, "control", control_name))
         denormalised_control = (control * self.data_std) + self.data_mean
 
+        self.ctr += 1
         return {
             "audio": audio,
             "f0": denormalised_control[0:1, :],
