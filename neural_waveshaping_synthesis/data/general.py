@@ -88,13 +88,13 @@ class MyBatchSampler(Sampler):
     def __init__(self, batch_size):
         self.batch_size = batch_size
         self.content_enc = [1,2,3,4]
-        self.batchs = []
+        self.batches = []
         num_batches = 3
         for i in range(num_batches):
             cnt = random.choice(self.content_enc)
             presets = random.sample(range(20), self.batch_size)
             batch = [p*4+cnt-1 for p in presets]
-
+            self.batches.append(batch)
     def __iter__(self):
         cnt = random.choice(self.content_enc)
         presets = random.sample(range(20), self.batch_size)
