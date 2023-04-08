@@ -41,6 +41,7 @@ class GeneralDataset(torch.utils.data.Dataset):
         name = self.data_list[idx]
         print(f"In get_item: {name}")
         content = int(name.split()[-1][0])
+        print(f"content: {content}")
         if self.load_to_memory:
             audio = self.audio[idx]
             control = self.control[idx]
