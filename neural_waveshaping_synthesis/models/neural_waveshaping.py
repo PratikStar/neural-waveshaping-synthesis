@@ -174,9 +174,9 @@ class ControlModule(nn.Module):
             x_cat_roll = torch.cat((x.transpose(1, 2), z_static_roll), 2)
             print(f"After cat roll: {x_cat_roll.shape}")
 
-            x_gru, _ = self.gru(x)
+            x_gru, _ = self.gru(x_cat)
             print(f"After GRU (y): {x_gru.shape}")
-            x_gru_roll, _ = self.gru(x_roll)
+            x_gru_roll, _ = self.gru(x_cat_roll)
             print(f"After GRU roll (y): {x_gru_roll.shape}")
 
             y = self.proj(x_gru.transpose(1, 2))
