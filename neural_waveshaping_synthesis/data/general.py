@@ -52,7 +52,6 @@ class GeneralDataset(torch.utils.data.Dataset):
             # accept new content
             print(f"Accepting new content: {content}")
             self.curr_content = content
-            name =
         else:
             # accept cur_content
             print(f"Going with curr_content: {self.curr_content}")
