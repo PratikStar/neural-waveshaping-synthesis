@@ -92,7 +92,7 @@ class MyBatchSampler(Sampler):
     def __iter__(self):
         cnt = random.choice(self.content_enc)
         preset = random.sample(range(20), self.batch_size)
-        
+        preset*4+cnt
         for batch in self.batches:
             yield batch
 
