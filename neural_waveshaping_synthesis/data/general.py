@@ -123,7 +123,7 @@ class GeneralDataModule(pl.LightningDataModule):
         pass
 
     def setup(self, stage: str = None):
-
+        print(f"CALL TO SETUP: {stage}")
         if stage == "all":
             self.urmp_all = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="all",
                                              load_to_memory=self.load_to_memory)
