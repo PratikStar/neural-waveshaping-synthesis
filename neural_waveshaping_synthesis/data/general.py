@@ -5,7 +5,7 @@ import numpy as np
 import pytorch_lightning as pl
 import torch
 from torch.utils.data.sampler import Sampler
-
+import random
 
 class GeneralDataset(torch.utils.data.Dataset):
     def __init__(self, path: str, batch_size: int, split: str = "train", load_to_memory: bool = True):
@@ -90,7 +90,9 @@ class MyBatchSampler(Sampler):
         self.batch_size = batch_size
 
     def __iter__(self):
-        
+
+foo = ['a', 'b', 'c', 'd', 'e']
+print(random.choice(foo))
         for batch in self.batches:
             yield batch
 
