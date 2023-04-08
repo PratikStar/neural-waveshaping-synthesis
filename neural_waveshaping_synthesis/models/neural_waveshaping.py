@@ -457,6 +457,7 @@ class NeuralWaveshaping(pl.LightningModule):
         f0 = batch["f0"].float()
         control = batch["control"].float()
         presets = [b[:3] for b in batch["name"]]
+        print("In run step")
         print(batch['name'])
 
         audio_roll = torch.roll(audio, 1, 0)
