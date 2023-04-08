@@ -138,7 +138,5 @@ dl = dm.train_dataloader()
 print(len(dl))
 
 it = iter(dl)
-batch = next(itval)
-print("\n\n=======")
-print(batch['name'])
+batch = next(it)
 
