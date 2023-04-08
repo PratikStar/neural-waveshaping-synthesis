@@ -39,6 +39,7 @@ class GeneralDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         # idx = 10
         name = self.data_list[idx]
+        
         if self.load_to_memory:
             audio = self.audio[idx]
             control = self.control[idx]
