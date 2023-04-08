@@ -20,6 +20,7 @@ class GeneralDataset(torch.utils.data.Dataset):
             for f in os.listdir(os.path.join(self.split_path, "audio"))
             if f[-4:] == ".npy"
         ]
+        self.data_list
         if load_to_memory:
             self.audio = [
                 np.load(os.path.join(self.split_path, "audio", "audio_%s" % name))
