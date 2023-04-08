@@ -125,3 +125,6 @@ mv  train/audio/* all/audio/
 mv  train/control/* all/control/
 mv  val/audio/* all/audio/
 mv  val/control/* all/control/
+
+ls -la all/audio/ | wc -l
+ls -la all/control/ | wc -l
