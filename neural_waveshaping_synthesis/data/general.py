@@ -61,9 +61,6 @@ class GeneralDataset(torch.utils.data.Dataset):
             name = "".join(name)
             print(f"New name: {name}")
 
-        if self.ctr
-
-
         if self.load_to_memory:
             audio = self.audio[idx]
             control = self.control[idx]
