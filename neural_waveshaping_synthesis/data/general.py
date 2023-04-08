@@ -84,12 +84,12 @@ class GeneralDataset(torch.utils.data.Dataset):
         }
 
 class MyBatchSampler(Sampler):
-    ...     def __init__(self, batches):
-    ...         self.batches = batches
-...
-...     def __iter__(self):
-    ...         for batch in self.batches:
-    ...             yield batch
+    def __init__(self, batches):
+        self.batches = batches
+
+    def __iter__(self):
+        for batch in self.batches:
+            yield batch
 ...
 ...     def __len__(self):
     ...         return len(self.batches)
