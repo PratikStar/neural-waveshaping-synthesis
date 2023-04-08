@@ -516,7 +516,7 @@ class NeuralWaveshaping(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         loss, loss_roll, total_loss, recon, audio, recon_roll, audio_roll = self._run_step(batch)
         self.log(
-            "train/loss",
+            "val/loss",
             loss.item(),
             on_step=False,
             on_epoch=True,
@@ -525,7 +525,7 @@ class NeuralWaveshaping(pl.LightningModule):
             sync_dist=True,
         )
         self.log(
-            "train/loss_roll",
+            "val/loss_roll",
             loss_roll.item(),
             on_step=False,
             on_epoch=True,
@@ -534,7 +534,7 @@ class NeuralWaveshaping(pl.LightningModule):
             sync_dist=True,
         )
         self.log(
-            "train/total_loss",
+            "val/total_loss",
             total_loss.item(),
             on_step=False,
             on_epoch=True,
