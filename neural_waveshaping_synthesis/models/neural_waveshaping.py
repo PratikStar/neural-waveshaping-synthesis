@@ -163,6 +163,8 @@ class ControlModule(nn.Module):
             print(z_static[0, 1, :10].detach().cpu().numpy())
 
 
+
+
             z_static_roll = torch.roll(z_static, 1, 0)
             print("After roll")
             print(z_static_roll)
