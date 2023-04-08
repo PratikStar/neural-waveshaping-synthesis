@@ -91,6 +91,7 @@ class MyBatchSampler(Sampler):
         self.content_enc = [1,2,3,4]
     def __iter__(self):
         cnt = random.choice(self.content_enc)
+        
         for batch in self.batches:
             yield batch
 
