@@ -122,6 +122,8 @@ python scripts/train.py \
 --load-data-to-memory >> ~/logs/timbre-16k-f0_di_75-embed_static_roll_z_2_16_$(date +%Y%m%d_%H%M%S).log 2>&1 &
 
 
+
+
 from neural_waveshaping_synthesis.data.general import GeneralDataModule
 
 dm = GeneralDataModule(
@@ -133,10 +135,7 @@ batch_size=3
 )
 dm.setup(stage="fit")
 dl = dm.train_dataloader()
-dlval = dm.val_dataloader()
 print(len(dl))
-print(len(dlval))
-ds_d = {}
 
 def make_ds_d():
 it = iter(dl)
