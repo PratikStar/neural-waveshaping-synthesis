@@ -57,7 +57,9 @@ class GeneralDataset(torch.utils.data.Dataset):
             # accept cur_content
             print(f"Going with curr_content: {self.curr_content}")
             name = list(name)
-            name[]
+            name[-7] = str(content)
+            name = "".join(name)
+            print(f"New name: {name}")
 
         if self.ctr
 
