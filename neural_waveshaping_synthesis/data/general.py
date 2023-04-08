@@ -6,6 +6,7 @@ import pytorch_lightning as pl
 import torch
 from torch.utils.data.sampler import Sampler
 
+
 class GeneralDataset(torch.utils.data.Dataset):
     def __init__(self, path: str, batch_size: int, split: str = "train", load_to_memory: bool = True):
         super().__init__()
@@ -33,7 +34,6 @@ class GeneralDataset(torch.utils.data.Dataset):
 
         self.data_mean = np.load(os.path.join(path, "data_mean.npy"))
         self.data_std = np.load(os.path.join(path, "data_std.npy"))
-
 
     def __len__(self):
         return len(self.data_list)
@@ -83,6 +83,7 @@ class GeneralDataset(torch.utils.data.Dataset):
             "name": os.path.splitext(os.path.basename(name))[0],
         }
 
+
 class MyBatchSampler(Sampler):
     def __init__(self, batches, batch_size):
         self.batches = batches
@@ -91,18 +92,19 @@ class MyBatchSampler(Sampler):
     def __iter__(self):
         for batch in self.batches:
             yield batch
-            
+
     def __len__(self):
         return len(self.batches)
+
 
 @gin.configurable
 class GeneralDataModule(pl.LightningDataModule):
     def __init__(
-        self,
-        data_root: str,
-        batch_size: int = 16,
-        load_to_memory: bool = True,
-        **dataloader_args
+            self,
+            data_root: str,
+            batch_size: int = 16,
+            load_to_memory: bool = True,
+            **dataloader_args
     ):
         super().__init__()
         self.data_dir = data_root
@@ -115,11 +117,14 @@ class GeneralDataModule(pl.LightningDataModule):
 
     def setup(self, stage: str = None):
         if stage == "fit":
-            self.urmp_train = GeneralDataset(self.data_dir,batch_size=self.batch_size,split= "train", load_to_memory=self.load_to_memory )
+            self.urmp_train = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="train",
+                                             load_to_memory=self.load_to_memory)
             print(f"length of train ds: {len(self.urmp_train)}")
-            self.urmp_val = GeneralDataset(self.data_dir,batch_size=self.batch_size, split="val",load_to_memory= self.load_to_memory)
+            self.urmp_val = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="val",
+                                           load_to_memory=self.load_to_memory)
         elif stage == "test" or stage is None:
-            self.urmp_test = GeneralDataset(self.data_dir,batch_size=self.batch_size, split="test", load_to_memory=self.load_to_memory)
+            self.urmp_test = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="test",
+                                            load_to_memory=self.load_to_memory)
 
     def _make_dataloader(self, dataset):
         return torch.utils.data.DataLoader(
