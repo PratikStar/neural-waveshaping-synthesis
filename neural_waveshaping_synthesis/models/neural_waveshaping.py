@@ -181,7 +181,7 @@ class ControlModule(nn.Module):
             x_gru_roll, _ = self.gru(x_cat_roll)
             print(f"After GRU roll (y): {x_gru_roll.shape}")
             y_roll = self.proj(x_gru_roll.transpose(1, 2))
-            print(f"After Cond1D: {y_roll.shape}")
+            print(f"After Cond1D roll: {y_roll.shape}")
 
             return y, y_roll
         else:
