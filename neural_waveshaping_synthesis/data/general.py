@@ -83,6 +83,16 @@ class GeneralDataset(torch.utils.data.Dataset):
             "name": os.path.splitext(os.path.basename(name))[0],
         }
 
+>>> class MyBatchSampler(Sampler):
+    ...     def __init__(self, batches):
+    ...         self.batches = batches
+...
+...     def __iter__(self):
+    ...         for batch in self.batches:
+    ...             yield batch
+...
+...     def __len__(self):
+    ...         return len(self.batches)
 
 @gin.configurable
 class GeneralDataModule(pl.LightningDataModule):
