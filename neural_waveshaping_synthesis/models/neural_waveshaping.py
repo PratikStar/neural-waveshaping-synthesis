@@ -161,7 +161,12 @@ class ControlModule(nn.Module):
             print(f"after repeat: {z_static.shape}")
             print(z_static[0, 0, :10].detach().cpu().numpy())
             print(z_static[0, 1, :10].detach().cpu().numpy())
-
+            x_cat = torch.cat((x.transpose(1, 2), z_static), 2)
+            print(f"After cat: {x_cat.shape}")
+            x_gru, _ = self.gru(x_cat)
+            print(f"After GRU (y): {x_gru.shape}")
+            y = self.proj(x_gru.transpose(1, 2))
+            print(f"After Cond1D: {y.shape}")
 
 
 
@@ -172,24 +177,10 @@ class ControlModule(nn.Module):
             print(f"after roll's repeat: {z_static_roll.shape}")
             print(z_static_roll[0, 0, :10].detach().cpu().numpy())
             print(z_static_roll[0, 1, :10].detach().cpu().numpy())
-
-
-
-
-            # concat
-            x_cat = torch.cat((x.transpose(1, 2), z_static), 2)
-            print(f"After cat: {x_cat.shape}")
-
             x_cat_roll = torch.cat((x.transpose(1, 2), z_static_roll), 2)
             print(f"After cat roll: {x_cat_roll.shape}")
-
-            x_gru, _ = self.gru(x_cat)
-            print(f"After GRU (y): {x_gru.shape}")
             x_gru_roll, _ = self.gru(x_cat_roll)
             print(f"After GRU roll (y): {x_gru_roll.shape}")
-
-            y = self.proj(x_gru.transpose(1, 2))
-            print(f"After Cond1D: {y.shape}")
             y_roll = self.proj(x_gru_roll.transpose(1, 2))
             print(f"After Cond1D: {y_roll.shape}")
 
