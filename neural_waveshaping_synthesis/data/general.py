@@ -132,6 +132,7 @@ class GeneralDataModule(pl.LightningDataModule):
             print(f"length of train ds: {len(self.urmp_train)}")
             self.urmp_val = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="val",
                                         load_to_memory=self.load_to_memory)
+            print(f"length of val ds: {len(self.urmp_val)}")
             self.urmp_all = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="all",
                                            load_to_memory=self.load_to_memory)
             print(f"length of all ds: {len(self.urmp_all)}")
