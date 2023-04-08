@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58495501-1c0f-4980-976d-f310dbade760" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/general.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_waveshaping_synthesis/data/general.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LOCAL.md" beforeDir="false" afterPath="$PROJECT_DIR$/LOCAL.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
