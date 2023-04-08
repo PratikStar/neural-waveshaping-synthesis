@@ -4,7 +4,7 @@ import gin
 import numpy as np
 import pytorch_lightning as pl
 import torch
-
+from torch.utils.data.sampler import Sampler
 
 class GeneralDataset(torch.utils.data.Dataset):
     def __init__(self, path: str, batch_size: int, split: str = "train", load_to_memory: bool = True):
