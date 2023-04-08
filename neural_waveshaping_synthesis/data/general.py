@@ -127,7 +127,7 @@ class GeneralDataModule(pl.LightningDataModule):
         if stage == "all":
             self.urmp_all = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="all",
                                              load_to_memory=self.load_to_memory)
-        if stage == "fit":
+        elif stage == "fit":
             self.urmp_train = GeneralDataset(self.data_dir, batch_size=self.batch_size, split="train",
                                              load_to_memory=self.load_to_memory)
             print(f"length of train ds: {len(self.urmp_train)}")
