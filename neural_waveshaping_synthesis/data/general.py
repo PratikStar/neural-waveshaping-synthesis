@@ -90,9 +90,8 @@ class MyBatchSampler(Sampler):
     def __iter__(self):
         for batch in self.batches:
             yield batch
-...
-...     def __len__(self):
-    ...         return len(self.batches)
+    def __len__(self):
+        return len(self.batches)
 
 @gin.configurable
 class GeneralDataModule(pl.LightningDataModule):
